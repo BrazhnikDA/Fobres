@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // Navigation header
+    <dimen name="navigation_header_height">70dp</dimen>
+    <dimen name="navigation_header_text_size">22.8dp</dimen>
+    <dimen name="navigation_header_back_padding_start">17dp</dimen>
+    <dimen name="navigation_header_back_padding_end">12dp</dimen>
+    <dimen name="navigation_header_back_button_width">50dp</dimen>
+    <dimen name="navigation_header_two_lines_text_size">17dp</dimen>
+    <dimen name="navigation_header_second_row_text_size">13.3dp</dimen>
+    <dimen name="navigation_header_icon_size">40dp</dimen>
+
+    <!--<style name="chiswick_grotesque_regular">
+        <item name="fontPath">fonts/chiswick-grotesque-app-regular.ttf</item>
+    </style>-->
+
+    <style name="navigation_header_text_style">
+        <item name="android:textSize">@dimen/navigation_header_text_size</item>
+        <item name="android:textColor">@color/dodgerBlue</item>
+        <item name="android:lines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="navigation_header_second_row_text_style" parent="navigation_header_text_style">
+        <item name="android:textSize">@dimen/navigation_header_second_row_text_size</item>
+        <item name="android:lines">1</item>
+    </style>
+
+</resources>

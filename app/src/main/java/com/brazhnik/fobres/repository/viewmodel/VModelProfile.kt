@@ -30,6 +30,8 @@ class VModelProfile(
     val amountAll: String,
     val placeInRating: String
 ) : Serializable {
+
+
     override fun toString(): String {
         return "Name: $firstName $secondName <$nickName>\n" +
                 "Place of residence: $country/$city\n" +

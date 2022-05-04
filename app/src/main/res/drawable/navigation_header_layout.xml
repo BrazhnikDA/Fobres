@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/navHeaderBackButton"
+        android:layout_width="@dimen/navigation_header_back_button_width"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingEnd="@dimen/navigation_header_back_padding_start"
+        android:paddingStart="@dimen/navigation_header_back_padding_start" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/firstRow"
+            style="@style/navigation_header_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingEnd="@dimen/navigation_header_back_button_width"
+            tools:ignore="RtlSymmetry"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/secondRow"
+            style="@style/navigation_header_second_row_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingEnd="@dimen/navigation_header_back_button_width"
+            android:visibility="gone"
+            tools:ignore="RtlSymmetry"
+            tools:text="Second row" />
+    </LinearLayout>
+</shape>

@@ -28,4 +28,8 @@ class ProfilePresenter () : MvpPresenter<ProfileView>(), ProfileView {
         TODO("Not yet implemented")
     }
 
+    override fun getCurrentProfile(): VModelProfile {
+        return modelProfileHelper.getCurrentProfile()
+    }
+
 }

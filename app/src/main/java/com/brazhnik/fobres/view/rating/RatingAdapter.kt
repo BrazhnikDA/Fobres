@@ -35,7 +35,7 @@ class RatingAdapter(private val listUser: List<VModelRating>) :
         holder.imageProfile.setImageResource(R.drawable.tmp_image_profile)
         holder.nameProfile.text = listUser[position].name
         holder.textAmount.text = "Amount: ${listUser[position].amount}"
-        //holder.textTopRating.text = "Top Rating: ${listUser[position].placeRating}"
+        holder.textTopRating.text = "Top Rating: ${listUser[position].placeRating}"
         holder.buttonViewLinks.setOnClickListener {
 
         }

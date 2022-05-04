@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.repository.storage
 
+import com.brazhnik.fobres.repository.network.ProfileService
 import com.brazhnik.fobres.repository.viewmodel.VModelProfile
 
 class StorageProfile {
@@ -18,4 +19,6 @@ class StorageProfile {
             placeInRating = "1"
         )
     }
+
+    fun getCurrentProfile(): VModelProfile = ProfileService().getCurrentProfile()
 }

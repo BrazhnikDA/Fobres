@@ -20,4 +20,8 @@ class ModelProfileHelper (private val storageProfile: StorageProfile) : ProfileV
     override fun changeProfile() {
         TODO("Not yet implemented")
     }
+
+    override fun getCurrentProfile(): VModelProfile {
+        return storageProfile.getCurrentProfile()
+    }
 }

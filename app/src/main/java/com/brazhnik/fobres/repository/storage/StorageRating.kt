@@ -1,8 +1,11 @@
 package com.brazhnik.fobres.repository.storage
 
+import com.brazhnik.fobres.repository.network.RatingService
 import com.brazhnik.fobres.repository.viewmodel.VModelRating
 
 class StorageRating {
+
+    val ratingService: RatingService = RatingService()
 
     // This fun testing and after few weeks i need added implementation for request to server and get response
     fun getListOrders(countItem: Int): ArrayList<VModelRating> {
@@ -13,7 +16,7 @@ class StorageRating {
                     VModelRating(
                         name = "Dmitry Brazhnik",
                         amount = (10..3567).random().toString(),
-                        //placeRating = (i + 1).toString()
+                        placeRating = (i + 1).toString()
                     )
                 )
             }
@@ -23,7 +26,7 @@ class StorageRating {
                     VModelRating(
                         name = "Dmitry Brazhnik",
                         amount = (10..3567).random().toString(),
-                        //placeRating = (i + 1).toString()
+                        placeRating = (i + 1).toString()
                     )
                 )
 
@@ -32,11 +35,16 @@ class StorageRating {
         return sortWithAmount(tmpList)
     }
 
+    fun getListOrdersAPI(countItem: Int): ArrayList<VModelRating> {
+        //val tmpList: ArrayList<VModelRating> = ratingService.getAllUsers() as ArrayList<VModelRating>
+        return sortWithAmount(ratingService.getAllUsers() as ArrayList<VModelRating>)
+    }
+
     private fun sortWithAmount(listRatingV: ArrayList<VModelRating>): ArrayList<VModelRating> {
         val tmpListRatingV: ArrayList<VModelRating> =
             ArrayList(listRatingV.sortedWith(compareBy { it.amount }))
         for (i in tmpListRatingV.indices) {
-            //tmpListRatingV[i].placeRating = (i + 1).toString()
+            tmpListRatingV[i].placeRating = (i + 1).toString()
         }
         return tmpListRatingV
     }

@@ -8,4 +8,7 @@ interface ProfileView : MvpView {
     fun openHistoryDeposit()
     fun viewHowGuest()
     fun changeProfile()
+
+    // API
+    fun getCurrentProfile() : VModelProfile
 }

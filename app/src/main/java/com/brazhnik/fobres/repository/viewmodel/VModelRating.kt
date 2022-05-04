@@ -1,10 +1,9 @@
 package com.brazhnik.fobres.repository.viewmodel
 
 class VModelRating(
-    // id, nick
     val name: String? = null,
     val amount: String? = null,
-    //var placeRating: String? = null -  index massiva
+    var placeRating: String? = null,
     //imageProfile: ImageView? = null
 ) {
     //val imageProfile: ImageView? = null
