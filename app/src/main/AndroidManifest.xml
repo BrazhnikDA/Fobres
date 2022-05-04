@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fobres">
         <activity
-            android:name=".RatingListActivity"
+            android:name=".view.rating.RatingActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".view.profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
