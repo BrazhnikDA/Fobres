@@ -1,12 +1,12 @@
 package com.brazhnik.fobres.repository.storage
 
-import com.brazhnik.fobres.repository.network.ProfileService
-import com.brazhnik.fobres.repository.viewmodel.VModelProfile
+import com.brazhnik.fobres.repository.network.service.ServiceProfile
+import com.brazhnik.fobres.repository.data.Profile
 
 class StorageProfile {
 
-    fun getProfileInfo(): VModelProfile {
-        return VModelProfile(
+    fun getProfileInfo(): Profile {
+        return Profile(
             firstName = "Dmitry",
             secondName = "Brazhnik",
             nickName = "M1ND",
@@ -20,5 +20,5 @@ class StorageProfile {
         )
     }
 
-    fun getCurrentProfile(): VModelProfile = ProfileService().getCurrentProfile()
+    fun getCurrentProfile(): Profile = ServiceProfile().getCurrentProfile()
 }

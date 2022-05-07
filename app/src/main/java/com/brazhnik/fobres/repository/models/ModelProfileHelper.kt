@@ -1,11 +1,11 @@
 package com.brazhnik.fobres.repository.models
 
 import com.brazhnik.fobres.repository.storage.StorageProfile
-import com.brazhnik.fobres.repository.viewmodel.VModelProfile
+import com.brazhnik.fobres.repository.data.Profile
 import com.brazhnik.fobres.view.profile.ProfileView
 
 class ModelProfileHelper (private val storageProfile: StorageProfile) : ProfileView {
-    override fun getProfileInfo(): VModelProfile {
+    override fun getProfileInfo(): Profile {
         return storageProfile.getProfileInfo()
     }
 
@@ -21,7 +21,7 @@ class ModelProfileHelper (private val storageProfile: StorageProfile) : ProfileV
         TODO("Not yet implemented")
     }
 
-    override fun getCurrentProfile(): VModelProfile {
+    override fun getCurrentProfile(): Profile {
         return storageProfile.getCurrentProfile()
     }
 }

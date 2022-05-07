@@ -19,7 +19,7 @@ import java.io.Serializable
  *  @author Dmitry Brazhnik
  */
 
-class VModelProfile(
+class Profile(
     val firstName: String,
     val secondName: String,
     val nickName: String,

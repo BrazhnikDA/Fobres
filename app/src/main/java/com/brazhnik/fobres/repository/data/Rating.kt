@@ -1,6 +1,6 @@
 package com.brazhnik.fobres.repository.data
 
-class VModelRating(
+class Rating(
     val id: String,
     val login: String,
     val firstName: String,

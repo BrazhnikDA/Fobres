@@ -1,5 +1,6 @@
-package com.brazhnik.fobres.repository.network.api
+package com.brazhnik.fobres.repository.network
 
+import com.brazhnik.fobres.repository.network.api.PlaceHolderRatingAPI
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -25,7 +26,7 @@ class NetworkAPI {
         return mInstance
     }
 
-    fun getJSONApi(): PlaceHolderAPI {
-        return retrofit.create(PlaceHolderAPI::class.java)
+    fun getJSONApi(): PlaceHolderRatingAPI {
+        return retrofit.create(PlaceHolderRatingAPI::class.java)
     }
 }

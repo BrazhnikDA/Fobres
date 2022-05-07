@@ -1,12 +1,13 @@
-package com.brazhnik.fobres.repository.network
+package com.brazhnik.fobres.repository.network.service
 
 import android.util.Log
 import com.brazhnik.fobres.repository.data.Profile
+import com.brazhnik.fobres.repository.network.NetworkAPI
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileService {
+class ServiceProfile {
 
     private lateinit var result: Profile
 
