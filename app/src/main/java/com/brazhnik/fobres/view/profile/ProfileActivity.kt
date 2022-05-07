@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.repository.viewmodel.VModelProfile
+import com.brazhnik.fobres.repository.data.Profile
 
 
 class ProfileActivity : AppCompatActivity(), ProfileView {
@@ -80,11 +78,11 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
         profileDescriptionBody.text = profileInfo.description*/
     }
 
-    override fun getProfileInfo(): VModelProfile {
+    override fun getProfileInfo(): Profile {
         return presenter.getProfileInfo()
     }
 
-    override fun getCurrentProfile(): VModelProfile {
+    override fun getCurrentProfile(): Profile {
         return presenter.getCurrentProfile()
     }
 
