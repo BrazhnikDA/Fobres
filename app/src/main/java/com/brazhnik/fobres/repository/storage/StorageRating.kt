@@ -1,43 +1,39 @@
 package com.brazhnik.fobres.repository.storage
 
-import com.brazhnik.fobres.repository.viewmodel.VModelRating
+import com.brazhnik.fobres.repository.data.Rating
 
 class StorageRating {
-
     // This fun testing and after few weeks i need added implementation for request to server and get response
-    fun getListOrders(countItem: Int): ArrayList<VModelRating> {
-        val tmpList: ArrayList<VModelRating> = arrayListOf()
-        if (countItem == -1) {
+    public fun getListOrders(countItem: Int): List<Rating> {
+        val tmpList: ArrayList<Rating> = ArrayList()
+        if (countItem > -1) {
             for (i in 0..50) {
-                tmpList.toMutableList().add(
-                    VModelRating(
-                        name = "Dmitry Brazhnik",
-                        amount = (10..3567).random().toString(),
-                        //placeRating = (i + 1).toString()
+                tmpList.add(
+                    Rating(
+                        id = i.toString(),
+                        login = "1",
+                        firstName = "1",
+                        lastName = "2",
+                        profileDescription = "3213",
+                        profilePicture = "321",
+                        country = "323",
+                        city = "33333",
+                        money = "123123123"
                     )
                 )
             }
         } else {
             for (i in 0..countItem) {
-                tmpList.add(
+                /*tmpList.add(
                     VModelRating(
                         name = "Dmitry Brazhnik",
                         amount = (10..3567).random().toString(),
-                        //placeRating = (i + 1).toString()
+                        placeRating = (i + 1).toString()
                     )
-                )
+                )*/
 
             }
         }
-        return sortWithAmount(tmpList)
-    }
-
-    private fun sortWithAmount(listRatingV: ArrayList<VModelRating>): ArrayList<VModelRating> {
-        val tmpListRatingV: ArrayList<VModelRating> =
-            ArrayList(listRatingV.sortedWith(compareBy { it.amount }))
-        for (i in tmpListRatingV.indices) {
-            //tmpListRatingV[i].placeRating = (i + 1).toString()
-        }
-        return tmpListRatingV
+        return tmpList.toList()
     }
 }

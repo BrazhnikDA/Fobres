@@ -1,4 +1,4 @@
-package com.brazhnik.fobres.repository.viewmodel
+package com.brazhnik.fobres.repository.data
 
 import android.media.Image
 import java.io.Serializable
@@ -19,7 +19,7 @@ import java.io.Serializable
  *  @author Dmitry Brazhnik
  */
 
-class VModelProfile(
+class Profile(
     val firstName: String,
     val secondName: String,
     val nickName: String,
@@ -30,6 +30,8 @@ class VModelProfile(
     val amountAll: String,
     val placeInRating: String
 ) : Serializable {
+
+
     override fun toString(): String {
         return "Name: $firstName $secondName <$nickName>\n" +
                 "Place of residence: $country/$city\n" +

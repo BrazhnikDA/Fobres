@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.repository.models.ModelProfileHelper
 import com.brazhnik.fobres.repository.storage.StorageProfile
-import com.brazhnik.fobres.repository.viewmodel.VModelProfile
+import com.brazhnik.fobres.repository.data.Profile
 
 @InjectViewState
 class ProfilePresenter () : MvpPresenter<ProfileView>(), ProfileView {
@@ -12,7 +12,7 @@ class ProfilePresenter () : MvpPresenter<ProfileView>(), ProfileView {
     private var storage: StorageProfile = StorageProfile()
     private var modelProfileHelper: ModelProfileHelper = ModelProfileHelper(storage)
 
-    override fun getProfileInfo(): VModelProfile {
+    override fun getProfileInfo(): Profile {
         return modelProfileHelper.getProfileInfo()
     }
 
@@ -26,6 +26,10 @@ class ProfilePresenter () : MvpPresenter<ProfileView>(), ProfileView {
 
     override fun changeProfile() {
         TODO("Not yet implemented")
+    }
+
+    override fun getCurrentProfile(): Profile {
+        return modelProfileHelper.getCurrentProfile()
     }
 
 }
