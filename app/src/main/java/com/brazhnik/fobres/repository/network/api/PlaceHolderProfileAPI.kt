@@ -1,4 +1,4 @@
 package com.brazhnik.fobres.repository.network.api
 
-class NetworkAPI {
+interface PlaceHolderProfileAPI {
 }

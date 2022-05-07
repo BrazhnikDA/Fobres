@@ -1,4 +1,4 @@
-package com.brazhnik.fobres.repository.viewmodel
+package com.brazhnik.fobres.repository.data
 
 import android.media.Image
 import java.io.Serializable
