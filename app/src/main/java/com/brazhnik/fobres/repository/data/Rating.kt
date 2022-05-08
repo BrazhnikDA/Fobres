@@ -10,8 +10,4 @@ class Rating(
     val country: String,
     val city: String,
     val money: String
-//imageProfile: ImageView? = null
-) {
-    //val imageProfile: ImageView? = null
-    //val viewLinks: ModelLinks? = null
-}
+)
