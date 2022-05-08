@@ -4,11 +4,11 @@
 
     <!-- Profile -->
     <string name="profilePlaceInRating">Place: № 1</string>
-    <string name="profileAmount">Amount: 3072.23 $</string>
+    <string name="profileAmount">Money: 3072.23 $</string>
     <string name="profileDescription">My name is Dimitry i am in charge product manager.In free time i like read book and watch movies. I would like to suggest my service. ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                                                             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                      ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</string>
     <string name="description">Description</string>
-    <string name="place_to_rating">Place to rating:</string>
-    <string name="amount">Amount:</string>
+    <string name="place_to_rating">Place:</string>
+    <string name="amount">Money:</string>
     <string name="name">Name</string>
     <string name="country">Country:</string>
     <string name="city">City:</string>
@@ -17,5 +17,9 @@
     <string name="view_how_guest">View How Guest</string>
     <string name="description_textView">Description:</string>
     <string name="your_name">Your name:</string>
+
+    <!-- Rating -->
+    <string name="top_off_world">Top Off World</string>
+    <string name="top_off">Top Off</string>
 
 </resources>

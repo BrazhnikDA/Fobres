@@ -1,9 +1,11 @@
 package com.brazhnik.fobres.view.rating
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
@@ -14,7 +16,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.repository.data.Rating
+import com.brazhnik.fobres.repository.data.TypeRating
 import com.brazhnik.fobres.utilities.displayToast
+import java.lang.StringBuilder
 
 class RatingActivity : AppCompatActivity(), RatingView {
 
@@ -25,38 +29,57 @@ class RatingActivity : AppCompatActivity(), RatingView {
     fun providePresenter() = RatingPresenter()
 
     lateinit var mainAdapter: RatingAdapter
-    lateinit var listUser: List<Rating>
-    private var listUser2: MutableLiveData<List<Rating>> = MutableLiveData()
+    private var listUser: MutableLiveData<List<Rating>> = MutableLiveData()
+    private lateinit var recyclerView: RecyclerView
 
-     override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating)
 
-        //ratingPresenter.listRating.observe(LifecycleOwner(this),)
-
         ratingPresenter = RatingPresenter()
 
-        val recyclerView: RecyclerView = findViewById(R.id.listRating)
+        recyclerView = findViewById(R.id.listRating)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-         fillList()
-         listUser2.observe(this, Observer {
-             recyclerView.adapter = listUser2.value?.let { it1 -> RatingAdapter(it1) }
-         })
-
-         /*listUser = getListUserRatingAPI()
-         recyclerView.adapter = RatingAdapter(listUser)*/
+        fillList()
+        listUser.observe(this, Observer {
+            recyclerView.adapter = listUser.value?.let { it1 -> RatingAdapter(it1) }
+        })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun fillList() {
-        listUser2 = getListUserRatingAPI()
+         val type: TypeRating = TypeRating.CITY
+         val body: String = "Нижний Новгород"
+        if (type == TypeRating.ALL) {
+            listUser = getListUserRatingAllAPI()
+            findViewById<TextView>(R.id.title).text = resources.getText(R.string.top_off_world)
+        }
+        if (type == TypeRating.CITY) {
+            listUser = getListUserRatingCityAPI(body)
+            findViewById<TextView>(R.id.title).text =
+                "${resources.getText(R.string.top_off)} $body"
+        }
+        if (type == TypeRating.COUNTRY) {
+            listUser = getListUserRatingCountryAPI(body)
+            findViewById<TextView>(R.id.title).text =
+                "${resources.getText(R.string.top_off)} $body"
+        }
     }
 
-    override fun getListUserRatingAPI() : MutableLiveData<List<Rating>> {
-        return (ratingPresenter.getListUserRatingAPI())
+    override fun getListUserRatingAllAPI(): MutableLiveData<List<Rating>> {
+        return ratingPresenter.getListUserRatingAllAPI()
     }
 
-    override fun getListUserRating(countItem: Int): List<Rating> {
-        return ratingPresenter.getListUserRating(countItem)
+    override fun getListUserRatingCityAPI(city: String): MutableLiveData<List<Rating>> {
+        return ratingPresenter.getListUserRatingCityAPI(city)
+    }
+
+    override fun getListUserRatingCountryAPI(country: String): MutableLiveData<List<Rating>> {
+        return ratingPresenter.getListUserRatingCountryAPI(country)
+    }
+
+    override fun getListUserRatingAllDB(countItem: Int): List<Rating> {
+        return ratingPresenter.getListUserRatingAllDB(countItem)
     }
 }

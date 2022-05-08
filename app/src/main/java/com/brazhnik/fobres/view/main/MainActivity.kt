@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.brazhnik.fobres.R
+import com.brazhnik.fobres.repository.data.TypeRating
 import com.brazhnik.fobres.view.profile.ProfileActivity
 import com.brazhnik.fobres.view.rating.RatingActivity
 

@@ -20,22 +20,20 @@ import java.io.Serializable
  */
 
 class Profile(
+    val id: String,
+    val login: String,
     val firstName: String,
-    val secondName: String,
-    val nickName: String,
+    val lastName: String,
+    val profileDescription: String,
+    val profilePicture: String,
     val country: String,
     val city: String,
-    val imageAvatar: Image?,
-    val description: String,
-    val amountAll: String,
-    val placeInRating: String
-) : Serializable {
-
-
+    val money: String
+) {
     override fun toString(): String {
-        return "Name: $firstName $secondName <$nickName>\n" +
+        return "Name: $firstName $lastName <$login>\n" +
                 "Place of residence: $country/$city\n" +
-                "Amount: $amountAll\n" +
-                "Description: $description"
+                "Amount: $money\n" +
+                "Description: $profileDescription"
     }
 }

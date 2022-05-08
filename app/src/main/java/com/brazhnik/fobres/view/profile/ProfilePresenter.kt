@@ -1,35 +1,52 @@
 package com.brazhnik.fobres.view.profile
 
+import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.repository.models.ModelProfileHelper
 import com.brazhnik.fobres.repository.storage.StorageProfile
 import com.brazhnik.fobres.repository.data.Profile
+import com.brazhnik.fobres.repository.data.Rating
+import com.brazhnik.fobres.repository.network.service.ServiceProfile
 
 @InjectViewState
-class ProfilePresenter () : MvpPresenter<ProfileView>(), ProfileView {
+class ProfilePresenter : MvpPresenter<ProfileView>(), ProfileView {
 
-    private var storage: StorageProfile = StorageProfile()
-    private var modelProfileHelper: ModelProfileHelper = ModelProfileHelper(storage)
+    private val profile = MutableLiveData<Profile>()
+    private var modelProfileHelper: ModelProfileHelper =
+        ModelProfileHelper(StorageProfile(), ServiceProfile(), profile)
 
-    override fun getProfileInfo(): Profile {
-        return modelProfileHelper.getProfileInfo()
+
+    override fun getCurrentProfileAPI(id: Int): MutableLiveData<Profile> {
+        return modelProfileHelper.getCurrentProfileAPI(id)
     }
 
-    override fun openHistoryDeposit() {
+    override fun getHistoryDepositAPI(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun viewHowGuest() {
+    override fun getViewHowGuestAPI(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun changeProfile() {
+    override fun updateProfileAPI(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getCurrentProfile(): Profile {
-        return modelProfileHelper.getCurrentProfile()
+    override fun getCurrentProfileDB(id: Int): Profile {
+        return modelProfileHelper.getCurrentProfileDB(id)
+    }
+
+    override fun getHistoryDepositDB(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getViewHowGuestDB(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateProfileDB(id: Int) {
+        TODO("Not yet implemented")
     }
 
 }
