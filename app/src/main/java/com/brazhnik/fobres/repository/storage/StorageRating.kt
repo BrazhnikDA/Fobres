@@ -4,7 +4,7 @@ import com.brazhnik.fobres.repository.data.Rating
 
 class StorageRating {
     // This fun testing and after few weeks i need added implementation for request to server and get response
-    public fun getListOrders(countItem: Int): List<Rating> {
+    fun getAllUsersDB(countItem: Int): List<Rating> {
         val tmpList: ArrayList<Rating> = ArrayList()
         if (countItem > -1) {
             for (i in 0..50) {

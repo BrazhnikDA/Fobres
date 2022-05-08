@@ -7,18 +7,19 @@ class StorageProfile {
 
     fun getProfileInfo(): Profile {
         return Profile(
+            id = "0",
             firstName = "Dmitry",
-            secondName = "Brazhnik",
-            nickName = "M1ND",
+            lastName = "Brazhnik",
+            login = "M1ND",
             country = "Russia",
             city = "Volgograd",
-            imageAvatar = null,
-            description = "I love dogs and cats, pls subscribe to my youtube channel and " +
+            profilePicture = null.toString(),
+            profileDescription = "I love dogs and cats, pls subscribe to my youtube channel and " +
                     "and please feedback about my videos in comments. Thanks!",
-            amountAll = "3500.72 $",
-            placeInRating = "1"
+            money = "3500.72 $"
+            //placeInRating = "1"
         )
     }
 
-    fun getCurrentProfile(): Profile = ServiceProfile().getCurrentProfile()
+    //fun getCurrentProfile(): Profile = ServiceProfile().getCurrentProfile(3)
 }
