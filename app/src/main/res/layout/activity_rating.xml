@@ -39,7 +39,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/firstRow"
+                    android:id="@+id/title"
                     style="@style/navigation_header_text_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:includeFontPadding="false"
                     android:paddingEnd="@dimen/navigation_header_back_button_width"
                     tools:ignore="RtlSymmetry"
-                    android:text="TOP Off World"
+                    android:text="@string/top_off_world"
                     android:drawableLeft="@mipmap/left_arrow"
                     android:paddingLeft="20dp"/>
 
