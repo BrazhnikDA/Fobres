@@ -11,7 +11,9 @@ import com.brazhnik.fobres.repository.data.Rating
  */
 
 interface RatingView : MvpView {
-    fun getListUserRatingAPI() : MutableLiveData<List<Rating>>
+    fun getListUserRatingAllAPI() : MutableLiveData<List<Rating>>
+    fun getListUserRatingCityAPI(city: String) : MutableLiveData<List<Rating>>
+    fun getListUserRatingCountryAPI(country: String) : MutableLiveData<List<Rating>>
 
-    fun getListUserRating(countItem : Int) : List<Rating>
+    fun getListUserRatingAllDB(countItem : Int) : List<Rating>
 }

@@ -21,7 +21,7 @@ class RatingAdapter(private val listUser: List<Rating>) :
         val nameProfile: TextView = itemView.findViewById(R.id.textViewName)
         val textAmount: TextView = itemView.findViewById(R.id.textViewAmount)
         val textTopRating: TextView = itemView.findViewById(R.id.textViewTopRating)
-        val buttonViewLinks: Button = itemView.findViewById(R.id.buttonViewLinks)
+        //val buttonViewLinks: Button = itemView.findViewById(R.id.buttonViewLinks)
     }
 
     override fun onCreateViewHolder(
@@ -31,9 +31,6 @@ class RatingAdapter(private val listUser: List<Rating>) :
         val itemView =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_recycler_view_rating, parent, false)
-        /*listUser.observe(parent.context, Observer() {
-
-        )}*/
         return RatingViewHolder(itemView)
     }
 
@@ -42,9 +39,9 @@ class RatingAdapter(private val listUser: List<Rating>) :
         holder.nameProfile.text = listUser[position].firstName
         holder.textAmount.text = "Amount: ${listUser[position].money}"
         holder.textTopRating.text = "Top Rating: ${position+1}"
-        holder.buttonViewLinks.setOnClickListener {
+        /*holder.buttonViewLinks.setOnClickListener {
 
-        }
+        }*/
     }
 
     override fun getItemCount(): Int {
