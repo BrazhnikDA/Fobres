@@ -7,53 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".view.rating.RatingActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/navHeaderContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
+        android:background="@color/dodgerBlue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navHeader"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/navigation_header_height"
-            android:layout_centerInParent="true"
-            android:background="@drawable/navigation_header_layout"
-            android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageMenu"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_back"
+            android:tint="@color/white" />
 
-            <ImageView
-                android:id="@+id/navHeaderBackButton"
-                android:layout_width="@dimen/navigation_header_back_button_width"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingStart="@dimen/navigation_header_back_padding_start"
-                android:paddingEnd="@dimen/navigation_header_back_padding_start" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/title"
-                    style="@style/navigation_header_text_style"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:paddingEnd="@dimen/navigation_header_back_button_width"
-                    tools:ignore="RtlSymmetry"
-                    android:text="@string/top_off_world"
-                    android:drawableLeft="@mipmap/left_arrow"
-                    android:paddingLeft="20dp"/>
-
-            </LinearLayout>
-        </com.google.android.material.navigation.NavigationView>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:text="Menu"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRating"
