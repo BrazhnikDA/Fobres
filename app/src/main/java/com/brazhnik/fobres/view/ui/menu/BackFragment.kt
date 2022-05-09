@@ -1,11 +1,13 @@
-package com.harman.imageprocessingmvvm.activities.editimage.menu
+package com.brazhnik.fobres.view.ui.menu
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.harman.imageprocessingmvvm.R
+import com.brazhnik.fobres.R
+import com.brazhnik.fobres.utilities.displayToast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +30,8 @@ class BackFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        context?.displayToast("CreateViewBack")
+        Log.e("LOG","CreateViewBack")
     }
 
     override fun onCreateView(

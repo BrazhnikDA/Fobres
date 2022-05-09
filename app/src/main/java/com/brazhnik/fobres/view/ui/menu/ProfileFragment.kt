@@ -1,4 +1,4 @@
-package com.harman.imageprocessingmvvm.activities.editimage.menu
+package com.brazhnik.fobres.view.ui.menu
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,11 +14,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.harman.imageprocessingmvvm.R
-import com.harman.imageprocessingmvvm.activities.editimage.EditImageActivity
-import com.harman.imageprocessingmvvm.activities.editimage.authorization.LoginActivity
-import com.harman.imageprocessingmvvm.utilities.displayToast
+import com.brazhnik.fobres.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,25 +53,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        prefs = this.activity!!.getSharedPreferences("settings", Context.MODE_PRIVATE)
-
-        val tvEmail: TextView = view.findViewById(R.id.emailUser)
-        tvEmail.text = "Email: " + prefs.getString("email", "").toString()
-
-        val btnLogout: Button = view.findViewById(R.id.btn_logout_profile)
-
-        btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-
-            val editor = prefs.edit()
-            editor.remove(EditImageActivity.APP_PREFERENCES_EMAIL).apply()
-            editor.remove(EditImageActivity.APP_PREFERENCES_PASSWORD).apply()
-
-            context!!.displayToast("Logout")
-            val intent = Intent (activity, LoginActivity::class.java)
-            activity!!.startActivity(intent)
-            this.activity!!.finish()
-        }
     }
 
     companion object {
