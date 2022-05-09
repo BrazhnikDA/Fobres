@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_main">
+
+    <fragment
+        android:id="@+id/nav_main"
+        android:name="com.brazhnik.fobres.view.ui.menu.MainFragment"
+        android:label="Main"
+        tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.brazhnik.fobres.view.ui.menu.ProfileFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.brazhnik.fobres.view.ui.menu.BackFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_rating"
+        android:name="com.brazhnik.fobres.view.ui.menu.SettingsFragment"
+        android:label="Rating"
+        tools:layout="@layout/fragment_back" />
+</navigation>

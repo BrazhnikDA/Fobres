@@ -12,12 +12,12 @@
         android:layout_height="75dp"
         android:scaleType="centerInside"
 
-        android:src="@drawable/prism"
+        android:src="@drawable/tmp_image_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_oval="true"
         app:riv_border_color="@color/black"
-        app:riv_corner_radius="@dimen/_16sdp"
+        app:riv_corner_radius="16dp"
         app:riv_mutate_background="true"/>
 
     <View
@@ -39,8 +39,8 @@
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/primaryText"
-        android:textSize="@dimen/_13sdp"
+        android:textColor="@color/blackOpaque40"
+        android:textSize="13sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/viewSupporter"
         app:layout_constraintStart_toEndOf="@+id/imageProfile" />
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text=""
-        android:textColor="@color/buttonSavedImages"
+        android:textColor="@color/dodgerBlue"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/imageProfile"
         app:layout_constraintTop_toBottomOf="@id/viewSupporter" />
@@ -67,9 +67,9 @@
 
     <Button
         android:id="@+id/btn_logout"
-        android:layout_width="@dimen/_175sdp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/logout"
+        android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.121"

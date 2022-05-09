@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activities.editimage.menu.SettingsFragment">
+    tools:context=".view.ui.menu.SettingsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:fontFamily="@font/poppins_regular"
             android:text="Settings"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -37,8 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="15sp"
                     android:text="Font Size Title Filter:"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -46,28 +44,26 @@
                 <Spinner
                     android:id="@+id/spinnerFontSize"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/fontSize" />
+                    android:layout_height="wrap_content"/>
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
                     android:layout_gravity="end"
-                    android:layout_marginLeft="@dimen/_60sdp"
-                    android:src="@drawable/info" />
+                    android:layout_marginLeft="60sp"
+                    android:src="@drawable/ic_back" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="15sp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="15sp"
                     android:text="Color Set Filter:"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
@@ -75,66 +71,14 @@
                 <Spinner
                     android:id="@+id/spinnerColorFont"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/colorSetFilter" />
+                    android:layout_height="wrap_content" />
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="end"
-                    android:layout_marginStart="@dimen/_71sdp"
-                    android:src="@drawable/info" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="Changing App Theme:"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerAppTheme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/appTheme" />
-
-                <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="@dimen/_19sdp"
-                    android:src="@drawable/info" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp">
-
-                <Button
-                    android:id="@+id/applySettings"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginStart="@dimen/_22sdp"
-                    android:layout_marginEnd="@dimen/_22sdp"
-                    android:layout_marginBottom="@dimen/_4sdp"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:includeFontPadding="false"
-                    android:text="Apply Settings"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12ssp"
-                    app:backgroundTint="@color/buttonSavedImages"
-                    app:cornerRadius="@dimen/_20sdp" />
+                    android:layout_marginStart="71dp"
+                    android:src="@drawable/ic_back" />
             </LinearLayout>
 
         </LinearLayout>

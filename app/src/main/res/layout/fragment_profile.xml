@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.editimage.menu.ProfileFragment"
+    tools:context=".view.ui.menu.ProfileFragment"
     android:background="@color/white">
 
     <LinearLayout
@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/profile"
+        android:text="Profile"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="25sp"
@@ -32,29 +31,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email: "
-                android:textSize="@dimen/_16sdp"
+                android:textSize="16dp"
                 android:textColor="@color/black"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp">
+            android:layout_marginTop="30dp">
 
             <Button
                 android:id="@+id/btn_logout_profile"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_marginStart="@dimen/_22sdp"
-                android:layout_marginEnd="@dimen/_22sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                android:fontFamily="@font/poppins_semi_bold"
+                android:layout_height="40dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="4dp"
                 android:includeFontPadding="false"
-                android:text="@string/logout"
+                android:text="Logout"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                app:cornerRadius="@dimen/_20sdp" />
+                android:textSize="12sp"
+                app:cornerRadius="20dp" />
 
         </LinearLayout>
 
