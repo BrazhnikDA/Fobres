@@ -1,27 +1,28 @@
-package com.brazhnik.fobres.view.rating
+package com.brazhnik.fobres.view.ui.menu
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.*
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.arellomobile.mvp.MvpActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.repository.data.Rating
 import com.brazhnik.fobres.repository.data.TypeRating
 import com.brazhnik.fobres.utilities.displayToast
-import java.lang.StringBuilder
+import com.brazhnik.fobres.view.rating.RatingAdapter
+import com.brazhnik.fobres.view.rating.RatingPresenter
+import com.brazhnik.fobres.view.rating.RatingView
 
-class RatingActivity : AppCompatActivity(), RatingView {
-
+class BackFragment : Fragment(), RatingView {
     @InjectPresenter
     lateinit var ratingPresenter: RatingPresenter
 
@@ -34,35 +35,30 @@ class RatingActivity : AppCompatActivity(), RatingView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rating)
 
         ratingPresenter = RatingPresenter()
 
-        recyclerView = findViewById(R.id.listRating)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        fillList()
-        listUser.observe(this, Observer {
-            recyclerView.adapter = listUser.value?.let { it1 -> RatingAdapter(it1) }
-        })
+        context?.displayToast("CreateViewBack")
+        Log.e("LOG","CreateViewBack")
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "CutPasteId")
     private fun fillList() {
-         val type: TypeRating = TypeRating.CITY
-         val body: String = "Нижний Новгород"
+        val type: TypeRating = TypeRating.CITY
+        val body: String = "Нижний Новгород"
         if (type == TypeRating.ALL) {
             listUser = getListUserRatingAllAPI()
-            findViewById<TextView>(R.id.title).text = resources.getText(R.string.top_off_world)
+            view?.findViewById<TextView>(R.id.title)?.text =
+                resources.getText(R.string.top_off_world)
         }
         if (type == TypeRating.CITY) {
             listUser = getListUserRatingCityAPI(body)
-            findViewById<TextView>(R.id.title).text =
+            view?.findViewById<TextView>(R.id.title)?.text =
                 "${resources.getText(R.string.top_off)} $body"
         }
         if (type == TypeRating.COUNTRY) {
             listUser = getListUserRatingCountryAPI(body)
-            findViewById<TextView>(R.id.title).text =
+            view?.findViewById<TextView>(R.id.title)?.text =
                 "${resources.getText(R.string.top_off)} $body"
         }
     }
@@ -82,4 +78,25 @@ class RatingActivity : AppCompatActivity(), RatingView {
     override fun getListUserRatingAllDB(countItem: Int): List<Rating> {
         return ratingPresenter.getListUserRatingAllDB(countItem)
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_rating, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.listRating)!!
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        fillList()
+
+        listUser.observe(viewLifecycleOwner, Observer {
+            recyclerView.adapter = listUser.value?.let { it1 -> RatingAdapter(it1) }
+        })
+    }
+
 }

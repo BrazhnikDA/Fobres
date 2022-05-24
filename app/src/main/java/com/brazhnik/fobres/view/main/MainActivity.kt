@@ -14,8 +14,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.view.profile.ProfileActivity
-import com.brazhnik.fobres.view.rating.RatingActivity
 import com.google.android.material.navigation.NavigationView
 
 
@@ -38,10 +36,10 @@ class MainActivity : AppCompatActivity() {
         val btnRating: Button = findViewById(R.id.button2)
 
         btnProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            //startActivity(Intent(this, ProfileActivity::class.java))
         }
         btnRating.setOnClickListener {
-            startActivity(Intent(this, RatingActivity::class.java))
+            //startActivity(Intent(this, RatingActivity::class.java))
         }
     }
 }
