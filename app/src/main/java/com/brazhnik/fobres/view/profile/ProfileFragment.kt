@@ -1,27 +1,18 @@
-package com.brazhnik.fobres.view.ui.menu
+package com.brazhnik.fobres.view.profile
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.repository.data.Profile
-import com.brazhnik.fobres.view.profile.ProfileAdapter
-import com.brazhnik.fobres.view.profile.ProfilePresenter
-import com.brazhnik.fobres.view.profile.ProfileView
 
 class ProfileFragment : Fragment(), ProfileView {
     @InjectPresenter
@@ -38,37 +29,48 @@ class ProfileFragment : Fragment(), ProfileView {
         super.onCreate(savedInstanceState)
 
         presenter = ProfilePresenter()
-
-        profile = getCurrentProfileAPI(id_)
-        profile.observe(this, Observer {
-            profile.value?.let { it1 -> fillingFields(it1) }
-        })
     }
 
     @SuppressLint("SetTextI18n")
     private fun fillingFields(profileInfo: Profile) {
-        /*val profileName = <TextView>(R.id.profileName)
-        val profileNickName = findViewById<TextView>(R.id.profileNickName)
-        val profileDonate = findViewById<TextView>(R.id.profileDonate)
-        val profileRating = findViewById<TextView>(R.id.profileRating)
-        val profileDescription = findViewById<TextView>(R.id.profileDescription)
+        val profileName = view?.findViewById<TextView>(R.id.profileName)
+        val profileNickName = view?.findViewById<TextView>(R.id.profileNickName)
+        val profileDonate = view?.findViewById<TextView>(R.id.profileDonate)
+        val profileRating = view?.findViewById<TextView>(R.id.profileRating)
+        val profileDescription = view?.findViewById<TextView>(R.id.profileDescription)
 
 
-        val profileNameBody = findViewById<TextView>(R.id.profileNameBody)
-        val profileCountryBody = findViewById<TextView>(R.id.profileCountryBody)
-        val profileCityBody = findViewById<TextView>(R.id.profileCityBody)
-        val profileDescriptionBody = findViewById<TextView>(R.id.profileDescriptionBody)
+        val profileNameBody = view?.findViewById<TextView>(R.id.profileNameBody)
+        val profileCountryBody = view?.findViewById<TextView>(R.id.profileCountryBody)
+        val profileCityBody = view?.findViewById<TextView>(R.id.profileCityBody)
+        val profileDescriptionBody = view?.findViewById<TextView>(R.id.profileDescriptionBody)
 
-        profileName.text = "${profileInfo.firstName} ${profileInfo.lastName}"
-        profileNickName.text = profileInfo.login
-        profileDonate.text = profileInfo.money.toString()
+        if (profileName != null) {
+            profileName.text = "${profileInfo.firstName} ${profileInfo.lastName}"
+        }
+        if (profileNickName != null) {
+            profileNickName.text = profileInfo.login
+        }
+        if (profileDonate != null) {
+            profileDonate.text = profileInfo.money.toString()
+        }
         //profileRating.text = profileInfo.placeInRating // Подумать как получать место в рейтинге
-        profileDescription.text = profileInfo.profileDescription
+        if (profileDescription != null) {
+            profileDescription.text = profileInfo.profileDescription
+        }
 
-        profileNameBody.text = "${profileInfo.firstName} ${profileInfo.lastName}"
-        profileCountryBody.text = profileInfo.country
-        profileCityBody.text = profileInfo.city
-        profileDescriptionBody.text = profileInfo.profileDescription*/
+        if (profileNameBody != null) {
+            profileNameBody.text = "${profileInfo.firstName} ${profileInfo.lastName}"
+        }
+        if (profileCountryBody != null) {
+            profileCountryBody.text = profileInfo.country
+        }
+        if (profileCityBody != null) {
+            profileCityBody.text = profileInfo.city
+        }
+        if (profileDescriptionBody != null) {
+            profileDescriptionBody.text = profileInfo.profileDescription
+        }
     }
 
     override fun getCurrentProfileAPI(id: Int): MutableLiveData<Profile> {
@@ -115,5 +117,9 @@ class ProfileFragment : Fragment(), ProfileView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        profile = getCurrentProfileAPI(id_)
+        profile.observe(viewLifecycleOwner, Observer {
+            profile.value?.let { it1 -> fillingFields(it1) }
+        })
     }
 }
