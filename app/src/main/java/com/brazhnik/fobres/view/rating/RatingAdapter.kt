@@ -34,8 +34,8 @@ class RatingAdapter(private val listUser: List<Rating>) :
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
         holder.imageProfile.setImageResource(R.drawable.tmp_image_profile)
         holder.nameProfile.text = listUser[position].firstName
-        holder.textAmount.text = "Amount: ${listUser[position].money}"
-        holder.textTopRating.text = "Top Rating: ${position+1}"
+        holder.textAmount.text = "Coins: ${listUser[position].money}"
+        holder.textTopRating.text = "# ${position+1}"
         /*holder.buttonViewLinks.setOnClickListener {
 
         }*/

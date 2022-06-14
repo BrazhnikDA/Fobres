@@ -10,19 +10,19 @@ import com.brazhnik.fobres.data.model.Rating
 import java.sql.Time
 
 class StorageRating(context: Context) {
-    private var bookDao: LogEventDao
+    private var logDao: LogEventDao
 
     init {
         val db = Room.databaseBuilder(
             context,
             LogDatabase::class.java, "log_database"
         ).build()
-        bookDao = db.logDao()
+        logDao = db.logDao()
     }
 
     // This fun testing and after few weeks i need added implementation for request to server and get response
     fun getAllUsersDB(countItem: Int): List<Rating> {
-        bookDao.saveLogEvent(
+        logDao.saveLogEvent(
             LogEventEntity(
                 null,
                 "Storage",

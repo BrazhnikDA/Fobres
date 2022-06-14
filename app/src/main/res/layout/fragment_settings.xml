@@ -7,82 +7,42 @@
     android:background="@color/white"
     tools:context=".view.ui.menu.SettingsFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="15">
+        android:layout_height="?actionBarSize"
+        android:background="@color/dodgerBlue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_menu"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="20dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
             android:text="Settings"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            tools:ignore="RtlCompat" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
-                    android:text="Font Size Title Filter:"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerFontSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <ImageView
-                    android:layout_width="20sp"
-                    android:layout_height="20sp"
-                    android:layout_gravity="end"
-                    android:layout_marginLeft="60sp"
-                    android:src="@drawable/ic_back" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15sp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
-                    android:text="Color Set Filter:"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinnerColorFont"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="71dp"
-                    android:src="@drawable/ic_back" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

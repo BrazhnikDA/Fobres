@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/navHeaderContainer"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/dodgerBlue"
@@ -18,33 +18,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageMenu"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/ic_back"
-            android:tint="@color/white" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_menu"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="20dp" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:includeFontPadding="false"
-            android:text="Menu"
+            android:text="Rating"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="26sp" />
-    </LinearLayout>
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRating"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/navHeaderContainer"
+        app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
         tools:listitem="@layout/item_recycler_view_rating">
 
     </androidx.recyclerview.widget.RecyclerView>

@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.repository.data.Profile
+import com.brazhnik.fobres.data.model.Profile
 
 class ProfileFragment : Fragment(), ProfileView {
     @InjectPresenter
@@ -121,5 +124,9 @@ class ProfileFragment : Fragment(), ProfileView {
         profile.observe(viewLifecycleOwner, Observer {
             profile.value?.let { it1 -> fillingFields(it1) }
         })
+
+        view.findViewById<ImageView>(R.id.imageMenu).setOnClickListener {
+            view.findViewById<DrawerLayout>(R.id.drawerLayout).openDrawer(GravityCompat.START)
+        }
     }
 }

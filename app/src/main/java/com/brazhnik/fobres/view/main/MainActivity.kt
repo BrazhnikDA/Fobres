@@ -25,15 +25,5 @@ class MainActivity : AppCompatActivity() {
         val navController: NavController =
             Navigation.findNavController(this, R.id.navHostFragment)
         NavigationUI.setupWithNavController(navView, navController)
-
-        /*val btnProfile: Button = findViewById(R.id.button)
-        val btnRating: Button = findViewById(R.id.button2)*/
-
-        /*btnProfile.setOnClickListener {
-            //startActivity(Intent(this, ProfileActivity::class.java))
-        }
-        btnRating.setOnClickListener {
-            //startActivity(Intent(this, RatingActivity::class.java))
-        }*/
     }
 }

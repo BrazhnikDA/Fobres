@@ -1,4 +1,4 @@
-package com.brazhnik.fobres.view.ui.menu
+package com.brazhnik.fobres.view.rating
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,24 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.repository.data.Rating
-import com.brazhnik.fobres.repository.data.TypeRating
-import com.brazhnik.fobres.utilities.displayToast
-import com.brazhnik.fobres.view.rating.RatingAdapter
-import com.brazhnik.fobres.view.rating.RatingPresenter
-import com.brazhnik.fobres.view.rating.RatingView
 import com.brazhnik.fobres.data.model.Rating
 import com.brazhnik.fobres.data.model.TypeRating
+import com.brazhnik.fobres.utilities.displayToast
 
-class BackFragment : Fragment(), RatingView {
+
+class RatingFragment : Fragment(), RatingView {
     @InjectPresenter
     lateinit var ratingPresenter: RatingPresenter
 
@@ -38,7 +34,8 @@ class BackFragment : Fragment(), RatingView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ratingPresenter = RatingPresenter(this.applicationContext)
+        ratingPresenter = RatingPresenter(requireContext())
+
 
         context?.displayToast("CreateViewBack")
         Log.e("LOG","CreateViewBack")
@@ -46,7 +43,7 @@ class BackFragment : Fragment(), RatingView {
 
     @SuppressLint("SetTextI18n", "CutPasteId")
     private fun fillList() {
-        val type: TypeRating = TypeRating.CITY
+        val type: TypeRating = TypeRating.ALL
         val body: String = "Нижний Новгород"
         if (type == TypeRating.ALL) {
             listUser = getListUserRatingAllAPI()
