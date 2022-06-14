@@ -1,12 +1,7 @@
 package com.brazhnik.fobres.view.main
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,13 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.brazhnik.fobres.R
-<<<<<<< HEAD
 import com.google.android.material.navigation.NavigationView
-
-=======
-import com.brazhnik.fobres.view.profile.ProfileActivity
-import com.brazhnik.fobres.view.rating.RatingActivity
->>>>>>> core/adding_db
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
