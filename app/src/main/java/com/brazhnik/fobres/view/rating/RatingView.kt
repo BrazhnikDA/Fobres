@@ -1,9 +1,8 @@
 package com.brazhnik.fobres.view.rating
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.MvpView
-import com.brazhnik.fobres.repository.data.Rating
+import com.brazhnik.fobres.data.model.Rating
 
 /**
  * If fun contains in name "API" - this fun getting data from server else

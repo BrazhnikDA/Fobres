@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.repository.data.Profile
+import com.brazhnik.fobres.data.model.Profile
 
 
 class ProfileActivity : AppCompatActivity(), ProfileView {
@@ -28,9 +27,9 @@ class ProfileActivity : AppCompatActivity(), ProfileView {
         presenter = ProfilePresenter()
 
         profile = getCurrentProfileAPI(id)
-        profile.observe(this, Observer {
+        profile.observe(this) {
             profile.value?.let { it1 -> fillingFields(it1) }
-        })
+        }
     }
 
     @SuppressLint("SetTextI18n")

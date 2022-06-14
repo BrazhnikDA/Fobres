@@ -1,32 +1,25 @@
 package com.brazhnik.fobres.view.rating
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.arellomobile.mvp.MvpActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.repository.data.Rating
-import com.brazhnik.fobres.repository.data.TypeRating
-import com.brazhnik.fobres.utilities.displayToast
-import java.lang.StringBuilder
+import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.TypeRating
 
 class RatingActivity : AppCompatActivity(), RatingView {
 
     @InjectPresenter
     lateinit var ratingPresenter: RatingPresenter
 
-    @ProvidePresenter // данный метод нужен только если Presenter имеет параметры для инициализации
-    fun providePresenter() = RatingPresenter()
+    //@ProvidePresenter // данный метод нужен только если Presenter имеет параметры для инициализации
+    //fun providePresenter() = RatingPresenter(this.applicationContext)
 
     lateinit var mainAdapter: RatingAdapter
     private var listUser: MutableLiveData<List<Rating>> = MutableLiveData()
@@ -36,7 +29,7 @@ class RatingActivity : AppCompatActivity(), RatingView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating)
 
-        ratingPresenter = RatingPresenter()
+        ratingPresenter = RatingPresenter(this.applicationContext)
 
         recyclerView = findViewById(R.id.listRating)
         recyclerView.layoutManager = LinearLayoutManager(this)
