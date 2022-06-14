@@ -1,16 +1,17 @@
 package com.brazhnik.fobres.view.rating
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.MvpPresenter
-import com.brazhnik.fobres.repository.data.Rating
-import com.brazhnik.fobres.repository.models.ModelRatingHelper
-import com.brazhnik.fobres.repository.network.service.ServiceRating
-import com.brazhnik.fobres.repository.storage.StorageRating
+import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.helper.ModelRatingHelper
+import com.brazhnik.fobres.data.network.service.ServiceRating
+import com.brazhnik.fobres.data.storage.StorageRating
 
-class RatingPresenter : MvpPresenter<RatingView>(), RatingView {
+class RatingPresenter(context: Context) : MvpPresenter<RatingView>(), RatingView {
 
     private val listRating = MutableLiveData<List<Rating>>()
-    var modelRatingHelper: ModelRatingHelper = ModelRatingHelper(StorageRating(), ServiceRating(), listRating)
+    var modelRatingHelper: ModelRatingHelper = ModelRatingHelper(StorageRating(context), ServiceRating(), listRating)
 
 
     override fun getListUserRatingAllAPI() : MutableLiveData<List<Rating>> {

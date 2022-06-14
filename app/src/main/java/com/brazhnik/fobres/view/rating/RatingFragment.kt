@@ -21,13 +21,15 @@ import com.brazhnik.fobres.utilities.displayToast
 import com.brazhnik.fobres.view.rating.RatingAdapter
 import com.brazhnik.fobres.view.rating.RatingPresenter
 import com.brazhnik.fobres.view.rating.RatingView
+import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.TypeRating
 
 class BackFragment : Fragment(), RatingView {
     @InjectPresenter
     lateinit var ratingPresenter: RatingPresenter
 
-    @ProvidePresenter // данный метод нужен только если Presenter имеет параметры для инициализации
-    fun providePresenter() = RatingPresenter()
+    //@ProvidePresenter // данный метод нужен только если Presenter имеет параметры для инициализации
+    //fun providePresenter() = RatingPresenter(this.applicationContext)
 
     lateinit var mainAdapter: RatingAdapter
     private var listUser: MutableLiveData<List<Rating>> = MutableLiveData()
@@ -36,7 +38,7 @@ class BackFragment : Fragment(), RatingView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ratingPresenter = RatingPresenter()
+        ratingPresenter = RatingPresenter(this.applicationContext)
 
         context?.displayToast("CreateViewBack")
         Log.e("LOG","CreateViewBack")

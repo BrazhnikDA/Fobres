@@ -14,8 +14,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.brazhnik.fobres.R
+<<<<<<< HEAD
 import com.google.android.material.navigation.NavigationView
 
+=======
+import com.brazhnik.fobres.view.profile.ProfileActivity
+import com.brazhnik.fobres.view.rating.RatingActivity
+>>>>>>> core/adding_db
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
