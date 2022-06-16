@@ -3,11 +3,10 @@ package com.brazhnik.fobres.view.profile
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.brazhnik.fobres.repository.models.ModelProfileHelper
-import com.brazhnik.fobres.repository.storage.StorageProfile
-import com.brazhnik.fobres.repository.data.Profile
-import com.brazhnik.fobres.repository.data.Rating
-import com.brazhnik.fobres.repository.network.service.ServiceProfile
+import com.brazhnik.fobres.data.helper.ModelProfileHelper
+import com.brazhnik.fobres.data.storage.StorageProfile
+import com.brazhnik.fobres.data.model.Profile
+import com.brazhnik.fobres.data.network.service.ServiceProfile
 
 @InjectViewState
 class ProfilePresenter : MvpPresenter<ProfileView>(), ProfileView {

@@ -1,14 +1,17 @@
 <resources>
-    <!-- APP name -->
+    <!-- APP Name -->
     <string name="app_name">Fobres</string>
+
+    <!-- APP Description -->
+    <string name="app_description">The app that will change the world</string>
 
     <!-- Profile -->
     <string name="profilePlaceInRating">Place: № 1</string>
     <string name="profileAmount">Money: 3072.23 $</string>
     <string name="profileDescription">My name is Dimitry i am in charge product manager.In free time i like read book and watch movies. I would like to suggest my service. ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                                                             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                      ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</string>
     <string name="description">Description</string>
-    <string name="place_to_rating">Place:</string>
-    <string name="amount">Money:</string>
+    <string name="place_to_rating">#</string>
+    <string name="amount">Coins:</string>
     <string name="name">Name</string>
     <string name="country">Country:</string>
     <string name="city">City:</string>

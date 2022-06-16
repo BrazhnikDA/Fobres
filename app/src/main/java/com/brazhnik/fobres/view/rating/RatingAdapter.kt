@@ -3,14 +3,11 @@ package com.brazhnik.fobres.view.rating
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.repository.data.Rating
+import com.brazhnik.fobres.data.model.Rating
 
 class RatingAdapter(private val listUser: List<Rating>) :
     RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
@@ -37,8 +34,8 @@ class RatingAdapter(private val listUser: List<Rating>) :
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
         holder.imageProfile.setImageResource(R.drawable.tmp_image_profile)
         holder.nameProfile.text = listUser[position].firstName
-        holder.textAmount.text = "Amount: ${listUser[position].money}"
-        holder.textTopRating.text = "Top Rating: ${position+1}"
+        holder.textAmount.text = "Coins: ${listUser[position].money}"
+        holder.textTopRating.text = "# ${position+1}"
         /*holder.buttonViewLinks.setOnClickListener {
 
         }*/
