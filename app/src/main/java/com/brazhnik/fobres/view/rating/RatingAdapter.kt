@@ -32,7 +32,7 @@ class RatingAdapter(private val listUser: List<Rating>) :
     }
 
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
-        holder.imageProfile.setImageResource(R.drawable.tmp_image_profile)
+        holder.imageProfile.setImageDrawable(listUser[position].profilePicture)
         holder.nameProfile.text = listUser[position].firstName
         holder.textAmount.text = "Coins: ${listUser[position].money}"
         holder.textTopRating.text = "# ${position+1}"
