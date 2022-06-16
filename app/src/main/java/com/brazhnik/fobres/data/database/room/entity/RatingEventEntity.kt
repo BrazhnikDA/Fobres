@@ -7,6 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "rating_list_entity")
 data class RatingEventEntity(
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Long,
+
     @ColumnInfo(name = "login")
     val login: String,
 
@@ -31,8 +35,4 @@ data class RatingEventEntity(
     @ColumnInfo(name = "money")
     val money: String
 
-) {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Long? = null
-}
+)

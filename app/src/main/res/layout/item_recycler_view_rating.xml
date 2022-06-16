@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="2dp">
+    android:padding="2dp"
+    android:fitsSystemWindows="true">
 
     <androidx.cardview.widget.CardView
         xmlns:card_view="http://schemas.android.com/tools"
@@ -14,6 +15,8 @@
         app:cardElevation="8dp"
         app:cardCornerRadius="35dp"
         android:layout_margin="7dp"
+        android:fitsSystemWindows="true"
+        app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
         android:background="@color/cardview_light_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout

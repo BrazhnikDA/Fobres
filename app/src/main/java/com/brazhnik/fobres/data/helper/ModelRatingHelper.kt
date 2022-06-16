@@ -37,7 +37,7 @@ class ModelRatingHelper(
     }
 
     override suspend fun getRatingCityAPI(city: String) {
-        listRating.postValue(ratingService.getCityUsersAPI(listRating, city).value)
+        listRating.postValue(ratingService.getCityUsersAPI(listRating, city, statusResponse).value)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingCityAPI", null) }
@@ -45,7 +45,13 @@ class ModelRatingHelper(
     }
 
     override suspend fun getRatingCountryAPI(country: String) {
-        listRating.postValue(ratingService.getCountryUsersAPI(listRating, country).value)
+        listRating.postValue(
+            ratingService.getCountryUsersAPI(
+                listRating,
+                country,
+                statusResponse
+            ).value
+        )
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingCountryAPI", null) }
@@ -90,7 +96,7 @@ class ModelRatingHelper(
             for (item in listRating) {
                 result += item.toString() + "\n"
             }
-            return if(result != "") result else "Null"
+            return if (result != "") result else "Null"
         }
     }
 }

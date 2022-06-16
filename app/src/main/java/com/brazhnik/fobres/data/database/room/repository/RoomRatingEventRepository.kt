@@ -28,6 +28,7 @@ class RoomRatingEventRepository {
                 for (item in listRating) {
                     ratingDatabase!!.ratingDao().saveListRating(
                         RatingEventEntity(
+                            id = item.id.toLong(),
                             login = item.login,
                             firstName = item.firstName,
                             lastName = item.lastName,
@@ -55,7 +56,7 @@ class RoomRatingEventRepository {
                             item.firstName,
                             item.lastName,
                             item.profileDescription,
-                            ColorDrawable(3),
+                            item.profilePicture,    // FIX this need image
                             item.country,
                             item.city,
                             item.money

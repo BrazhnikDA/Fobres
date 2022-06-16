@@ -8,7 +8,7 @@ class Rating(
     var firstName: String,
     var lastName: String,
     var profileDescription: String,
-    var profilePicture: ColorDrawable?,
+    var profilePicture: String?,
     var country: String,
     var city: String,
     var money: String

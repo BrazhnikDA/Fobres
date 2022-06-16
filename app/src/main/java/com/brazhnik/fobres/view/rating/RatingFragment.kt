@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.MainThread
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -17,9 +19,13 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.model.Rating
 import com.brazhnik.fobres.data.model.TypeRating
+import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 class RatingFragment : Fragment(), RatingView {
@@ -33,42 +39,21 @@ class RatingFragment : Fragment(), RatingView {
     private var listUser: MutableLiveData<List<Rating>> = MutableLiveData()
     private var statusResponse: MutableLiveData<String> = MutableLiveData()
     private lateinit var recyclerView: RecyclerView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    @SuppressLint("SetTextI18n", "CutPasteId")
-    private suspend fun getDataAPI() {
-        val type: TypeRating = TypeRating.ALL
-        val body: String = "Нижний Новгород"
-        if (type == TypeRating.ALL) {
-            getRatingAllAPI()
-            view?.findViewById<TextView>(R.id.title)?.text =
-                resources.getText(R.string.top_off_world)
-        }
-        if (type == TypeRating.CITY) {
-            getRatingCityAPI(body)
-            view?.findViewById<TextView>(R.id.title)?.text =
-                "${resources.getText(R.string.top_off)} $body"
-        }
-        if (type == TypeRating.COUNTRY) {
-            getRatingCountryAPI(body)
-            view?.findViewById<TextView>(R.id.title)?.text =
-                "${resources.getText(R.string.top_off)} $body"
-        }
-    }
+    private var isLoad = false
 
     override suspend fun getRatingAllAPI() {
-         ratingPresenter.getRatingAllAPI()
+        delay(3000)
+        ratingPresenter.getRatingAllAPI()
     }
 
     override suspend fun getRatingCityAPI(city: String) {
-         ratingPresenter.getRatingCityAPI(city)
+        delay(3000)
+        ratingPresenter.getRatingCityAPI(city)
     }
 
     override suspend fun getRatingCountryAPI(country: String) {
-         ratingPresenter.getRatingCountryAPI(country)
+        delay(3000)
+        ratingPresenter.getRatingCountryAPI(country)
     }
 
     override suspend fun setRatingAllDB(listRating: List<Rating>) {
@@ -90,14 +75,16 @@ class RatingFragment : Fragment(), RatingView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ratingPresenter = RatingPresenter(viewLifecycleOwner, view.context, listUser, statusResponse)
+        ratingPresenter =
+            RatingPresenter(viewLifecycleOwner, view.context, listUser, statusResponse)
 
         recyclerView = view.findViewById(R.id.listRating)!!
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         GlobalScope.launch {
-            getDataAPI()
-            //delay(50)
+            showLoadBar()
+            handlerOptionRatingClick()
+            createRequest(TypeRating.ALL, "")
         }
 
         // show error for user
@@ -106,27 +93,141 @@ class RatingFragment : Fragment(), RatingView {
             recyclerView.adapter = listUser.value?.let { it1 ->
                 RatingAdapter(it1)
             }
-            if(view.findViewById<TextView>(R.id.title)?.text != "Offline") {
+            if (listUser.value?.isNotEmpty() == true) {
                 GlobalScope.launch {
                     listUser.value?.let { it1 -> setRatingAllDB(it1) }
                 }
+                stopLoadBar()
             }
         })
 
         statusResponse.observe(viewLifecycleOwner, Observer {
-            view.findViewById<TextView>(R.id.title)?.text = "Offline"
-            GlobalScope.launch {
-                getRatingAllDB(view.context)!!
-               GlobalScope.launch(Dispatchers.Main) {
-                    if (listUser.value!!.isEmpty()) {
-                        view.findViewById<TextView>(R.id.errorData).visibility = View.VISIBLE
+            statusResponse.value?.let { it1 -> Log.d("Response Rating", it1) }
+            if(statusResponse.value == "Error connection") {
+                view.findViewById<TextView>(R.id.title)?.text = "Offline"
+                GlobalScope.launch {
+                    //getRatingAllDB(view.context)!!
+                    GlobalScope.launch(Dispatchers.Main) {
+                        try {
+                            if (listUser.value!!.isEmpty()) {
+                                stopLoadBar()
+                                view.findViewById<TextView>(R.id.errorData).visibility =
+                                    View.VISIBLE
+                            }
+                        }catch (ex: Exception) {
+                            stopLoadBar()
+                            view.findViewById<TextView>(R.id.errorData).visibility =
+                                View.VISIBLE
+                        }
                     }
                 }
-
-                Log.d("Rating", "Offline mode")
-                Log.d("list_user", listUser.value?.size.toString())
+            } else {
+                if (listUser.value?.size == 0) {
+                    view.findViewById<TextView>(R.id.errorData).visibility = View.VISIBLE
+                } else {
+                    view.findViewById<TextView>(R.id.errorData).visibility = View.GONE
+                }
             }
         })
     }
 
+
+    private fun handlerOptionRatingClick() {
+        var typeRating = TypeRating.ALL
+        val world = view?.findViewById<RoundedImageView>(R.id.optionWorld)
+        val country = view?.findViewById<RoundedImageView>(R.id.optionCountry)
+        val city = view?.findViewById<RoundedImageView>(R.id.optionCity)
+
+        world?.setOnClickListener {
+            typeRating = TypeRating.ALL
+
+            view?.findViewById<TextView>(R.id.errorData)?.visibility = View.GONE
+
+            world.setBackgroundColor(resources.getColor(R.color.teal_200))
+            country?.background = R.color.blackOpaque20.toDrawable()
+            city?.background = R.color.blackOpaque20.toDrawable()
+            listUser.postValue(listOf())
+
+            GlobalScope.launch {
+                createRequest(typeRating, "")
+            }
+        }
+
+        country?.setOnClickListener {
+            typeRating = TypeRating.COUNTRY
+
+            view?.findViewById<TextView>(R.id.errorData)?.visibility = View.GONE
+
+            world?.background = R.color.blackOpaque20.toDrawable()
+            country.setBackgroundColor(resources.getColor(R.color.teal_200))
+            city?.background = R.color.blackOpaque20.toDrawable()
+            listUser.postValue(listOf())
+
+            GlobalScope.launch {
+                createRequest(typeRating, "Россия")
+            }
+        }
+
+        city?.setOnClickListener {
+            typeRating = TypeRating.CITY
+
+            view?.findViewById<TextView>(R.id.errorData)?.visibility = View.GONE
+
+            world?.background = R.color.blackOpaque20.toDrawable()
+            country?.background = R.color.blackOpaque20.toDrawable()
+            city.setBackgroundColor(resources.getColor(R.color.teal_200))
+            listUser.postValue(listOf())
+
+            GlobalScope.launch {
+                createRequest(typeRating, "Нижний Новгород")
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n", "CutPasteId")
+    private suspend fun createRequest(typeRating: TypeRating, body: String?) {
+        GlobalScope.launch {
+            showLoadBar()
+        }
+        if (typeRating == TypeRating.ALL) {
+            getRatingAllAPI()
+            view?.findViewById<TextView>(R.id.title)?.text =
+                resources.getText(R.string.top_off_world)
+        }
+        if (typeRating == TypeRating.CITY) {
+            if (body != null) {
+                getRatingCityAPI(body)
+            }
+            view?.findViewById<TextView>(R.id.title)?.text =
+                "${resources.getText(R.string.top_off)} $body"
+        }
+        if (typeRating == TypeRating.COUNTRY) {
+            if (body != null) {
+                getRatingCountryAPI(body)
+            }
+            view?.findViewById<TextView>(R.id.title)?.text =
+                "${resources.getText(R.string.top_off)} $body"
+        }
+    }
+
+    private suspend fun showLoadBar() {
+        GlobalScope.launch(Dispatchers.Main) {
+            isLoad = false
+            val progressBar = view?.findViewById<CircularProgressIndicator>(R.id.loadBar)
+            progressBar?.visibility = View.VISIBLE
+            var progress = 0
+            while (!isLoad) {
+                if(progress == 100) progress = 0
+                Log.d("Bar:", progress.toString())
+                progressBar?.progress = progress
+                progress += 5
+                delay(45)
+            }
+        }
+    }
+
+    private fun stopLoadBar() {
+        view?.findViewById<CircularProgressIndicator>(R.id.loadBar)?.visibility = View.GONE
+        isLoad = true
+    }
 }
