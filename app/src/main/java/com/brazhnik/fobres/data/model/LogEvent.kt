@@ -1,7 +1,5 @@
 package com.brazhnik.fobres.data.model
 
-import java.util.*
-
 class LogEvent(
     val logPlace: String,
     val logTime: Long,

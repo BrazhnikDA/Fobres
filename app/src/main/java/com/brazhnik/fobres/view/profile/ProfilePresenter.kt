@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
-import com.brazhnik.fobres.data.storage.StorageProfile
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.network.service.ServiceProfile
 
@@ -13,7 +12,7 @@ class ProfilePresenter : MvpPresenter<ProfileView>(), ProfileView {
 
     private val profile = MutableLiveData<Profile>()
     private var modelProfileHelper: ModelProfileHelper =
-        ModelProfileHelper(StorageProfile(), ServiceProfile(), profile)
+        ModelProfileHelper(ServiceProfile(), profile)
 
 
     override fun getCurrentProfileAPI(id: Int): MutableLiveData<Profile> {

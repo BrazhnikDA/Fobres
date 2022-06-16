@@ -1,13 +1,13 @@
 package com.brazhnik.fobres.view.rating
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -17,7 +17,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.model.Rating
 import com.brazhnik.fobres.data.model.TypeRating
-import com.brazhnik.fobres.utilities.displayToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class RatingFragment : Fragment(), RatingView {
@@ -29,53 +31,52 @@ class RatingFragment : Fragment(), RatingView {
 
     lateinit var mainAdapter: RatingAdapter
     private var listUser: MutableLiveData<List<Rating>> = MutableLiveData()
+    private var statusResponse: MutableLiveData<String> = MutableLiveData()
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        ratingPresenter = RatingPresenter(requireContext())
-
-
-        context?.displayToast("CreateViewBack")
-        Log.e("LOG","CreateViewBack")
     }
 
     @SuppressLint("SetTextI18n", "CutPasteId")
-    private fun fillList() {
+    private suspend fun getDataAPI() {
         val type: TypeRating = TypeRating.ALL
         val body: String = "Нижний Новгород"
         if (type == TypeRating.ALL) {
-            listUser = getListUserRatingAllAPI()
+            getRatingAllAPI()
             view?.findViewById<TextView>(R.id.title)?.text =
                 resources.getText(R.string.top_off_world)
         }
         if (type == TypeRating.CITY) {
-            listUser = getListUserRatingCityAPI(body)
+            getRatingCityAPI(body)
             view?.findViewById<TextView>(R.id.title)?.text =
                 "${resources.getText(R.string.top_off)} $body"
         }
         if (type == TypeRating.COUNTRY) {
-            listUser = getListUserRatingCountryAPI(body)
+            getRatingCountryAPI(body)
             view?.findViewById<TextView>(R.id.title)?.text =
                 "${resources.getText(R.string.top_off)} $body"
         }
     }
 
-    override fun getListUserRatingAllAPI(): MutableLiveData<List<Rating>> {
-        return ratingPresenter.getListUserRatingAllAPI()
+    override suspend fun getRatingAllAPI() {
+         ratingPresenter.getRatingAllAPI()
     }
 
-    override fun getListUserRatingCityAPI(city: String): MutableLiveData<List<Rating>> {
-        return ratingPresenter.getListUserRatingCityAPI(city)
+    override suspend fun getRatingCityAPI(city: String) {
+         ratingPresenter.getRatingCityAPI(city)
     }
 
-    override fun getListUserRatingCountryAPI(country: String): MutableLiveData<List<Rating>> {
-        return ratingPresenter.getListUserRatingCountryAPI(country)
+    override suspend fun getRatingCountryAPI(country: String) {
+         ratingPresenter.getRatingCountryAPI(country)
     }
 
-    override fun getListUserRatingAllDB(countItem: Int): List<Rating> {
-        return ratingPresenter.getListUserRatingAllDB(countItem)
+    override suspend fun setRatingAllDB(listRating: List<Rating>) {
+        ratingPresenter.setRatingAllDB(listRating)
+    }
+
+    override suspend fun getRatingAllDB(context: Context) {
+        ratingPresenter.getRatingAllDB(context)
     }
 
     override fun onCreateView(
@@ -88,13 +89,43 @@ class RatingFragment : Fragment(), RatingView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ratingPresenter = RatingPresenter(viewLifecycleOwner, view.context, listUser, statusResponse)
+
         recyclerView = view.findViewById(R.id.listRating)!!
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        fillList()
+        GlobalScope.launch {
+            getDataAPI()
+            //delay(50)
+        }
 
+        // show error for user
+        //
         listUser.observe(viewLifecycleOwner, Observer {
-            recyclerView.adapter = listUser.value?.let { it1 -> RatingAdapter(it1) }
+            recyclerView.adapter = listUser.value?.let { it1 ->
+                RatingAdapter(it1)
+            }
+            if(view.findViewById<TextView>(R.id.title)?.text != "Offline") {
+                GlobalScope.launch {
+                    listUser.value?.let { it1 -> setRatingAllDB(it1) }
+                }
+            }
+        })
+
+        statusResponse.observe(viewLifecycleOwner, Observer {
+            view.findViewById<TextView>(R.id.title)?.text = "Offline"
+            GlobalScope.launch {
+                getRatingAllDB(view.context)!!
+               GlobalScope.launch(Dispatchers.Main) {
+                    if (listUser.value!!.isEmpty()) {
+                        view.findViewById<TextView>(R.id.errorData).visibility = View.VISIBLE
+                    }
+                }
+
+                Log.d("Rating", "Offline mode")
+                Log.d("list_user", listUser.value?.size.toString())
+            }
         })
     }
 

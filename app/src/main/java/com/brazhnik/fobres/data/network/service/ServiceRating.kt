@@ -10,7 +10,7 @@ import retrofit2.Response
 
 
 class ServiceRating {
-     fun getAllUsersAPI(result: MutableLiveData<List<Rating>>) : MutableLiveData<List<Rating>> {
+     fun getAllUsersAPI(result: MutableLiveData<List<Rating>>, status: MutableLiveData<String>) : MutableLiveData<List<Rating>> {
             NetworkAPI().getJSONRatingAPI().getAllUsers().enqueue(object : Callback<List<Rating>> {
                 override fun onResponse(
                     call: Call<List<Rating>>,
@@ -22,6 +22,7 @@ class ServiceRating {
 
                 override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
                     Log.e("Logs_Error", t.toString())
+                    status.postValue("Error connection")
                 }
             })
          return result
@@ -39,6 +40,7 @@ class ServiceRating {
 
             override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
                 Log.e("Logs_Error", t.toString())
+                //result.postValue(mutableListOf())
             }
         })
         return result
@@ -56,6 +58,7 @@ class ServiceRating {
 
             override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
                 Log.e("Logs_Error", t.toString())
+                //result.postValue(mutableListOf())
             }
         })
         return result

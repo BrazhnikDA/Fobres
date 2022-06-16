@@ -1,6 +1,6 @@
 package com.brazhnik.fobres.view.rating
 
-import androidx.lifecycle.MutableLiveData
+import android.content.Context
 import com.arellomobile.mvp.MvpView
 import com.brazhnik.fobres.data.model.Rating
 
@@ -10,9 +10,14 @@ import com.brazhnik.fobres.data.model.Rating
  */
 
 interface RatingView : MvpView {
-    fun getListUserRatingAllAPI() : MutableLiveData<List<Rating>>
-    fun getListUserRatingCityAPI(city: String) : MutableLiveData<List<Rating>>
-    fun getListUserRatingCountryAPI(country: String) : MutableLiveData<List<Rating>>
+    //region API Call
+    suspend fun getRatingAllAPI()
+    suspend fun getRatingCityAPI(city: String)
+    suspend fun getRatingCountryAPI(country: String)
+    //endregion
 
-    fun getListUserRatingAllDB(countItem : Int) : List<Rating>
+    //region Room DB Call
+    suspend fun setRatingAllDB(listRating: List<Rating>)
+    suspend fun getRatingAllDB(context: Context)
+    //endregion
 }

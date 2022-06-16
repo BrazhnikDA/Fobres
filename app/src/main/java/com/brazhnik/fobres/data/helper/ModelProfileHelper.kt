@@ -1,13 +1,11 @@
 package com.brazhnik.fobres.data.helper
 
 import androidx.lifecycle.MutableLiveData
-import com.brazhnik.fobres.data.storage.StorageProfile
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.network.service.ServiceProfile
 import com.brazhnik.fobres.view.profile.ProfileView
 
 class ModelProfileHelper (
-    private val storageProfile: StorageProfile,
     private val serviceProfile: ServiceProfile,
     private val list: MutableLiveData<Profile>
     ) : ProfileView {

@@ -1,33 +1,46 @@
 package com.brazhnik.fobres.view.rating
 
 import android.content.Context
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.MvpPresenter
-import com.brazhnik.fobres.data.model.Rating
 import com.brazhnik.fobres.data.helper.ModelRatingHelper
+import com.brazhnik.fobres.data.model.Rating
 import com.brazhnik.fobres.data.network.service.ServiceRating
-import com.brazhnik.fobres.data.storage.StorageRating
 
-class RatingPresenter(context: Context) : MvpPresenter<RatingView>(), RatingView {
+class RatingPresenter(
+    viewLifecycleOwner: LifecycleOwner,
+    context: Context,
+    listRating: MutableLiveData<List<Rating>>,
+    statusResponse: MutableLiveData<String>
+) : MvpPresenter<RatingView>(), RatingView {
 
-    private val listRating = MutableLiveData<List<Rating>>()
-    var modelRatingHelper: ModelRatingHelper = ModelRatingHelper(StorageRating(context), ServiceRating(), listRating)
+    private var modelRatingHelper: ModelRatingHelper = ModelRatingHelper(
+        viewLifecycleOwner,
+        context,
+        ServiceRating(),
+        listRating,
+        statusResponse
+    )
 
-
-    override fun getListUserRatingAllAPI() : MutableLiveData<List<Rating>> {
-        return modelRatingHelper.getListUserRatingAllAPI()
+    override suspend fun getRatingAllAPI() {
+        modelRatingHelper.getRatingAllAPI()
     }
 
-    override fun getListUserRatingCityAPI(city: String): MutableLiveData<List<Rating>> {
-        return modelRatingHelper.getListUserRatingCityAPI(city)
+    override suspend fun getRatingCityAPI(city: String) {
+        modelRatingHelper.getRatingCityAPI(city)
     }
 
-    override fun getListUserRatingCountryAPI(country: String): MutableLiveData<List<Rating>> {
-        return modelRatingHelper.getListUserRatingCountryAPI(country)
+    override suspend fun getRatingCountryAPI(country: String) {
+        modelRatingHelper.getRatingCountryAPI(country)
     }
 
-    override fun getListUserRatingAllDB(countItem: Int): List<Rating> {
-        return modelRatingHelper.getListUserRatingAllDB(countItem)
+    override suspend fun setRatingAllDB(listRating: List<Rating>) {
+        modelRatingHelper.setRatingAllDB(listRating)
+    }
+
+    override suspend fun getRatingAllDB(context: Context) {
+        modelRatingHelper.getRatingAllDB(context)
     }
 
 
