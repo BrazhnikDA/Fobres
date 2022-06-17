@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.view.rating
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,8 @@ class RatingAdapter(private val listUser: List<Rating>) :
     }
 
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
-        holder.imageProfile.setImageDrawable(listUser[position].profilePicture)
+        //holder.imageProfile.setImageDrawable(listUser[position].profilePicture)
+        holder.imageProfile.setImageResource(R.mipmap.ic_coin)
         holder.nameProfile.text = listUser[position].firstName
         holder.textAmount.text = "Coins: ${listUser[position].money}"
         holder.textTopRating.text = "# ${position+1}"

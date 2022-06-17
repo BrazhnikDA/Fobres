@@ -28,6 +28,7 @@ class RoomRatingEventRepository {
                 for (item in listRating) {
                     ratingDatabase!!.ratingDao().saveListRating(
                         RatingEventEntity(
+                            id = item.id.toLong(),
                             login = item.login,
                             firstName = item.firstName,
                             lastName = item.lastName,
@@ -42,7 +43,7 @@ class RoomRatingEventRepository {
             }
         }
 
-        override suspend fun getListRating(context: Context): List<Rating> {
+        override suspend fun getRatingAll(context: Context): List<Rating> {
             if (ratingDatabase == null)
                 ratingDatabase = initializeDB(context)
             try {
@@ -55,14 +56,104 @@ class RoomRatingEventRepository {
                             item.firstName,
                             item.lastName,
                             item.profileDescription,
-                            ColorDrawable(3),
+                            item.profilePicture,    // FIX this need image
                             item.country,
                             item.city,
                             item.money
                         )
                     )
                 }
-                return result
+                return if (result.size > 0) result else mutableListOf(
+                Rating(
+                    "0",
+                    "_",
+                    "Your history is empty :(",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "0"
+                )
+                )
+            } catch (ex: Exception) {
+                Log.d("DB: ", "Table for rating is empty!")
+                return arrayListOf()
+            }
+        }
+
+        override suspend fun getRatingCountry(context: Context, country: String): List<Rating> {
+            if (ratingDatabase == null)
+                ratingDatabase = initializeDB(context)
+            try {
+                val result: ArrayList<Rating> = arrayListOf()
+                for (item in ratingDatabase!!.ratingDao().getListRatingCountry(country)) {
+                    result.add(
+                        Rating(
+                            item.id.toString(),
+                            item.login,
+                            item.firstName,
+                            item.lastName,
+                            item.profileDescription,
+                            item.profilePicture,    // FIX this need image
+                            item.country,
+                            item.city,
+                            item.money
+                        )
+                    )
+                }
+                return if (result.size > 0) result else mutableListOf(
+                Rating(
+                    "0",
+                    "_",
+                    "Your history is empty :(",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "0"
+                )
+                )
+            } catch (ex: Exception) {
+                Log.d("DB: ", "Table for rating is empty!")
+                return arrayListOf()
+            }
+        }
+
+        override suspend fun getRatingCity(context: Context, city: String): List<Rating> {
+            if (ratingDatabase == null)
+                ratingDatabase = initializeDB(context)
+            try {
+                val result: ArrayList<Rating> = arrayListOf()
+                for (item in ratingDatabase!!.ratingDao().getListRatingCity(city)) {
+                    result.add(
+                        Rating(
+                            item.id.toString(),
+                            item.login,
+                            item.firstName,
+                            item.lastName,
+                            item.profileDescription,
+                            item.profilePicture,    // FIX this need image
+                            item.country,
+                            item.city,
+                            item.money
+                        )
+                    )
+                }
+                return if (result.size > 0) result else mutableListOf(
+                    Rating(
+                        "0",
+                        "_",
+                        "Your history is empty :(",
+                        "_",
+                        "_",
+                        "_",
+                        "_",
+                        "_",
+                        "0"
+                    )
+                )
             } catch (ex: Exception) {
                 Log.d("DB: ", "Table for rating is empty!")
                 return arrayListOf()

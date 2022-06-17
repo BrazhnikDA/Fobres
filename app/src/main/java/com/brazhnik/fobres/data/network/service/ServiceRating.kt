@@ -18,6 +18,7 @@ class ServiceRating {
                 ) {
                     Log.e("Logs_response", response.body().toString())
                     result.postValue(response.body())
+                    status.postValue("OK")
                 }
 
                 override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
@@ -28,7 +29,7 @@ class ServiceRating {
          return result
     }
 
-    fun getCountryUsersAPI(result: MutableLiveData<List<Rating>>, country: String) : MutableLiveData<List<Rating>> {
+    fun getCountryUsersAPI(result: MutableLiveData<List<Rating>>, country: String, status: MutableLiveData<String>) : MutableLiveData<List<Rating>> {
         NetworkAPI().getJSONRatingAPI().getCountryUsers(country).enqueue(object : Callback<List<Rating>> {
             override fun onResponse(
                 call: Call<List<Rating>>,
@@ -36,17 +37,18 @@ class ServiceRating {
             ) {
                 Log.e("Logs_response", response.body().toString())
                 result.postValue(response.body())
+                status.postValue("OK")
             }
 
             override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
                 Log.e("Logs_Error", t.toString())
-                //result.postValue(mutableListOf())
+                status.postValue("Error connection")
             }
         })
         return result
     }
 
-    fun getCityUsersAPI(result: MutableLiveData<List<Rating>>, city: String) : MutableLiveData<List<Rating>> {
+    fun getCityUsersAPI(result: MutableLiveData<List<Rating>>, city: String, status: MutableLiveData<String>) : MutableLiveData<List<Rating>> {
         NetworkAPI().getJSONRatingAPI().getCityUsers(city).enqueue(object : Callback<List<Rating>> {
             override fun onResponse(
                 call: Call<List<Rating>>,
@@ -54,11 +56,12 @@ class ServiceRating {
             ) {
                 Log.e("Logs_response", response.body().toString())
                 result.postValue(response.body())
+                status.postValue("OK")
             }
 
             override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
                 Log.e("Logs_Error", t.toString())
-                //result.postValue(mutableListOf())
+                status.postValue("Error connection")
             }
         })
         return result
