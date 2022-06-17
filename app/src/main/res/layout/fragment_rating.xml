@@ -111,24 +111,37 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/errorData"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/sorry_data_is_empty"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
+
+    <Button
+        android:id="@+id/loadDataDB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:text="@string/load_lust_data"
+        android:gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/errorData" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="horizontal"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/viewLine"
         tools:listitem="@layout/item_recycler_view_rating"/>
 

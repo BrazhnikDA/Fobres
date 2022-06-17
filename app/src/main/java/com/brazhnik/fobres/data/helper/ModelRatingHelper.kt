@@ -12,21 +12,34 @@ import com.brazhnik.fobres.view.rating.RatingView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ModelRatingHelper(
-    viewLifecycleOwner: LifecycleOwner,
-    private val context: Context,
-    private val ratingService: ServiceRating,
-    private val listRating: MutableLiveData<List<Rating>>,
-    private val statusResponse: MutableLiveData<String>
-) : RatingView {
+class ModelRatingHelper {
 
-    private val lifecycle = viewLifecycleOwner
+    private val context: Context
+    private val ratingService: ServiceRating
+    private val listRating: MutableLiveData<List<Rating>>
+    private val statusResponse: MutableLiveData<String>
+
+    constructor(
+        viewLifecycleOwner: LifecycleOwner,
+        context: Context,
+        ratingService: ServiceRating,
+        listRating: MutableLiveData<List<Rating>>,
+        statusResponse: MutableLiveData<String>
+    ) {
+        this.context = context
+        this.ratingService = ratingService
+        this.listRating = listRating
+        this.statusResponse = statusResponse
+        this.lifecycle = viewLifecycleOwner
+    }
+
+    private val lifecycle: LifecycleOwner
 
     //region API Call
     // Need add override fun in to string for $listRating API and DB
-    override suspend fun getRatingAllAPI() {
+    suspend fun getRatingAllAPI() {
         listRating.postValue(ratingService.getAllUsersAPI(listRating, statusResponse).value)
-
+        saveLog(context, mutableListOf(), "getRatingAllAPI", null)
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllAPI", null) }
             GlobalScope.launch {
@@ -36,15 +49,16 @@ class ModelRatingHelper(
         })*/
     }
 
-    override suspend fun getRatingCityAPI(city: String) {
+    suspend fun getRatingCityAPI(city: String) {
         listRating.postValue(ratingService.getCityUsersAPI(listRating, city, statusResponse).value)
+        saveLog(context, mutableListOf(), "getRatingCityAPI", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingCityAPI", null) }
         })*/
     }
 
-    override suspend fun getRatingCountryAPI(country: String) {
+    suspend fun getRatingCountryAPI(country: String) {
         listRating.postValue(
             ratingService.getCountryUsersAPI(
                 listRating,
@@ -52,6 +66,7 @@ class ModelRatingHelper(
                 statusResponse
             ).value
         )
+        saveLog(context, mutableListOf(), "getRatingCountryAPI", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingCountryAPI", null) }
@@ -60,13 +75,32 @@ class ModelRatingHelper(
     //endregion
 
     //region Room DB Call
-    override suspend fun setRatingAllDB(listRating: List<Rating>) {
+    suspend fun setRatingAllDB(listRating: List<Rating>) {
         saveLog(context, listRating.toList(), "setRatingAllDB", null)
         RoomRatingEventRepository.saveListRating(context, listRating)
     }
 
-    override suspend fun getRatingAllDB(context: Context) {
-        listRating.postValue(RoomRatingEventRepository.getListRating(context))
+    suspend fun getRatingAllDB(context: Context) {
+        listRating.postValue(RoomRatingEventRepository.getRatingAll(context))
+        saveLog(context, mutableListOf(), "getRatingAllDB", null)
+
+        /*listRating.observe(lifecycle, Observer {
+            listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllDB", null) }
+        })*/
+    }
+
+    suspend fun getRatingCountryDB(context: Context, country: String) {
+        listRating.postValue(RoomRatingEventRepository.getRatingCountry(context, country))
+        saveLog(context, mutableListOf(), "getRatingCountryDB", null)
+
+        /*listRating.observe(lifecycle, Observer {
+            listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllDB", null) }
+        })*/
+    }
+
+    suspend fun getRatingCityDB(context: Context, city: String) {
+        listRating.postValue(RoomRatingEventRepository.getRatingCity(context, city))
+        saveLog(context, mutableListOf(), "getRatingCityDB", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllDB", null) }

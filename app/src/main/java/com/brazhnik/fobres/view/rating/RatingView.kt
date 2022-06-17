@@ -2,6 +2,8 @@ package com.brazhnik.fobres.view.rating
 
 import android.content.Context
 import com.arellomobile.mvp.MvpView
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.brazhnik.fobres.data.model.Rating
 
 /**
@@ -10,14 +12,21 @@ import com.brazhnik.fobres.data.model.Rating
  */
 
 interface RatingView : MvpView {
-    //region API Call
-    suspend fun getRatingAllAPI()
-    suspend fun getRatingCityAPI(city: String)
-    suspend fun getRatingCountryAPI(country: String)
-    //endregion
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun displayList(listRating: List<Rating>)
 
-    //region Room DB Call
-    suspend fun setRatingAllDB(listRating: List<Rating>)
-    suspend fun getRatingAllDB(context: Context)
-    //endregion
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun showError()
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    suspend fun showLoadingWheel()
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun disableLoadingWheel()
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun disableError()
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setTitle(title: String)
 }

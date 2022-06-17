@@ -1,47 +1,46 @@
 package com.brazhnik.fobres.view.rating
 
 import android.content.Context
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
+import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.helper.ModelRatingHelper
 import com.brazhnik.fobres.data.model.Rating
-import com.brazhnik.fobres.data.network.service.ServiceRating
+import com.brazhnik.fobres.data.model.TypeRating
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class RatingPresenter(
-    viewLifecycleOwner: LifecycleOwner,
-    context: Context,
-    listRating: MutableLiveData<List<Rating>>,
-    statusResponse: MutableLiveData<String>
-) : MvpPresenter<RatingView>(), RatingView {
+@InjectViewState
+class RatingPresenter constructor(
+    private val modelRatingHelper: ModelRatingHelper
+) : MvpPresenter<RatingView>() {
 
-    private var modelRatingHelper: ModelRatingHelper = ModelRatingHelper(
-        viewLifecycleOwner,
-        context,
-        ServiceRating(),
-        listRating,
-        statusResponse
-    )
-
-    override suspend fun getRatingAllAPI() {
+    suspend fun getRatingAllAPI() {
         modelRatingHelper.getRatingAllAPI()
     }
 
-    override suspend fun getRatingCityAPI(city: String) {
+    suspend fun getRatingCityAPI(city: String) {
         modelRatingHelper.getRatingCityAPI(city)
     }
 
-    override suspend fun getRatingCountryAPI(country: String) {
+    suspend fun getRatingCountryAPI(country: String) {
         modelRatingHelper.getRatingCountryAPI(country)
     }
 
-    override suspend fun setRatingAllDB(listRating: List<Rating>) {
+    suspend fun setRatingAllDB(listRating: List<Rating>) {
         modelRatingHelper.setRatingAllDB(listRating)
     }
 
-    override suspend fun getRatingAllDB(context: Context) {
+    suspend fun getRatingAllDB(context: Context) {
         modelRatingHelper.getRatingAllDB(context)
     }
 
+    suspend fun getRatingCountryDB(context: Context, country: String) {
+        modelRatingHelper.getRatingCountryDB(context, country)
+    }
 
+    suspend fun getRatingCityDB(context: Context, city: String) {
+        modelRatingHelper.getRatingCityDB(context, city)
+    }
 }

@@ -124,9 +124,5 @@ class ProfileFragment : Fragment(), ProfileView {
         profile.observe(viewLifecycleOwner, Observer {
             profile.value?.let { it1 -> fillingFields(it1) }
         })
-
-        view.findViewById<ImageView>(R.id.imageMenu).setOnClickListener {
-            view.findViewById<DrawerLayout>(R.id.drawerLayout).openDrawer(GravityCompat.START)
-        }
     }
 }

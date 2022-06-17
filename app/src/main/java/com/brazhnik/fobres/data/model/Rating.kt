@@ -14,7 +14,7 @@ class Rating(
     var money: String
 ) {
     override fun toString(): String {
-        val checkImage = if (profilePicture != null) "Use" else "Empty"
+        val checkImage = if (profilePicture != "") "Use" else "Empty"
         return "id: $id, " +
                 "login: $login, " +
                 "country: $country" +
@@ -23,6 +23,6 @@ class Rating(
                 "lastName: $lastName, " +
                 "profileDescription: $profileDescription," +
                 "profileImage: $checkImage" +
-                "money: $money"
+                "money: $money\n"
     }
 }
