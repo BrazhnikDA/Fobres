@@ -21,6 +21,8 @@ import com.brazhnik.fobres.data.helper.ModelRatingHelper
 import com.brazhnik.fobres.data.model.Rating
 import com.brazhnik.fobres.data.model.TypeRating
 import com.brazhnik.fobres.data.network.service.ServiceRating
+import com.brazhnik.fobres.databinding.FragmentProfileBinding
+import com.brazhnik.fobres.databinding.FragmentRatingBinding
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.coroutines.*
@@ -28,6 +30,9 @@ import kotlinx.coroutines.*
 
 @DelicateCoroutinesApi
 class RatingFragment : Fragment(), RatingView {
+    private var _binding: FragmentRatingBinding? = null
+    private val binding get() = _binding!!
+
     @InjectPresenter
     lateinit var ratingPresenter: RatingPresenter
 
@@ -72,7 +77,8 @@ class RatingFragment : Fragment(), RatingView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_rating, container, false)
+        _binding = FragmentRatingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -128,7 +134,7 @@ class RatingFragment : Fragment(), RatingView {
     }
 
     private fun handlerButtonClick() {
-        view?.findViewById<Button>(R.id.loadDataDB)?.setOnClickListener {
+        binding.loadDataDB.setOnClickListener {
             GlobalScope.launch {
                 disableError()
                 showLoadingWheel()
@@ -149,41 +155,41 @@ class RatingFragment : Fragment(), RatingView {
     }
 
     private fun handlerOptionRatingClick() {
-        val world = view?.findViewById<RoundedImageView>(R.id.optionWorld)
-        val country = view?.findViewById<RoundedImageView>(R.id.optionCountry)
-        val city = view?.findViewById<RoundedImageView>(R.id.optionCity)
+        val world = binding.optionWorld
+        val country = binding.optionCountry
+        val city = binding.optionCity
 
-        world?.setOnClickListener {
+        world.setOnClickListener {
             if (!isLoad) return@setOnClickListener
             typeRating = TypeRating.ALL
 
             disableError()
-            country?.let { it1 -> city?.let { it2 -> switchRating(world, it1, it2) } }
+            switchRating(world, country, city)
 
             GlobalScope.launch {
                 createRequest(typeRating, "")
             }
         }
 
-        country?.setOnClickListener {
+        country.setOnClickListener {
             if (!isLoad) return@setOnClickListener
             typeRating = TypeRating.COUNTRY
 
             disableError()
-            world?.let { it1 -> city?.let { it2 -> switchRating(it1, country, it2) } }
+            switchRating(world, country, city)
 
             GlobalScope.launch {
                 createRequest(typeRating, "Россия")
             }
         }
 
-        city?.setOnClickListener {
+        city.setOnClickListener {
             if (!isLoad) return@setOnClickListener
             typeRating = TypeRating.CITY
 
             disableError()
 
-            world?.let { it1 -> country?.let { it2 -> switchRating(it1, it2, city) } }
+            switchRating(world, country, city)
 
             GlobalScope.launch {
                 createRequest(typeRating, "Нижний Новгород")
@@ -193,11 +199,7 @@ class RatingFragment : Fragment(), RatingView {
 
     override fun onResume() {
         super.onResume()
-
-        val world = view?.findViewById<RoundedImageView>(R.id.optionWorld)
-        val country = view?.findViewById<RoundedImageView>(R.id.optionCountry)
-        val city = view?.findViewById<RoundedImageView>(R.id.optionCity)
-        world?.let { country?.let { it1 -> city?.let { it2 -> switchRating(it, it1, it2) } } }
+        switchRating(binding.optionWorld, binding.optionCountry, binding.optionCity)
     }
 
     private fun switchRating(
@@ -255,21 +257,21 @@ class RatingFragment : Fragment(), RatingView {
 
     override fun showError() {
         GlobalScope.launch(Dispatchers.Main) {
-            view?.findViewById<TextView>(R.id.errorData)?.visibility = View.VISIBLE
-            view?.findViewById<Button>(R.id.loadDataDB)?.visibility = View.VISIBLE
+            binding.errorData.visibility = View.VISIBLE
+            binding.loadDataDB.visibility = View.VISIBLE
         }
     }
 
     override fun disableError() {
         GlobalScope.launch(Dispatchers.Main) {
-            view?.findViewById<TextView>(R.id.errorData)?.visibility = View.GONE
-            view?.findViewById<Button>(R.id.loadDataDB)?.visibility = View.GONE
+            binding.errorData.visibility = View.GONE
+            binding.loadDataDB.visibility = View.GONE
         }
     }
 
     override fun setTitle(title: String) {
         GlobalScope.launch(Dispatchers.Main) {
-            view?.findViewById<TextView>(R.id.title)?.text = title
+            binding.title.text = title
             Log.d("Title:", title)
         }
     }
@@ -277,13 +279,13 @@ class RatingFragment : Fragment(), RatingView {
     override suspend fun showLoadingWheel() {
         GlobalScope.launch(Dispatchers.Main) {
             isLoad = false
-            val progressBar = view?.findViewById<CircularProgressIndicator>(R.id.loadBar)
-            progressBar?.visibility = View.VISIBLE
+            val progressBar = binding.loadBar
+            progressBar.visibility = View.VISIBLE
             var progress = 0
             while (!isLoad) {
                 if (progress == 100) progress = 0
                 Log.d("Bar:", progress.toString())
-                progressBar?.progress = progress
+                progressBar.progress = progress
                 progress += 5
                 delay(45)
             }
@@ -291,7 +293,7 @@ class RatingFragment : Fragment(), RatingView {
     }
 
     override fun disableLoadingWheel() {
-        view?.findViewById<CircularProgressIndicator>(R.id.loadBar)?.visibility = View.GONE
+        binding.loadBar.visibility = View.GONE
         isLoad = true
     }
 }
