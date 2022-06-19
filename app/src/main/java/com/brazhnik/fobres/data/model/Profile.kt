@@ -4,13 +4,13 @@ package com.brazhnik.fobres.data.model
  * This class describes the model user profile
  *
  *  @param firstName - First name
- *  @param secondName - Second name
- *  @param nickName - NickName user for search
+ *  @param lastName - Second name
+ *  @param login - NickName user for search
  *  @param country - User country
  *  @param city -  User city
- *  @param imageAvatar - User image to profile
- *  @param description - User description to profile
- *  @param amountAll - The general state of the user
+ *  @param profilePicture - User image to profile
+ *  @param profileDescription - User description to profile
+ *  @param money - The general state of the user
  *  @param placeInRating - User place in rating
  *
  *  @author Dmitry Brazhnik

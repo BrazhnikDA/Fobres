@@ -1,19 +1,14 @@
 package com.brazhnik.fobres.view.profile
 
-import android.annotation.SuppressLint
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.model.Profile
 
@@ -21,63 +16,39 @@ class ProfileFragment : Fragment(), ProfileView {
     @InjectPresenter
     lateinit var presenter: ProfilePresenter
 
-    private var mainAdapter: ProfileAdapter? = null
+    @ProvidePresenter
+    fun providePresenter(): ProfilePresenter {
+        return ProfilePresenter(requireView().context)
+    }
 
-    private var profile: MutableLiveData<Profile> = MutableLiveData()
     private var id_: Int = 8
 
-    private lateinit var prefs: SharedPreferences
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        presenter = ProfilePresenter()
-    }
-
-    @SuppressLint("SetTextI18n")
     private fun fillingFields(profileInfo: Profile) {
-        val profileName = view?.findViewById<TextView>(R.id.profileName)
-        val profileNickName = view?.findViewById<TextView>(R.id.profileNickName)
-        val profileDonate = view?.findViewById<TextView>(R.id.profileDonate)
-        val profileRating = view?.findViewById<TextView>(R.id.profileRating)
-        val profileDescription = view?.findViewById<TextView>(R.id.profileDescription)
+        val name = view?.findViewById<TextView>(R.id.name)
+        val coins = view?.findViewById<TextView>(R.id.coins)
+        val description = view?.findViewById<TextView>(R.id.description)
+        val location = view?.findViewById<TextView>(R.id.locationText)
+        val login = view?.findViewById<TextView>(R.id.title)
 
-
-        val profileNameBody = view?.findViewById<TextView>(R.id.profileNameBody)
-        val profileCountryBody = view?.findViewById<TextView>(R.id.profileCountryBody)
-        val profileCityBody = view?.findViewById<TextView>(R.id.profileCityBody)
-        val profileDescriptionBody = view?.findViewById<TextView>(R.id.profileDescriptionBody)
-
-        if (profileName != null) {
-            profileName.text = "${profileInfo.firstName} ${profileInfo.lastName}"
+        if (name != null) {
+            name.text = String.format(getString(R.string.name_profile), profileInfo.firstName, profileInfo.lastName)
         }
-        if (profileNickName != null) {
-            profileNickName.text = profileInfo.login
+        if (coins != null) {
+            coins.text = String.format(getString(R.string.coins_profile), profileInfo.money)
         }
-        if (profileDonate != null) {
-            profileDonate.text = profileInfo.money.toString()
+        if (description != null) {
+            description.text = profileInfo.profileDescription
         }
-        //profileRating.text = profileInfo.placeInRating // Подумать как получать место в рейтинге
-        if (profileDescription != null) {
-            profileDescription.text = profileInfo.profileDescription
+        if (location != null) {
+            location.text = String.format(getString(R.string.location_profile), profileInfo.country, profileInfo.city)
         }
-
-        if (profileNameBody != null) {
-            profileNameBody.text = "${profileInfo.firstName} ${profileInfo.lastName}"
-        }
-        if (profileCountryBody != null) {
-            profileCountryBody.text = profileInfo.country
-        }
-        if (profileCityBody != null) {
-            profileCityBody.text = profileInfo.city
-        }
-        if (profileDescriptionBody != null) {
-            profileDescriptionBody.text = profileInfo.profileDescription
+        if(login != null) {
+            login.text =  String.format(getString(R.string.login_profile), profileInfo.login)
         }
     }
 
-    override fun getCurrentProfileAPI(id: Int): MutableLiveData<Profile> {
-        return presenter.getCurrentProfileAPI(id)
+    override fun getCurrentProfileAPI(id: Int) {
+        presenter.getCurrentProfileAPI(id)
     }
 
     override fun getHistoryDepositAPI(id: Int) {
@@ -112,17 +83,22 @@ class ProfileFragment : Fragment(), ProfileView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = providePresenter()
 
-        profile = getCurrentProfileAPI(id_)
-        profile.observe(viewLifecycleOwner, Observer {
-            profile.value?.let { it1 -> fillingFields(it1) }
+        openFragment()
+
+        presenter.profile.observe(viewLifecycleOwner, Observer {
+            fillingFields(it)
         })
+    }
+
+    private fun openFragment() {
+        // колесо загрузки
+        getCurrentProfileAPI(id_)
     }
 }

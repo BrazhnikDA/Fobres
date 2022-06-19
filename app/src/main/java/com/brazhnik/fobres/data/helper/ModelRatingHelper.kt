@@ -12,33 +12,17 @@ import com.brazhnik.fobres.view.rating.RatingView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class ModelRatingHelper {
-
-    private val context: Context
-    private val ratingService: ServiceRating
-    private val listRating: MutableLiveData<List<Rating>>
+class ModelRatingHelper (
+    private val context: Context,
+    private val listRating: MutableLiveData<List<Rating>>,
     private val statusResponse: MutableLiveData<String>
-
-    constructor(
-        viewLifecycleOwner: LifecycleOwner,
-        context: Context,
-        ratingService: ServiceRating,
-        listRating: MutableLiveData<List<Rating>>,
-        statusResponse: MutableLiveData<String>
-    ) {
-        this.context = context
-        this.ratingService = ratingService
-        this.listRating = listRating
-        this.statusResponse = statusResponse
-        this.lifecycle = viewLifecycleOwner
-    }
-
-    private val lifecycle: LifecycleOwner
+) {
+    private val ratingService: ServiceRating = ServiceRating()
 
     //region API Call
     // Need add override fun in to string for $listRating API and DB
-    suspend fun getRatingAllAPI() {
-        listRating.postValue(ratingService.getAllUsersAPI(listRating, statusResponse).value)
+    fun getRatingAllAPI() {
+        ratingService.getAllUsersAPI(listRating, statusResponse)
         saveLog(context, mutableListOf(), "getRatingAllAPI", null)
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllAPI", null) }
@@ -49,8 +33,8 @@ class ModelRatingHelper {
         })*/
     }
 
-    suspend fun getRatingCityAPI(city: String) {
-        listRating.postValue(ratingService.getCityUsersAPI(listRating, city, statusResponse).value)
+    fun getRatingCityAPI(city: String) {
+        ratingService.getCityUsersAPI(listRating, city, statusResponse)
         saveLog(context, mutableListOf(), "getRatingCityAPI", null)
 
         /*listRating.observe(lifecycle, Observer {
@@ -58,14 +42,8 @@ class ModelRatingHelper {
         })*/
     }
 
-    suspend fun getRatingCountryAPI(country: String) {
-        listRating.postValue(
-            ratingService.getCountryUsersAPI(
-                listRating,
-                country,
-                statusResponse
-            ).value
-        )
+    fun getRatingCountryAPI(country: String) {
+        ratingService.getCountryUsersAPI(listRating, country, statusResponse)
         saveLog(context, mutableListOf(), "getRatingCountryAPI", null)
 
         /*listRating.observe(lifecycle, Observer {

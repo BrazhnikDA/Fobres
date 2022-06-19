@@ -14,6 +14,8 @@
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/drawable/navigation_header_layout.xml" value="0.2885" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/drawable/rounded_button.xml" value="0.2885" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/drawable/tmp_image_profile.xml" value="0.2885" />
+        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout-v26/fragment_profile.xml" value="0.4192708333333333" />
+        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/activity_login.xml" value="0.5546875" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/activity_rating.xml" value="0.36153846153846153" />
@@ -22,10 +24,10 @@
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/content_main.xml" value="0.31614583333333335" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/drawer_header.xml" value="0.3140625" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_back.xml" value="0.31614583333333335" />
-        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_main.xml" value="0.22" />
+        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_main.xml" value="0.5" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_profile.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_rating.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_settings.xml" value="0.31614583333333335" />
+        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_rating.xml" value="0.4489795918367347" />
+        <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/fragment_settings.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/item_recycler_view_rating.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/layout_navigation_header.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/DIMA/AndroidStudioProjects/Fobres/app/src/main/res/layout/nav_header_main.xml" value="0.29635416666666664" />
