@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.brazhnik.fobres">
-
     <!-- Разрешение для доступа к интернету -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,6 +14,11 @@
         android:theme="@style/Theme.Fobres"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".view.authorization.register.RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.Fobres.NoActionBar" />
         <activity
             android:name=".view.main.MainActivity"
             android:exported="true">
