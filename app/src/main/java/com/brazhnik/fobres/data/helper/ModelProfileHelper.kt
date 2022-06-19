@@ -1,17 +1,20 @@
 package com.brazhnik.fobres.data.helper
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.network.service.ServiceProfile
 import com.brazhnik.fobres.view.profile.ProfileView
 
 class ModelProfileHelper (
-    private val serviceProfile: ServiceProfile,
-    private val list: MutableLiveData<Profile>
+    context: Context,
+    private val profile: MutableLiveData<Profile>
     ) : ProfileView {
 
-    override fun getCurrentProfileAPI(id: Int): MutableLiveData<Profile> {
-        return serviceProfile.getCurrentProfile(list, id)
+    private val serviceProfile: ServiceProfile = ServiceProfile()
+
+    override fun getCurrentProfileAPI(id: Int) {
+        serviceProfile.getCurrentProfile(profile, id)
     }
 
     override fun getHistoryDepositAPI(id: Int) {

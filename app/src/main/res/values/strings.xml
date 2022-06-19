@@ -7,7 +7,7 @@
 
     <!-- Profile -->
     <string name="profilePlaceInRating">Place: № 1</string>
-    <string name="profileAmount">Money: 3072.23 $</string>
+    <string name="profileAmount">Coins: 3072.23 $</string>
     <string name="profileDescription">My name is Dimitry i am in charge product manager.In free time i like read book and watch movies. I would like to suggest my service. ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                                                             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                      ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</string>
     <string name="description">Description</string>
     <string name="place_to_rating">#</string>
@@ -35,8 +35,12 @@
     <string name="drawer_item_open_source">Open Source</string>
     <string name="drawer_item_contact">Contact</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="sorry_data_is_empty">Sorry, data is empty :(</string>
     <string name="load_lust_data">Load lust data</string>
+    <string name="name_profile">%1$s %2$s</string>
+    <string name="login_profile">%1$s</string>
+    <string name="location_profile">%1$s/%2$s</string>
+    <string name="coins_profile">%1$s coins</string>
 
 </resources>

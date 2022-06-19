@@ -22,7 +22,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageMenu"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:src="@drawable/menu"
@@ -45,6 +45,16 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Тут будут настройки"/>
 
 
 </FrameLayout>

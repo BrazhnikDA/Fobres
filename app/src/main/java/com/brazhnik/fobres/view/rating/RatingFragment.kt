@@ -33,32 +33,22 @@ class RatingFragment : Fragment(), RatingView {
 
     @ProvidePresenter
     fun providePresenter(): RatingPresenter {
-        return RatingPresenter(
-            ModelRatingHelper(
-                viewLifecycleOwner,
-                requireView().context,
-                ServiceRating(),
-                listUser,
-                statusResponse
-            )
-        )
+        return RatingPresenter(requireView().context)
     }
 
-    private var listUser: MutableLiveData<List<Rating>> = MutableLiveData()
-    private var statusResponse: MutableLiveData<String> = MutableLiveData()
     private lateinit var recyclerView: RecyclerView
     private var isLoad = false
     private var typeRating = TypeRating.ALL
 
-    private suspend fun getRatingAllAPI() {
+    private fun getRatingAllAPI() {
         ratingPresenter.getRatingAllAPI()
     }
 
-    private suspend fun getRatingCityAPI(city: String) {
+    private fun getRatingCityAPI(city: String) {
         ratingPresenter.getRatingCityAPI(city)
     }
 
-    private suspend fun getRatingCountryAPI(country: String) {
+    private fun getRatingCountryAPI(country: String) {
         ratingPresenter.getRatingCountryAPI(country)
     }
 
@@ -99,14 +89,12 @@ class RatingFragment : Fragment(), RatingView {
             createRequest(TypeRating.ALL, "")
         }
 
-        listUser.observe(viewLifecycleOwner) {
-            recyclerView.adapter = listUser.value?.let { it1 ->
-                RatingAdapter(it1)
-            }
-            if (listUser.value?.isNotEmpty() == true) {
+        ratingPresenter.listUser.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                recyclerView.adapter = RatingAdapter(it)
                 if (view.findViewById<TextView>(R.id.title).text != "Offline") {
                     GlobalScope.launch {
-                        listUser.value?.let { it1 -> setRatingAllDB(it1) }
+                        setRatingAllDB(it)
                     }
                 }
                 disableLoadingWheel()
@@ -114,13 +102,13 @@ class RatingFragment : Fragment(), RatingView {
             }
         }
 
-        statusResponse.observe(viewLifecycleOwner) {
-            statusResponse.value?.let { it1 -> Log.d("Response Rating", it1) }
-            if (statusResponse.value == "Error connection") {
+        ratingPresenter.statusResponse.observe(viewLifecycleOwner) {
+           Log.d("Response Rating", it)
+            if (it == "Error connection") {
                 setTitle("Offline")
                 GlobalScope.launch(Dispatchers.Main) {
                     try {
-                        if (listUser.value!!.isEmpty()) {
+                        if (ratingPresenter.listUser.value!!.isEmpty()) {
                             disableLoadingWheel()
                             showError()
                         }
@@ -130,7 +118,7 @@ class RatingFragment : Fragment(), RatingView {
                     }
                 }
             } else {
-                if (listUser.value?.size == 0) {
+                if (ratingPresenter.listUser.value?.size == 0) {
                     showError()
                 } else {
                     disableError()
@@ -153,7 +141,7 @@ class RatingFragment : Fragment(), RatingView {
                         getRatingCountryDB(requireView().context, "Россия")
                     }
                     TypeRating.CITY -> {
-                        getRatingCityDB(requireView().context, "Нижний новгород")
+                        getRatingCityDB(requireView().context, "Нижний Новгород")
                     }
                 }
             }
@@ -234,7 +222,7 @@ class RatingFragment : Fragment(), RatingView {
                 city.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
             }
         }
-        listUser.postValue(listOf())
+        ratingPresenter.listUser.postValue(listOf())
     }
 
     private suspend fun createRequest(typeRating: TypeRating, body: String?) {

@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.view.profile
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -8,42 +9,42 @@ import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.network.service.ServiceProfile
 
 @InjectViewState
-class ProfilePresenter : MvpPresenter<ProfileView>(), ProfileView {
+class ProfilePresenter (context: Context) : MvpPresenter<ProfileView>() {
 
-    private val profile = MutableLiveData<Profile>()
+    val profile = MutableLiveData<Profile>()
     private var modelProfileHelper: ModelProfileHelper =
-        ModelProfileHelper(ServiceProfile(), profile)
+        ModelProfileHelper(context, profile)
 
 
-    override fun getCurrentProfileAPI(id: Int): MutableLiveData<Profile> {
-        return modelProfileHelper.getCurrentProfileAPI(id)
+    fun getCurrentProfileAPI(id: Int) {
+        modelProfileHelper.getCurrentProfileAPI(id)
     }
 
-    override fun getHistoryDepositAPI(id: Int) {
+    fun getHistoryDepositAPI(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getViewHowGuestAPI(id: Int) {
+    fun getViewHowGuestAPI(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun updateProfileAPI(id: Int) {
+    fun updateProfileAPI(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getCurrentProfileDB(id: Int): Profile {
+    fun getCurrentProfileDB(id: Int): Profile {
         return modelProfileHelper.getCurrentProfileDB(id)
     }
 
-    override fun getHistoryDepositDB(id: Int) {
+    fun getHistoryDepositDB(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun getViewHowGuestDB(id: Int) {
+    fun getViewHowGuestDB(id: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun updateProfileDB(id: Int) {
+    fun updateProfileDB(id: Int) {
         TODO("Not yet implemented")
     }
 

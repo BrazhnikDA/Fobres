@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,7 +23,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageMenu"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:src="@drawable/menu"
@@ -46,12 +47,21 @@
             tools:layout_editor_absoluteX="16dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:background="@drawable/background_for_rating_list"
-        android:orientation="horizontal">
+        android:fitsSystemWindows="true"
+        android:orientation="horizontal"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="8dp"
+        app:contentPadding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
+        app:strokeColor="@color/dodgerBlueOpaque40"
+        app:strokeWidth="2dp">
 
 
         <LinearLayout
@@ -66,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Баланс: 3732.25 "
+                android:text="Баланс: 3732.50 "
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" />
@@ -121,5 +131,13 @@
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:text="Fobres"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/islamicGreen"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

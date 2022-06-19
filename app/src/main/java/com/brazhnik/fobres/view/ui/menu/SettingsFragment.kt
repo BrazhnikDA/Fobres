@@ -51,10 +51,6 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.findViewById<ImageView>(R.id.imageMenu).setOnClickListener {
-            view.findViewById<DrawerLayout>(R.id.drawerLayout).openDrawer(GravityCompat.START)
-        }
     }
 
     companion object {
