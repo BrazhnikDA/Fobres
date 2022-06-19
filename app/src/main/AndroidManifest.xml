@@ -15,12 +15,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".view.main.MainActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Fobres.NoActionBar" />
+        <activity
             android:name=".view.authorization.register.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.Fobres.NoActionBar" />
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.authorization.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

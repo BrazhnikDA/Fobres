@@ -1,6 +1,8 @@
 package com.brazhnik.fobres.view.authorization.login
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
@@ -19,6 +21,13 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
+        }
+
+        binding.textViewRegister.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
