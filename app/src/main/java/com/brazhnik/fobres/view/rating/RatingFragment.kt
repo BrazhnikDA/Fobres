@@ -284,7 +284,6 @@ class RatingFragment : Fragment(), RatingView {
             var progress = 0
             while (!isLoad) {
                 if (progress == 100) progress = 0
-                Log.d("Bar:", progress.toString())
                 progressBar.progress = progress
                 progress += 5
                 delay(45)

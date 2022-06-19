@@ -66,4 +66,10 @@ class ServiceRating {
         })
         return result
     }
+
+    companion object {
+        fun errorHandler(): String {
+            return ""
+        }
+    }
 }
