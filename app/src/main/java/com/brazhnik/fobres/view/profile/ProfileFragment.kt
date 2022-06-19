@@ -11,8 +11,13 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.model.Profile
+import com.brazhnik.fobres.databinding.FragmentProfileBinding
+
 
 class ProfileFragment : Fragment(), ProfileView {
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+
     @InjectPresenter
     lateinit var presenter: ProfilePresenter
 
@@ -24,27 +29,11 @@ class ProfileFragment : Fragment(), ProfileView {
     private var id_: Int = 8
 
     private fun fillingFields(profileInfo: Profile) {
-        val name = view?.findViewById<TextView>(R.id.name)
-        val coins = view?.findViewById<TextView>(R.id.coins)
-        val description = view?.findViewById<TextView>(R.id.description)
-        val location = view?.findViewById<TextView>(R.id.locationText)
-        val login = view?.findViewById<TextView>(R.id.title)
-
-        if (name != null) {
-            name.text = String.format(getString(R.string.name_profile), profileInfo.firstName, profileInfo.lastName)
-        }
-        if (coins != null) {
-            coins.text = String.format(getString(R.string.coins_profile), profileInfo.money)
-        }
-        if (description != null) {
-            description.text = profileInfo.profileDescription
-        }
-        if (location != null) {
-            location.text = String.format(getString(R.string.location_profile), profileInfo.country, profileInfo.city)
-        }
-        if(login != null) {
-            login.text =  String.format(getString(R.string.login_profile), profileInfo.login)
-        }
+        binding.name.text = String.format(getString(R.string.name_profile), profileInfo.firstName, profileInfo.lastName)
+        binding.coins.text = String.format(getString(R.string.coins_profile), profileInfo.money)
+        binding.description.text = profileInfo.profileDescription
+        binding.locationText.text = String.format(getString(R.string.location_profile), profileInfo.country, profileInfo.city)
+        binding.title.text =  String.format(getString(R.string.login_profile), profileInfo.login)
     }
 
     override fun getCurrentProfileAPI(id: Int) {
@@ -83,7 +72,9 @@ class ProfileFragment : Fragment(), ProfileView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        // inflate the layout and bind to the _binding
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -95,6 +86,13 @@ class ProfileFragment : Fragment(), ProfileView {
         presenter.profile.observe(viewLifecycleOwner, Observer {
             fillingFields(it)
         })
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun openFragment() {
