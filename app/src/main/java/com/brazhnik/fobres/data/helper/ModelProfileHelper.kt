@@ -2,12 +2,13 @@ package com.brazhnik.fobres.data.helper
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import com.brazhnik.fobres.data.database.room.repository.RoomProfileEventRepository
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.network.service.ServiceProfile
 import com.brazhnik.fobres.view.profile.ProfileView
 
 class ModelProfileHelper (
-    context: Context,
+    private val context: Context,
     private val profile: MutableLiveData<Profile>
     ) : ProfileView {
 
@@ -15,6 +16,15 @@ class ModelProfileHelper (
 
     override fun getCurrentProfileAPI(id: Int) {
         serviceProfile.getCurrentProfile(profile, id)
+    }
+
+    suspend fun setProfileDB(profile: Profile) {
+        // Get on api world country city place of rating
+        RoomProfileEventRepository.saveProfile(context, profile, "55", "33", "27")
+    }
+
+    suspend fun getProfileDB() {
+
     }
 
     override fun getHistoryDepositAPI(id: Int) {

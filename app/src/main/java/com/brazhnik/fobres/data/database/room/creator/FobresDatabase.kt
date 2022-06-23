@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.brazhnik.fobres.data.database.room.dao.LogEventDao
+import com.brazhnik.fobres.data.database.room.dao.ProfileEventDao
 import com.brazhnik.fobres.data.database.room.dao.RatingEventDao
 import com.brazhnik.fobres.data.database.room.entity.LogEventEntity
 import com.brazhnik.fobres.data.database.room.entity.RatingEventEntity
@@ -13,6 +14,7 @@ import com.brazhnik.fobres.data.database.room.entity.RatingEventEntity
 abstract class FobresDatabase : RoomDatabase() {
     abstract fun logDao(): LogEventDao
     abstract fun ratingDao(): RatingEventDao
+    abstract fun profileDao(): ProfileEventDao
 
     companion object {
         @Volatile

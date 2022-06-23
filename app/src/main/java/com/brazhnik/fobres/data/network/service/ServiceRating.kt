@@ -91,7 +91,7 @@ class ServiceRating {
             }
 
             override fun onFailure(call: Call<List<Rating>>, error: Throwable) {
-                Log.e("Logs_Error", error.message.toString())
+                Log.e("Logs_Error_onFailure", error.message.toString())
                 status.postValue(errorsHandler(error.toString()))
             }
         })

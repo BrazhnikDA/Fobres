@@ -6,6 +6,7 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
+import com.brazhnik.fobres.view.authorization.register.RegisterActivity
 import com.brazhnik.fobres.view.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -25,9 +26,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.textViewRegister.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 }

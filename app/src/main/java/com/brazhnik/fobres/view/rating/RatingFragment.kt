@@ -25,6 +25,7 @@ import com.brazhnik.fobres.databinding.FragmentProfileBinding
 import com.brazhnik.fobres.databinding.FragmentRatingBinding
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.makeramen.roundedimageview.RoundedImageView
+import kotlinx.android.synthetic.main.layout_navigation_header.view.*
 import kotlinx.coroutines.*
 
 
@@ -73,11 +74,6 @@ class RatingFragment : Fragment(), RatingView {
         ratingPresenter.getRatingCityDB(context, city)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true;
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,7 +97,6 @@ class RatingFragment : Fragment(), RatingView {
         }
 
         ratingPresenter.listUser.observe(viewLifecycleOwner) {
-            if(it == null) return@observe
             recyclerView.adapter = RatingAdapter(it)
             if (it.isNotEmpty()) {
                 if (binding.title.text != "Offline") {
@@ -111,7 +106,6 @@ class RatingFragment : Fragment(), RatingView {
                         setRatingAllDB(it)
                     }
                 }
-                disableLoadingWheel()
                 disableError()
             }
         }
@@ -123,11 +117,9 @@ class RatingFragment : Fragment(), RatingView {
                 GlobalScope.launch(Dispatchers.Main) {
                     try {
                         if (ratingPresenter.listUser.value!!.isEmpty()) {
-                            disableLoadingWheel()
                             showError()
                         }
                     } catch (ex: Exception) {
-                        disableLoadingWheel()
                         showError()
                     }
                 }
@@ -143,10 +135,9 @@ class RatingFragment : Fragment(), RatingView {
 
     private fun handlerButtonClick() {
         binding.loadDataDB.setOnClickListener {
+            disableError()
+            showLoadingWheel()
             GlobalScope.launch {
-                disableError()
-                showLoadingWheel()
-
                 when (typeRating) {
                     TypeRating.ALL -> {
                         getRatingAllDB(requireView().context)
@@ -210,14 +201,15 @@ class RatingFragment : Fragment(), RatingView {
         switchRating(binding.optionWorld, binding.optionCountry, binding.optionCity)
     }
 
-    private fun switchRating(
-        world: RoundedImageView,
-        country: RoundedImageView,
-        city: RoundedImageView
-    ) {
+    private fun switchRating(world: RoundedImageView, country: RoundedImageView, city: RoundedImageView) {
         when (typeRating) {
             TypeRating.ALL -> {
-                world.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                world.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.teal_200
+                    )
+                )
                 country.background = R.color.blackOpaque20.toDrawable()
                 city.background = R.color.blackOpaque20.toDrawable()
             }
@@ -234,14 +226,18 @@ class RatingFragment : Fragment(), RatingView {
             TypeRating.CITY -> {
                 world.background = R.color.blackOpaque20.toDrawable()
                 country.background = R.color.blackOpaque20.toDrawable()
-                city.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                city.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.teal_200
+                    )
+                )
             }
         }
         ratingPresenter.listUser.postValue(listOf())
     }
 
     private fun createRequest(typeRating: TypeRating, body: String?) {
-
         showLoadingWheel()
         if (typeRating == TypeRating.ALL) {
             setTitle(resources.getString(R.string.top_off_world))
@@ -259,7 +255,6 @@ class RatingFragment : Fragment(), RatingView {
                 getRatingCountryAPI(body)
             }
         }
-
     }
 
     override fun displayList(listRating: List<Rating>) {
@@ -267,11 +262,13 @@ class RatingFragment : Fragment(), RatingView {
     }
 
     override fun showError() {
+        disableLoadingWheel()
         binding.errorData.visibility = View.VISIBLE
         binding.loadDataDB.visibility = View.VISIBLE
     }
 
     override fun disableError() {
+        disableLoadingWheel()
         binding.errorData.visibility = View.GONE
         binding.loadDataDB.visibility = View.GONE
     }

@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId "com.brazhnik.fobres"
-        minSdk 22
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "0.2"
@@ -87,4 +87,7 @@ dependencies {
 
     // Rounded image view
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    // Country Picker
+    implementation 'com.hbb20:android-country-picker:0.0.7'
 }
