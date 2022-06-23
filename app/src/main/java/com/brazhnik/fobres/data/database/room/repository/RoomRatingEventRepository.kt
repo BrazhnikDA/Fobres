@@ -64,17 +64,17 @@ class RoomRatingEventRepository {
                     )
                 }
                 return if (result.size > 0) result else mutableListOf(
-                Rating(
-                    "0",
-                    "_",
-                    "Your history is empty :(",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "0"
-                )
+                    Rating(
+                        "0",
+                        "_",
+                        "Your history is empty :(",
+                        "_",
+                        "_",
+                        "_",
+                        "_",
+                        "_",
+                        "0"
+                    )
                 )
             } catch (ex: Exception) {
                 Log.d("DB: ", "Table for rating is empty!")
@@ -103,17 +103,17 @@ class RoomRatingEventRepository {
                     )
                 }
                 return if (result.size > 0) result else mutableListOf(
-                Rating(
-                    "0",
-                    "_",
-                    "Your history is empty :(",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "0"
-                )
+                    Rating(
+                        "0",
+                        "_",
+                        "Your history is empty :(",
+                        "_",
+                        "_",
+                        "_",
+                        "_",
+                        "_",
+                        "0"
+                    )
                 )
             } catch (ex: Exception) {
                 Log.d("DB: ", "Table for rating is empty!")

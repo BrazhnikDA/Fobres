@@ -12,7 +12,7 @@ interface ProfileView : MvpView {
     fun updateProfileAPI(id: Int)
 
     // DB
-    fun getCurrentProfileDB(id: Int) : Profile
+    fun getCurrentProfileDB(id: Int)
     fun getHistoryDepositDB(id: Int)
     fun getViewHowGuestDB(id: Int)
     fun updateProfileDB(id: Int)

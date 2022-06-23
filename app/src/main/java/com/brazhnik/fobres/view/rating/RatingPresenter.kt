@@ -1,17 +1,12 @@
 package com.brazhnik.fobres.view.rating
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.helper.ModelRatingHelper
 import com.brazhnik.fobres.data.model.Rating
-import com.brazhnik.fobres.data.model.TypeRating
-import com.brazhnik.fobres.data.network.service.ServiceRating
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @InjectViewState
 class RatingPresenter constructor(context: Context) : MvpPresenter<RatingView>() {

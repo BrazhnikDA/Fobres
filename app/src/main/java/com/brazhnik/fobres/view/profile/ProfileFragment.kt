@@ -41,31 +41,31 @@ class ProfileFragment : Fragment(), ProfileView {
     }
 
     override fun getHistoryDepositAPI(id: Int) {
-        return presenter.getHistoryDepositAPI(id)
+        presenter.getHistoryDepositAPI(id)
     }
 
     override fun getViewHowGuestAPI(id: Int) {
-        return presenter.getViewHowGuestAPI(id)
+        presenter.getViewHowGuestAPI(id)
     }
 
     override fun updateProfileAPI(id: Int) {
-        return presenter.updateProfileAPI(id)
+        presenter.updateProfileAPI(id)
     }
 
-    override fun getCurrentProfileDB(id: Int): Profile {
-        return presenter.getCurrentProfileDB(id)
+    override fun getCurrentProfileDB(id: Int) {
+        presenter.getCurrentProfileDB(id)
     }
 
     override fun getHistoryDepositDB(id: Int) {
-        return presenter.getHistoryDepositDB(id)
+        presenter.getHistoryDepositDB(id)
     }
 
     override fun getViewHowGuestDB(id: Int) {
-        return presenter.getViewHowGuestDB(id)
+        presenter.getViewHowGuestDB(id)
     }
 
     override fun updateProfileDB(id: Int) {
-        return presenter.updateProfileDB(id)
+        presenter.updateProfileDB(id)
     }
 
     override fun onCreateView(

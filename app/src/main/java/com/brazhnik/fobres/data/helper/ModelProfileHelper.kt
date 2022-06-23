@@ -29,7 +29,7 @@ class ModelProfileHelper (
         TODO("Not yet implemented")
     }
 
-    override fun getCurrentProfileDB(id: Int): Profile {
+    override fun getCurrentProfileDB(id: Int) {
         TODO("Not yet implemented")
     }
 

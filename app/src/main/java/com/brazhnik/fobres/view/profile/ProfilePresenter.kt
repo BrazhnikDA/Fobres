@@ -32,8 +32,8 @@ class ProfilePresenter (context: Context) : MvpPresenter<ProfileView>() {
         TODO("Not yet implemented")
     }
 
-    fun getCurrentProfileDB(id: Int): Profile {
-        return modelProfileHelper.getCurrentProfileDB(id)
+    fun getCurrentProfileDB(id: Int) {
+        modelProfileHelper.getCurrentProfileDB(id)
     }
 
     fun getHistoryDepositDB(id: Int) {

@@ -19,7 +19,7 @@ interface RatingView : MvpView {
     fun showError()
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    suspend fun showLoadingWheel()
+    fun showLoadingWheel()
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun disableLoadingWheel()
@@ -27,6 +27,5 @@ interface RatingView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun disableError()
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
     fun setTitle(title: String)
 }
