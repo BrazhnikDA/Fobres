@@ -55,4 +55,7 @@
     <string name="hint_first_name">Ivan</string>
     <string name="hint_last_name">Vassilyevich</string>
 
+    <!-- Navigation Header -->
+    <string name="offline">Offline</string>
+
 </resources>
