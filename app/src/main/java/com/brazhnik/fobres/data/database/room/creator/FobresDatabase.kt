@@ -8,9 +8,10 @@ import com.brazhnik.fobres.data.database.room.dao.LogEventDao
 import com.brazhnik.fobres.data.database.room.dao.ProfileEventDao
 import com.brazhnik.fobres.data.database.room.dao.RatingEventDao
 import com.brazhnik.fobres.data.database.room.entity.LogEventEntity
+import com.brazhnik.fobres.data.database.room.entity.ProfileEventEntity
 import com.brazhnik.fobres.data.database.room.entity.RatingEventEntity
 
-@Database(entities = [LogEventEntity::class, RatingEventEntity::class], version = 5)
+@Database(entities = [LogEventEntity::class, RatingEventEntity::class, ProfileEventEntity::class], version = 7)
 abstract class FobresDatabase : RoomDatabase() {
     abstract fun logDao(): LogEventDao
     abstract fun ratingDao(): RatingEventDao

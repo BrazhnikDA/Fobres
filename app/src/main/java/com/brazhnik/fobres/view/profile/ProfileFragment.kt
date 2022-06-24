@@ -53,7 +53,7 @@ class ProfileFragment : Fragment(), ProfileView {
     }
 
     override fun getCurrentProfileDB(id: Int) {
-        presenter.getCurrentProfileDB(id)
+        presenter.getProfileDB()
     }
 
     override fun getHistoryDepositDB(id: Int) {
@@ -85,9 +85,13 @@ class ProfileFragment : Fragment(), ProfileView {
 
         presenter.profile.observe(viewLifecycleOwner, Observer {
             fillingFields(it)
+            presenter.setProfileDB(it)
         })
 
-
+        presenter.status.observe(viewLifecycleOwner, Observer {
+            binding.title.text = resources.getString(R.string.offline)
+            presenter.getProfileDB()
+        })
     }
 
     override fun onDestroyView() {

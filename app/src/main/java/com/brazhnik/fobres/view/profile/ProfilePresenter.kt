@@ -7,13 +7,17 @@ import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.network.service.ServiceProfile
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @InjectViewState
 class ProfilePresenter (context: Context) : MvpPresenter<ProfileView>() {
 
-    val profile = MutableLiveData<Profile>()
+    val profile: MutableLiveData<Profile> = MutableLiveData()
+    val status: MutableLiveData<String> = MutableLiveData()
+
     private var modelProfileHelper: ModelProfileHelper =
-        ModelProfileHelper(context, profile)
+        ModelProfileHelper(context, profile, status)
 
 
     fun getCurrentProfileAPI(id: Int) {
@@ -32,8 +36,16 @@ class ProfilePresenter (context: Context) : MvpPresenter<ProfileView>() {
         TODO("Not yet implemented")
     }
 
-    fun getCurrentProfileDB(id: Int) {
-        modelProfileHelper.getCurrentProfileDB(id)
+    fun setProfileDB(profile: Profile) {
+        GlobalScope.launch {
+            modelProfileHelper.setProfileDB(profile)
+        }
+    }
+
+    fun getProfileDB() {
+        GlobalScope.launch {
+            modelProfileHelper.getProfileDB()
+        }
     }
 
     fun getHistoryDepositDB(id: Int) {

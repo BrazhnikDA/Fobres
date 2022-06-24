@@ -9,13 +9,14 @@ import com.brazhnik.fobres.view.profile.ProfileView
 
 class ModelProfileHelper (
     private val context: Context,
-    private val profile: MutableLiveData<Profile>
+    private val profile: MutableLiveData<Profile>,
+    private val status: MutableLiveData<String>
     ) : ProfileView {
 
     private val serviceProfile: ServiceProfile = ServiceProfile()
 
     override fun getCurrentProfileAPI(id: Int) {
-        serviceProfile.getCurrentProfile(profile, id)
+        serviceProfile.getCurrentProfile(profile, id, status)
     }
 
     suspend fun setProfileDB(profile: Profile) {
@@ -24,7 +25,7 @@ class ModelProfileHelper (
     }
 
     suspend fun getProfileDB() {
-
+        profile.postValue(RoomProfileEventRepository.getProfile())
     }
 
     override fun getHistoryDepositAPI(id: Int) {

@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ServiceProfile {
-    fun getCurrentProfile(result: MutableLiveData<Profile>, id: Int) : MutableLiveData<Profile> {
+    fun getCurrentProfile(result: MutableLiveData<Profile>, id: Int, status: MutableLiveData<String>) : MutableLiveData<Profile> {
         NetworkAPI().getJSONProfileAPI().getCurrentProfile(id).enqueue(object : Callback<Profile> {
             override fun onResponse(
                 call: Call<Profile>,
@@ -21,6 +21,7 @@ class ServiceProfile {
 
             override fun onFailure(call: Call<Profile>, t: Throwable) {
                 Log.e("Logs_Error", t.toString())
+                status.postValue(t.message)
             }
         })
         return result

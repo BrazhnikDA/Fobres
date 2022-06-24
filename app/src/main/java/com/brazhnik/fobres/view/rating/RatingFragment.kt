@@ -99,9 +99,7 @@ class RatingFragment : Fragment(), RatingView {
         ratingPresenter.listUser.observe(viewLifecycleOwner) {
             recyclerView.adapter = RatingAdapter(it)
             if (it.isNotEmpty()) {
-                if (binding.title.text != "Offline") {
-                    // Checking which rating type is currently selected
-                    // Now only All
+                if (binding.title.text != resources.getString(R.string.offline)) {
                     GlobalScope.launch {
                         setRatingAllDB(it)
                     }
@@ -113,7 +111,7 @@ class RatingFragment : Fragment(), RatingView {
         ratingPresenter.statusResponse.observe(viewLifecycleOwner) {
             Log.d("Response Rating", it)
             if (it == "Error connection") {
-                setTitle("Offline")
+                setTitle(resources.getString(R.string.offline))
                 GlobalScope.launch(Dispatchers.Main) {
                     try {
                         if (ratingPresenter.listUser.value!!.isEmpty()) {

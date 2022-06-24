@@ -10,6 +10,7 @@ class RoomProfileEventRepository {
     companion object : ProfileEventRepository {
 
         private var profileDatabase: FobresDatabase? = null
+        private lateinit var context: Context
 
         private fun initializeDB(context: Context): FobresDatabase {
             return FobresDatabase.getDatabaseFobres(context)
@@ -22,9 +23,10 @@ class RoomProfileEventRepository {
             country: String,
             city: String
         ) {
-            if (profileDatabase == null)
+            if (profileDatabase == null) {
                 profileDatabase = initializeDB(context)
-
+                this.context = context
+            }
             profileDatabase!!.profileDao().saveProfile(
                 ProfileEventEntity(
                     id = profile.id.toLong(),
@@ -41,6 +43,28 @@ class RoomProfileEventRepository {
                     cityPlace = city
                 )
             )
+        }
+
+        override suspend fun getProfile(): Profile {
+            if (profileDatabase == null)
+                profileDatabase = initializeDB(context)
+
+            val profile = profileDatabase!!.profileDao().getProfile()
+            if (profile.isNotEmpty()) {
+                return Profile(
+                    id = profile[0].id.toString(),
+                    login = profile[0].login,
+                    firstName = profile[0].firstName,
+                    lastName = profile[0].lastName,
+                    profileDescription = profile[0].profileDescription,
+                    profilePicture = profile[0].profilePicture,
+                    country = profile[0].country,
+                    city = profile[0].city,
+                    money = profile[0].money
+                )
+            }else {
+               return Profile((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_")
+            }
         }
     }
 }

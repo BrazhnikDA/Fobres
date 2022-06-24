@@ -11,4 +11,6 @@ interface ProfileEventRepository {
         country: String,
         city: String
     )
+
+    suspend fun getProfile(): Profile
 }
