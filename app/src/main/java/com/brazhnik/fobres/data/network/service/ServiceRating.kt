@@ -20,13 +20,33 @@ class ServiceRating {
                 response: Response<List<Rating>>
             ) {
                 Log.e("Logs_response", response.body().toString())
-                result.postValue(response.body())
-                status.postValue("OK")
+                if (response.body() == null) {
+                    result.postValue(
+                        mutableListOf(
+                            Rating(
+                                "0",
+                                "_",
+                                "Your history is empty :(",
+                                "_",
+                                "_",
+                                "_",
+                                "_",
+                                "_",
+                                "0"
+                            )
+                        )
+                    )
+                    status.postValue(RESPONSE_EMPTY)
+                } else {
+                    result.postValue(response.body())
+                    status.postValue(RESPONSE_OK)
+                }
             }
 
             override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
                 Log.e("Logs_Error", t.toString())
                 status.postValue("Error connection")
+                result.postValue(mutableListOf(EMPTY_LIST_RATING))
             }
         })
         return result
@@ -44,13 +64,33 @@ class ServiceRating {
                     response: Response<List<Rating>>
                 ) {
                     Log.e("Logs_response", response.body().toString())
-                    result.postValue(response.body())
-                    status.postValue("OK")
+                    if (response.body() == null) {
+                        result.postValue(
+                            mutableListOf(
+                                Rating(
+                                    "0",
+                                    "_",
+                                    "Your history is empty :(",
+                                    "_",
+                                    "_",
+                                    "_",
+                                    "_",
+                                    "_",
+                                    "0"
+                                )
+                            )
+                        )
+                        status.postValue(RESPONSE_EMPTY)
+                    } else {
+                        result.postValue(response.body())
+                        status.postValue(RESPONSE_OK)
+                    }
                 }
 
                 override fun onFailure(call: Call<List<Rating>>, t: Throwable) {
                     Log.e("Logs_Error", t.toString())
                     status.postValue("Error connection")
+                    result.postValue(mutableListOf(EMPTY_LIST_RATING))
                 }
             })
         return result
@@ -92,7 +132,8 @@ class ServiceRating {
 
             override fun onFailure(call: Call<List<Rating>>, error: Throwable) {
                 Log.e("Logs_Error_onFailure", error.message.toString())
-                status.postValue(errorsHandler(error.toString()))
+                status.postValue("Error connection")
+                result.postValue(mutableListOf(EMPTY_LIST_RATING))
             }
         })
         return result
@@ -102,6 +143,17 @@ class ServiceRating {
         private const val RESPONSE_OK = "OK"
         private const val RESPONSE_FAILED = "Failed to connect"
         private const val RESPONSE_EMPTY = "Something went wrong"
+        private val EMPTY_LIST_RATING = Rating(
+            "0",
+            "_",
+            "Your history is empty :(",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "0"
+        )
 
         fun errorsHandler(error: String): String {
             if (error.contains("failed to connect", ignoreCase = true)) {
