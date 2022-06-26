@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.data.network
 
+import com.brazhnik.fobres.data.SharedData.Companion.TIME_WAIT_RESPONSE_API
 import com.brazhnik.fobres.data.network.api.PlaceHolderProfileAPI
 import com.brazhnik.fobres.data.network.api.PlaceHolderRatingAPI
 import okhttp3.OkHttpClient
@@ -16,9 +17,9 @@ class NetworkAPI {
     init {
         val okHttpClient =
             OkHttpClient().newBuilder()
-                .connectTimeout(1500, TimeUnit.MILLISECONDS)
-                .readTimeout(1500, TimeUnit.MILLISECONDS)
-                .writeTimeout(1500, TimeUnit.MILLISECONDS)
+                .connectTimeout(TIME_WAIT_RESPONSE_API.toLong(), TimeUnit.MILLISECONDS)
+                .readTimeout(TIME_WAIT_RESPONSE_API.toLong(), TimeUnit.MILLISECONDS)
+                .writeTimeout(TIME_WAIT_RESPONSE_API.toLong(), TimeUnit.MILLISECONDS)
                 .build()
 
 
