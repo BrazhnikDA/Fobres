@@ -4,10 +4,10 @@ import android.content.Context
 import com.brazhnik.fobres.data.model.Rating
 
 interface RatingEventRepository {
-    suspend fun saveListRating(context: Context, listRating: List<Rating>)
+    suspend fun saveListRating(listRating: List<Rating>)
 
-    suspend fun getRatingAll(context: Context): List<Rating>
-    suspend fun getRatingCountry(context: Context, country: String): List<Rating>
-    suspend fun getRatingCity(context: Context, city: String): List<Rating>
+    suspend fun getRatingAll(): List<Rating>
+    suspend fun getRatingCountry(country: String): List<Rating>
+    suspend fun getRatingCity(city: String): List<Rating>
 
 }

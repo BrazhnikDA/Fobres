@@ -1,23 +1,25 @@
 package com.brazhnik.fobres.view.rating
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.brazhnik.fobres.data.helper.ModelProfileHelper
 import com.brazhnik.fobres.data.helper.ModelRatingHelper
 import com.brazhnik.fobres.data.model.Rating
 
 @InjectViewState
-class RatingPresenter constructor(context: Context) : MvpPresenter<RatingView>() {
+class RatingPresenter: MvpPresenter<RatingView>() {
 
     private val modelRatingHelper: ModelRatingHelper
 
-    var listUser: MutableLiveData<List<Rating>> = MutableLiveData()
-    var statusResponse: MutableLiveData<String> = MutableLiveData()
+    val listUser: MutableLiveData<List<Rating>> = MutableLiveData()
+    val statusResponse: MutableLiveData<String> = MutableLiveData()
+    val selectionTypeCountry: MutableLiveData<String> = MutableLiveData()
+    val selectionTypeCity: MutableLiveData<String> = MutableLiveData()
 
     init {
-        modelRatingHelper = ModelRatingHelper(context, listUser, statusResponse)
+        modelRatingHelper = ModelRatingHelper(listUser, statusResponse)
     }
 
     fun getRatingAllAPI() {
@@ -36,15 +38,23 @@ class RatingPresenter constructor(context: Context) : MvpPresenter<RatingView>()
         modelRatingHelper.setRatingAllDB(listRating)
     }
 
-    suspend fun getRatingAllDB(context: Context) {
-        modelRatingHelper.getRatingAllDB(context)
+    suspend fun getRatingAllDB() {
+        modelRatingHelper.getRatingAllDB()
     }
 
-    suspend fun getRatingCountryDB(context: Context, country: String) {
-        modelRatingHelper.getRatingCountryDB(context, country)
+    suspend fun getRatingCountryDB(country: String) {
+        modelRatingHelper.getRatingCountryDB(country)
     }
 
-    suspend fun getRatingCityDB(context: Context, city: String) {
-        modelRatingHelper.getRatingCityDB(context, city)
+    suspend fun getRatingCityDB(city: String) {
+        modelRatingHelper.getRatingCityDB(city)
+    }
+
+    suspend fun getCountryProfile() {
+        ModelProfileHelper.getCountry(selectionTypeCountry)
+    }
+
+    suspend fun getCityProfile() {
+        ModelProfileHelper.getCity(selectionTypeCity)
     }
 }

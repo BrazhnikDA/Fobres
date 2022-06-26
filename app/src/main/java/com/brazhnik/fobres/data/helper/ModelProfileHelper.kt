@@ -8,51 +8,32 @@ import com.brazhnik.fobres.data.network.service.ServiceProfile
 import com.brazhnik.fobres.view.profile.ProfileView
 
 class ModelProfileHelper (
-    private val context: Context,
     private val profile: MutableLiveData<Profile>,
     private val status: MutableLiveData<String>
     ) : ProfileView {
 
     private val serviceProfile: ServiceProfile = ServiceProfile()
 
-    override fun getCurrentProfileAPI(id: Int) {
+    fun getCurrentProfileAPI(id: Int) {
         serviceProfile.getCurrentProfile(profile, id, status)
     }
 
     suspend fun setProfileDB(profile: Profile) {
         // Get on api world country city place of rating
-        RoomProfileEventRepository.saveProfile(context, profile, "55", "33", "27")
+        RoomProfileEventRepository.saveProfile(profile, "55", "33", "27")
     }
 
     suspend fun getProfileDB() {
         profile.postValue(RoomProfileEventRepository.getProfile())
     }
 
-    override fun getHistoryDepositAPI(id: Int) {
-        TODO("Not yet implemented")
-    }
+    companion object {
+        suspend fun getCountry(selectionTypeCountry: MutableLiveData<String>) {
+            RoomProfileEventRepository.getCountryProfile(selectionTypeCountry)
+        }
 
-    override fun getViewHowGuestAPI(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateProfileAPI(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getCurrentProfileDB(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getHistoryDepositDB(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getViewHowGuestDB(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateProfileDB(id: Int) {
-        TODO("Not yet implemented")
+        suspend fun getCity(selectionTypeCity: MutableLiveData<String>) {
+            RoomProfileEventRepository.getCityProfile(selectionTypeCity)
+        }
     }
 }

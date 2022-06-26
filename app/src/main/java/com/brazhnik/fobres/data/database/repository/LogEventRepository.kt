@@ -4,5 +4,5 @@ import android.content.Context
 import com.brazhnik.fobres.data.model.LogEvent
 
 interface LogEventRepository {
-    suspend fun saveLog(context: Context, log: LogEvent)
+    suspend fun saveLog(log: LogEvent)
 }

@@ -1,32 +1,30 @@
 package com.brazhnik.fobres.data.database.room.repository
 
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.database.repository.ProfileEventRepository
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
 import com.brazhnik.fobres.data.database.room.entity.ProfileEventEntity
 import com.brazhnik.fobres.data.model.Profile
+import kotlinx.coroutines.*
 
 class RoomProfileEventRepository {
     companion object : ProfileEventRepository {
 
-        private var profileDatabase: FobresDatabase? = null
-        private lateinit var context: Context
+        var profileDatabase: FobresDatabase? = null
 
-        private fun initializeDB(context: Context): FobresDatabase {
+        fun initializeDB(context: Context): FobresDatabase {
             return FobresDatabase.getDatabaseFobres(context)
         }
 
         override suspend fun saveProfile(
-            context: Context,
             profile: Profile,
             world: String,
             country: String,
             city: String
         ) {
-            if (profileDatabase == null) {
-                profileDatabase = initializeDB(context)
-                this.context = context
-            }
             profileDatabase!!.profileDao().saveProfile(
                 ProfileEventEntity(
                     id = profile.id.toLong(),
@@ -46,12 +44,9 @@ class RoomProfileEventRepository {
         }
 
         override suspend fun getProfile(): Profile {
-            if (profileDatabase == null)
-                profileDatabase = initializeDB(context)
-
             val profile = profileDatabase!!.profileDao().getProfile()
-            if (profile.isNotEmpty()) {
-                return Profile(
+            return if (profile.isNotEmpty()) {
+                Profile(
                     id = profile[0].id.toString(),
                     login = profile[0].login,
                     firstName = profile[0].firstName,
@@ -60,11 +55,24 @@ class RoomProfileEventRepository {
                     profilePicture = profile[0].profilePicture,
                     country = profile[0].country,
                     city = profile[0].city,
-                    money = profile[0].money
+                    money = profile[0].money,
+                    SharedData.profileCurrent.worldPlace,
+                    SharedData.profileCurrent.countryPlace,
+                    SharedData.profileCurrent.cityPlace
                 )
             }else {
-               return Profile((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_")
+                Profile((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_", "_", "_", "_")
             }
+        }
+
+        override suspend fun getCountryProfile(selectionTypeCountry: MutableLiveData<String>) {
+            selectionTypeCountry.postValue(profileDatabase!!.profileDao().getCountry())
+        }
+
+        override suspend fun getCityProfile(selectionTypeCity: MutableLiveData<String>) {
+            val a = profileDatabase!!.profileDao().getCity()
+            print(a)
+            //selectionTypeCity.postValue(profileDatabase!!.profileDao().getCity())
         }
     }
 }

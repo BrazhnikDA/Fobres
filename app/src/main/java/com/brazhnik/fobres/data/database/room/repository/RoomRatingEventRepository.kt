@@ -14,16 +14,13 @@ import kotlinx.coroutines.launch
 class RoomRatingEventRepository {
     companion object : RatingEventRepository {
 
-        private var ratingDatabase: FobresDatabase? = null
+        var ratingDatabase: FobresDatabase? = null
 
-        private fun initializeDB(context: Context): FobresDatabase {
+        fun initializeDB(context: Context): FobresDatabase {
             return FobresDatabase.getDatabaseFobres(context)
         }
 
-        override suspend fun saveListRating(context: Context, listRating: List<Rating>) {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
-
+        override suspend fun saveListRating(listRating: List<Rating>) {
             CoroutineScope(IO).launch {
                 for (item in listRating) {
                     ratingDatabase!!.ratingDao().saveListRating(
@@ -43,9 +40,7 @@ class RoomRatingEventRepository {
             }
         }
 
-        override suspend fun getRatingAll(context: Context): List<Rating> {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
+        override suspend fun getRatingAll(): List<Rating> {
             try {
                 val result: ArrayList<Rating> = arrayListOf()
                 for (item in ratingDatabase!!.ratingDao().getListRatingAll()) {
@@ -82,9 +77,7 @@ class RoomRatingEventRepository {
             }
         }
 
-        override suspend fun getRatingCountry(context: Context, country: String): List<Rating> {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
+        override suspend fun getRatingCountry(country: String): List<Rating> {
             try {
                 val result: ArrayList<Rating> = arrayListOf()
                 for (item in ratingDatabase!!.ratingDao().getListRatingCountry(country)) {
@@ -121,9 +114,7 @@ class RoomRatingEventRepository {
             }
         }
 
-        override suspend fun getRatingCity(context: Context, city: String): List<Rating> {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
+        override suspend fun getRatingCity(city: String): List<Rating> {
             try {
                 val result: ArrayList<Rating> = arrayListOf()
                 for (item in ratingDatabase!!.ratingDao().getListRatingCity(city)) {
