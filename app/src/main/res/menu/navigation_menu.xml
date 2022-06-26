@@ -3,20 +3,31 @@
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:title="@string/nav_profile" />
+
+    <item
+        android:id="@+id/nav_statistic"
+        android:icon="@drawable/ic_back_original"
+        android:title="@string/nav_statistic" />
+
     <item
         android:id="@+id/nav_rating"
         android:icon="@mipmap/ic_rating"
-        android:title="Rating" />
+        android:title="@string/nav_rating" />
+
+    <item
+        android:id="@+id/nav_store"
+        android:icon="@drawable/ic_back_original"
+        android:title="@string/nav_store" />
 
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:title="@string/nav_settings" />
 
     <item
         android:id="@+id/nav_home"
         android:icon="@mipmap/ic_home"
-        android:title="Home" />
+        android:title="@string/nav_home" />
 
 </menu>

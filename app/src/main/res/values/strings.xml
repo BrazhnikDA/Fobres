@@ -59,10 +59,20 @@
     <!-- Navigation Header -->
     <string name="offline">Offline</string>
 
+    <!-- Labels for Navigation Menu -->
+    <string name="nav_profile">Profile</string>
+    <string name="nav_statistic">Statistic</string>
+    <string name="nav_rating">Rating</string>
+    <string name="nav_store">Store</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_home">Home</string>
+
     <!-- Home Screen -->
     <string name="coins_home">Coins: %1$s</string>
     <string name="world_home">World: №%1$s</string>
     <string name="country_home">Country: №%1$s</string>
     <string name="city_home">City: №%1$s</string>
 
+
+    
 </resources>
