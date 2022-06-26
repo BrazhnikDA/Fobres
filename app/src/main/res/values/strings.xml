@@ -5,42 +5,23 @@
     <!-- APP Description -->
     <string name="app_description">The app that will change the world</string>
 
+    <!-- APP Name Class (Manifest) -->
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+
     <!-- Profile -->
-    <string name="profilePlaceInRating">Place: № 1</string>
-    <string name="profileAmount">Coins: 3072.23 $</string>
-    <string name="profileDescription">My name is Dimitry i am in charge product manager.In free time i like read book and watch movies. I would like to suggest my service. ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                                                             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff                                      ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</string>
-    <string name="description">Description</string>
-    <string name="place_to_rating">#</string>
-    <string name="amount">Coins:</string>
-    <string name="name">Name</string>
-    <string name="country">Country:</string>
-    <string name="city">City:</string>
-    <string name="history_of_deposits">History of deposits</string>
-    <string name="change_profile">Change Profile</string>
-    <string name="view_how_guest">View How Guest</string>
-    <string name="description_textView">Description:</string>
-    <string name="your_name">Your name:</string>
-
-    <!-- Rating -->
-    <string name="top_off_world">Top Off World</string>
-    <string name="top_off">Top Off</string>
-
-    <!-- Menu -->
-    <string name="action_settings">Settings</string>
-    <string name="drawer_item_home">Home</string>
-    <string name="drawer_item_settings">Settings</string>
-
-    <string name="sorry_data_is_empty">Sorry, data is empty :(</string>
-    <string name="load_lust_data">Load lust data</string>
     <string name="name_profile">%1$s %2$s</string>
     <string name="login_profile">%1$s</string>
     <string name="location_profile">%1$s/%2$s</string>
     <string name="coins_profile">%1$s coins</string>
 
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <!-- Rating -->
+    <string name="top_off_world">Top Off World</string>
+    <string name="top_off">Top Off</string>
+    <string name="sorry_data_is_empty">Sorry, data is empty :(</string>
+    <string name="load_lust_data">Load lust data</string>
 
-
+    <!-- Login -->
     <string name="login">Login</string>
     <string name="login_guest">Continue how to guest</string>
 
@@ -73,6 +54,10 @@
     <string name="country_home">Country: №%1$s</string>
     <string name="city_home">City: №%1$s</string>
 
+    <!-- Item Rating -->
+    <string name="item_rating_name">%1$s %2$s</string>
+    <string name="item_rating_place">#%1$s</string>
+    <string name="item_rating_coins">Coins: #%1$s</string>
 
-    
+
 </resources>

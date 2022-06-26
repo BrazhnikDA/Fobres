@@ -50,7 +50,7 @@
                     android:id="@+id/textViewName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/name"
+                    android:text="@string/item_rating_name"
                     android:textAlignment="center"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -74,7 +74,7 @@
                     android:id="@+id/textViewTopRating"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:text="@string/place_to_rating"
+                    android:text="@string/item_rating_place"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="16sp" />
 
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="@string/amount"
+                    android:text="@string/item_rating_coins"
                     android:textAlignment="textStart"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="18sp"

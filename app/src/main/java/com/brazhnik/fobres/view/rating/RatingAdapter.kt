@@ -1,6 +1,5 @@
 package com.brazhnik.fobres.view.rating
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,9 +37,6 @@ class RatingAdapter(private val listUser: List<Rating>) :
         holder.nameProfile.text = listUser[position].firstName
         holder.textAmount.text = "Coins: ${listUser[position].money}"
         holder.textTopRating.text = "# ${position+1}"
-        /*holder.buttonViewLinks.setOnClickListener {
-
-        }*/
     }
 
     override fun getItemCount(): Int {
