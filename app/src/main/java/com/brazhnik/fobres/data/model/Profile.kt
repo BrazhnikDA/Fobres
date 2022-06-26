@@ -25,7 +25,10 @@ class Profile(
     val profilePicture: String,
     val country: String,
     val city: String,
-    val money: String
+    val money: String,
+    val worldPlace: String,
+    val countryPlace: String,
+    val cityPlace: String
 ) {
     override fun toString(): String {
         return "Name: $firstName $lastName <$login>\n" +
