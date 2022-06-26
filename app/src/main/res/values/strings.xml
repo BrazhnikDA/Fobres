@@ -42,6 +42,7 @@
 
 
     <string name="login">Login</string>
+    <string name="login_guest">Continue how to guest</string>
 
     <!-- Register -->
     <string name="register">Register</string>
@@ -57,5 +58,11 @@
 
     <!-- Navigation Header -->
     <string name="offline">Offline</string>
+
+    <!-- Home Screen -->
+    <string name="coins_home">Coins: %1$s</string>
+    <string name="world_home">World: №%1$s</string>
+    <string name="country_home">Country: №%1$s</string>
+    <string name="city_home">City: №%1$s</string>
 
 </resources>
