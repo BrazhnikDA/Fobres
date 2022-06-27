@@ -41,11 +41,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         SharedData.profileCurrent = Profile(
-            "8",
+            "1",
             "login1",
             "Dmitry",
             "Brazhnik",
             "I'm sail very delicious honey",
+            "Sail very delicious honey",
             "picture1.png",
             "Россия",
             "Нижний Новгород",

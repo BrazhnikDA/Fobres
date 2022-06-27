@@ -14,9 +14,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.SharedData
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.data.model.TypeRating
 import com.brazhnik.fobres.databinding.FragmentRatingBinding
+import com.brazhnik.fobres.utilities.displayToast
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.coroutines.*
 
@@ -76,11 +77,21 @@ class RatingFragment : Fragment(), RatingView {
 
         ratingPresenter.statusResponse.observe(viewLifecycleOwner) {
             Log.d("Response Rating", it)
-
+            if (it == "OK") {
+                disableLoadingWheel()
+                disableError()
+            }
             if (it == "Error connection") {
                 setTitle(resources.getString(R.string.offline))
                 disableLoadingWheel()
                 showError()
+                context?.displayToast(it)
+            }
+            if(it == "Something went wrong") {
+                setTitle(resources.getString(R.string.offline))
+                disableLoadingWheel()
+                showError()
+                context?.displayToast(it)
             }
         }
     }
@@ -216,8 +227,8 @@ class RatingFragment : Fragment(), RatingView {
         }
     }
 
-    override fun displayList(listRating: List<Rating>) {
-        recyclerView.adapter = RatingAdapter(listRating)
+    override fun displayList(listShortUser: List<ShortUser>) {
+        recyclerView.adapter = RatingAdapter(listShortUser)
     }
 
     override fun showError() {

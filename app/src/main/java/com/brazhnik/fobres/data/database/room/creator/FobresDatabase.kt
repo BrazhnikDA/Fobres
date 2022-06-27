@@ -16,7 +16,7 @@ import com.brazhnik.fobres.data.database.room.repository.RoomRatingEventReposito
 
 @Database(
     entities = [LogEventEntity::class, RatingEventEntity::class, ProfileEventEntity::class],
-    version = 7
+    version = 10
 )
 abstract class FobresDatabase : RoomDatabase() {
     abstract fun logDao(): LogEventDao

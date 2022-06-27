@@ -1,13 +1,12 @@
 package com.brazhnik.fobres.data.database.repository
 
-import android.content.Context
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 
 interface RatingEventRepository {
-    suspend fun saveListRating(listRating: List<Rating>)
+    suspend fun saveListRating(listShortUser: List<ShortUser>)
 
-    suspend fun getRatingAll(): List<Rating>
-    suspend fun getRatingCountry(country: String): List<Rating>
-    suspend fun getRatingCity(city: String): List<Rating>
+    suspend fun getRatingAll(): List<ShortUser>
+    suspend fun getRatingCountry(country: String): List<ShortUser>
+    suspend fun getRatingCity(city: String): List<ShortUser>
 
 }

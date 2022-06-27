@@ -1,10 +1,9 @@
 package com.brazhnik.fobres.view.rating
 
-import android.content.Context
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 
 /**
  * If fun contains in name "API" - this fun getting data from server else
@@ -13,7 +12,7 @@ import com.brazhnik.fobres.data.model.Rating
 
 interface RatingView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun displayList(listRating: List<Rating>)
+    fun displayList(listShortUser: List<ShortUser>)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showError()

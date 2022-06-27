@@ -1,19 +1,18 @@
 package com.brazhnik.fobres.view.rating
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
 import com.brazhnik.fobres.data.helper.ModelRatingHelper
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 
 @InjectViewState
 class RatingPresenter: MvpPresenter<RatingView>() {
 
     private val modelRatingHelper: ModelRatingHelper
 
-    val listUser: MutableLiveData<List<Rating>> = MutableLiveData()
+    val listUser: MutableLiveData<List<ShortUser>> = MutableLiveData()
     val statusResponse: MutableLiveData<String> = MutableLiveData()
     val selectionTypeCountry: MutableLiveData<String> = MutableLiveData()
     val selectionTypeCity: MutableLiveData<String> = MutableLiveData()
@@ -34,8 +33,8 @@ class RatingPresenter: MvpPresenter<RatingView>() {
         modelRatingHelper.getRatingCountryAPI(country)
     }
 
-    suspend fun setRatingAllDB(listRating: List<Rating>) {
-        modelRatingHelper.setRatingAllDB(listRating)
+    suspend fun setRatingAllDB(listShortUser: List<ShortUser>) {
+        modelRatingHelper.setRatingAllDB(listShortUser)
     }
 
     suspend fun getRatingAllDB() {

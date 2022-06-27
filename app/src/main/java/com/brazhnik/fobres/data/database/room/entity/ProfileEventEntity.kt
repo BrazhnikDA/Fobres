@@ -22,6 +22,9 @@ data class ProfileEventEntity (
     @ColumnInfo(name = "profile_description")
     val profileDescription: String,
 
+    @ColumnInfo(name = "status")
+    val status: String,
+
     @ColumnInfo(name = "picture_url")
     val profilePicture: String,
 

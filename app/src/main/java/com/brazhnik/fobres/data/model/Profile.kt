@@ -22,6 +22,7 @@ class Profile(
     val firstName: String,
     val lastName: String,
     val profileDescription: String,
+    val status: String,
     val profilePicture: String,
     val country: String,
     val city: String,
@@ -34,6 +35,7 @@ class Profile(
         return "Name: $firstName $lastName <$login>\n" +
                 "Place of residence: $country/$city\n" +
                 "Amount: $money\n" +
+                "Status: $status\n" +
                 "Description: $profileDescription"
     }
 }

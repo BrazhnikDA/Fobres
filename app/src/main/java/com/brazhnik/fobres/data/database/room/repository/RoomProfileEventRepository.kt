@@ -32,7 +32,8 @@ class RoomProfileEventRepository {
                     firstName = profile.firstName,
                     lastName = profile.lastName,
                     profileDescription = profile.profileDescription,
-                    profilePicture = profile.profilePicture.toString(),
+                    status = profile.status,
+                    profilePicture = profile.profilePicture,
                     country = profile.country,
                     city = profile.city,
                     money = profile.money,
@@ -52,6 +53,7 @@ class RoomProfileEventRepository {
                     firstName = profile[0].firstName,
                     lastName = profile[0].lastName,
                     profileDescription = profile[0].profileDescription,
+                    status = profile[0].status,
                     profilePicture = profile[0].profilePicture,
                     country = profile[0].country,
                     city = profile[0].city,
@@ -61,7 +63,7 @@ class RoomProfileEventRepository {
                     SharedData.profileCurrent.cityPlace
                 )
             }else {
-                Profile((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_", "_", "_", "_")
+                Profile((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_", "_", "_", "_", "_")
             }
         }
 

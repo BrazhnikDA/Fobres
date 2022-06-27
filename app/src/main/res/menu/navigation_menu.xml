@@ -8,7 +8,8 @@
     <item
         android:id="@+id/nav_statistic"
         android:icon="@drawable/ic_back_original"
-        android:title="@string/nav_statistic" />
+        android:title="@string/nav_statistic"
+        android:visible="true"/>
 
     <item
         android:id="@+id/nav_rating"

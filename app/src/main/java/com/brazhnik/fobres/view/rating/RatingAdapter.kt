@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 
-class RatingAdapter(private val listUser: List<Rating>) :
+class RatingAdapter(private val listUser: List<ShortUser>) :
     RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
 
 

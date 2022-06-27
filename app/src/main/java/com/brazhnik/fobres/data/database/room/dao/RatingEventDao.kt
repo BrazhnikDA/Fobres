@@ -14,9 +14,9 @@ interface RatingEventDao {
     @Query("SELECT * FROM rating_list_entity ORDER BY money DESC")
     fun getListRatingAll(): List<RatingEventEntity>
 
-    @Query("SELECT * FROM rating_list_entity WHERE country = :country ORDER BY money DESC")
-    fun getListRatingCountry(country: String): List<RatingEventEntity>
+    @Query("SELECT * FROM rating_list_entity ORDER BY money DESC")
+    fun getListRatingCountry(): List<RatingEventEntity>
 
-    @Query("SELECT * FROM rating_list_entity WHERE city = :city ORDER BY money DESC")
-    fun getListRatingCity(city: String): List<RatingEventEntity>
+    @Query("SELECT * FROM rating_list_entity ORDER BY money DESC")
+    fun getListRatingCity(): List<RatingEventEntity>
 }

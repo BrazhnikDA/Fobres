@@ -11,8 +11,8 @@ data class RatingEventEntity(
     @ColumnInfo(name = "id")
     var id: Long,
 
-    @ColumnInfo(name = "login")
-    val login: String,
+    @ColumnInfo(name = "money")
+    val money: String,
 
     @ColumnInfo(name = "firstname")
     val firstName: String,
@@ -20,19 +20,9 @@ data class RatingEventEntity(
     @ColumnInfo(name = "lastname")
     val lastName: String,
 
-    @ColumnInfo(name = "profile_description")
-    val profileDescription: String,
-
     @ColumnInfo(name = "picture_url")
     val profilePicture: String,
 
-    @ColumnInfo(name = "country")
-    val country: String,
-
-    @ColumnInfo(name = "city")
-    val city: String,
-
-    @ColumnInfo(name = "money")
-    val money: String
-
+    @ColumnInfo(name = "status")
+    val status: String
 )

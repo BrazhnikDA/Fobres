@@ -1,12 +1,11 @@
 package com.brazhnik.fobres.data.database.room.repository
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import com.brazhnik.fobres.data.database.repository.RatingEventRepository
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
 import com.brazhnik.fobres.data.database.room.entity.RatingEventEntity
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -20,55 +19,46 @@ class RoomRatingEventRepository {
             return FobresDatabase.getDatabaseFobres(context)
         }
 
-        override suspend fun saveListRating(listRating: List<Rating>) {
+        override suspend fun saveListRating(listShortUser: List<ShortUser>) {
             CoroutineScope(IO).launch {
-                for (item in listRating) {
+                for (item in listShortUser) {
                     ratingDatabase!!.ratingDao().saveListRating(
                         RatingEventEntity(
                             id = item.id.toLong(),
-                            login = item.login,
+                            money = item.money,
                             firstName = item.firstName,
                             lastName = item.lastName,
-                            profileDescription = item.profileDescription,
                             profilePicture = item.profilePicture.toString(),
-                            country = item.country,
-                            city = item.city,
-                            money = item.money
+                            status = item.status.toString()
                         )
                     )
                 }
             }
         }
 
-        override suspend fun getRatingAll(): List<Rating> {
+        override suspend fun getRatingAll(): List<ShortUser> {
             try {
-                val result: ArrayList<Rating> = arrayListOf()
+                val result: ArrayList<ShortUser> = arrayListOf()
                 for (item in ratingDatabase!!.ratingDao().getListRatingAll()) {
                     result.add(
-                        Rating(
+                        ShortUser(
                             item.id.toString(),
-                            item.login,
+                            item.money,
                             item.firstName,
                             item.lastName,
-                            item.profileDescription,
-                            item.profilePicture,    // FIX this need image
-                            item.country,
-                            item.city,
-                            item.money
+                            item.profilePicture,
+                            item.status
                         )
                     )
                 }
                 return if (result.size > 0) result else mutableListOf(
-                    Rating(
+                    ShortUser(
+                        "0",
                         "0",
                         "_",
-                        "Your history is empty :(",
                         "_",
                         "_",
-                        "_",
-                        "_",
-                        "_",
-                        "0"
+                        "Your history is empty :("
                     )
                 )
             } catch (ex: Exception) {
@@ -77,35 +67,29 @@ class RoomRatingEventRepository {
             }
         }
 
-        override suspend fun getRatingCountry(country: String): List<Rating> {
+        override suspend fun getRatingCountry(country: String): List<ShortUser> {
             try {
-                val result: ArrayList<Rating> = arrayListOf()
-                for (item in ratingDatabase!!.ratingDao().getListRatingCountry(country)) {
+                val result: ArrayList<ShortUser> = arrayListOf()
+                for (item in ratingDatabase!!.ratingDao().getListRatingCountry()) {
                     result.add(
-                        Rating(
-                            item.id.toString(),
-                            item.login,
-                            item.firstName,
-                            item.lastName,
-                            item.profileDescription,
-                            item.profilePicture,    // FIX this need image
-                            item.country,
-                            item.city,
-                            item.money
+                        ShortUser(
+                            id = item.id.toString(),
+                            money = item.money,
+                            firstName = item.firstName,
+                            lastName = item.lastName,
+                            profilePicture = item.profilePicture.toString(),
+                            status = item.status
                         )
                     )
                 }
                 return if (result.size > 0) result else mutableListOf(
-                    Rating(
+                    ShortUser(
+                        "0",
                         "0",
                         "_",
-                        "Your history is empty :(",
                         "_",
                         "_",
-                        "_",
-                        "_",
-                        "_",
-                        "0"
+                        "Your history is empty :("
                     )
                 )
             } catch (ex: Exception) {
@@ -114,35 +98,29 @@ class RoomRatingEventRepository {
             }
         }
 
-        override suspend fun getRatingCity(city: String): List<Rating> {
+        override suspend fun getRatingCity(city: String): List<ShortUser> {
             try {
-                val result: ArrayList<Rating> = arrayListOf()
-                for (item in ratingDatabase!!.ratingDao().getListRatingCity(city)) {
+                val result: ArrayList<ShortUser> = arrayListOf()
+                for (item in ratingDatabase!!.ratingDao().getListRatingCity()) {
                     result.add(
-                        Rating(
+                        ShortUser(
                             item.id.toString(),
-                            item.login,
+                            item.money,
                             item.firstName,
                             item.lastName,
-                            item.profileDescription,
-                            item.profilePicture,    // FIX this need image
-                            item.country,
-                            item.city,
-                            item.money
+                            item.profilePicture,
+                            item.status
                         )
                     )
                 }
                 return if (result.size > 0) result else mutableListOf(
-                    Rating(
+                    ShortUser(
+                        "0",
                         "0",
                         "_",
-                        "Your history is empty :(",
                         "_",
                         "_",
-                        "_",
-                        "_",
-                        "_",
-                        "0"
+                        "Your history is empty :("
                     )
                 )
             } catch (ex: Exception) {
