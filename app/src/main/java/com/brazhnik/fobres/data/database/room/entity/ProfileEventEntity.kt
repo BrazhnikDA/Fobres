@@ -38,11 +38,11 @@ data class ProfileEventEntity (
     val money: String,
 
     @ColumnInfo(name = "world_place")
-    val worldPlace: String,
+    val worldPlace: String?,
 
     @ColumnInfo(name = "country_place")
-    val countryPlace: String,
+    val countryPlace: String?,
 
     @ColumnInfo(name = "city_place")
-    val cityPlace: String
+    val cityPlace: String?
 )

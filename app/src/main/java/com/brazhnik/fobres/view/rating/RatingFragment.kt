@@ -39,8 +39,8 @@ class RatingFragment : Fragment(), RatingView {
     private var isLoad = false
     private var typeRating = TypeRating.ALL
 
-    var country: String = SharedData.profileCurrent.country
-    var city: String = SharedData.profileCurrent.city
+    var country: String = SharedData.profileFullCurrent.country
+    var city: String = SharedData.profileFullCurrent.city
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,15 +1,15 @@
 package com.brazhnik.fobres.data
 
-import com.brazhnik.fobres.data.model.Profile
+import com.brazhnik.fobres.data.model.ProfileFull
 
 abstract class SharedData {
     companion object {
-        private lateinit var _profileCurrent: Profile
+        private lateinit var _profileFullCurrent: ProfileFull
 
-        var profileCurrent: Profile
-            get() = _profileCurrent
+        var profileFullCurrent: ProfileFull
+            get() = _profileFullCurrent
             set(value) {
-                _profileCurrent = value
+                _profileFullCurrent = value
             }
 
         var isLogged: Boolean = false

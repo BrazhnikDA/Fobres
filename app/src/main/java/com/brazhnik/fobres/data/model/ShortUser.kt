@@ -1,7 +1,5 @@
 package com.brazhnik.fobres.data.model
 
-import android.graphics.drawable.ColorDrawable
-
 class ShortUser(
     var id: String,
     var money: String,

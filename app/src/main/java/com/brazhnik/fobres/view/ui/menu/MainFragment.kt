@@ -1,7 +1,6 @@
 package com.brazhnik.fobres.view.ui.menu
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,6 @@ import android.view.ViewGroup
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.databinding.FragmentMainBinding
-import com.brazhnik.fobres.databinding.FragmentProfileBinding
-import com.brazhnik.fobres.databinding.FragmentRatingBinding
 
 class MainFragment : Fragment() {
 
@@ -37,13 +34,13 @@ class MainFragment : Fragment() {
 
     private fun loadData() {
         binding.textViewCoins.text =
-            resources.getString(R.string.coins_home, SharedData.profileCurrent.money)
+            resources.getString(R.string.coins_home, SharedData.profileFullCurrent.money)
         binding.textViewTopWorld.text =
-            resources.getString(R.string.world_home, SharedData.profileCurrent.worldPlace)
+            resources.getString(R.string.world_home, SharedData.profileFullCurrent.worldPlace)
         binding.textViewTopCountry.text =
-            resources.getString(R.string.country_home, SharedData.profileCurrent.countryPlace)
+            resources.getString(R.string.country_home, SharedData.profileFullCurrent.countryPlace)
         binding.textViewTopCity.text =
-            resources.getString(R.string.city_home, SharedData.profileCurrent.cityPlace)
+            resources.getString(R.string.city_home, SharedData.profileFullCurrent.cityPlace)
     }
 
     private fun showGuest() {

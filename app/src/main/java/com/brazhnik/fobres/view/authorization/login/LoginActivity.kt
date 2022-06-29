@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
-import com.brazhnik.fobres.data.model.Profile
+import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
 import com.brazhnik.fobres.view.authorization.register.RegisterActivity
 import com.brazhnik.fobres.view.main.MainActivity
@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        SharedData.profileCurrent = Profile(
+        SharedData.profileFullCurrent = ProfileFull(
             "1",
             "login1",
             "Dmitry",

@@ -1,14 +1,11 @@
 package com.brazhnik.fobres.data.database.room.repository
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.database.repository.ProfileEventRepository
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
 import com.brazhnik.fobres.data.database.room.entity.ProfileEventEntity
-import com.brazhnik.fobres.data.model.Profile
-import kotlinx.coroutines.*
+import com.brazhnik.fobres.data.model.ProfileFull
 
 class RoomProfileEventRepository {
     companion object : ProfileEventRepository {
@@ -19,35 +16,30 @@ class RoomProfileEventRepository {
             return FobresDatabase.getDatabaseFobres(context)
         }
 
-        override suspend fun saveProfile(
-            profile: Profile,
-            world: String,
-            country: String,
-            city: String
-        ) {
+        override suspend fun saveProfile(profileFull: ProfileFull) {
             profileDatabase!!.profileDao().saveProfile(
                 ProfileEventEntity(
-                    id = profile.id.toLong(),
-                    login = profile.login,
-                    firstName = profile.firstName,
-                    lastName = profile.lastName,
-                    profileDescription = profile.profileDescription,
-                    status = profile.status,
-                    profilePicture = profile.profilePicture,
-                    country = profile.country,
-                    city = profile.city,
-                    money = profile.money,
-                    worldPlace = world,
-                    countryPlace = country,
-                    cityPlace = city
+                    id = profileFull.id.toLong(),
+                    login = profileFull.login,
+                    firstName = profileFull.firstName,
+                    lastName = profileFull.lastName,
+                    profileDescription = profileFull.profileDescription,
+                    status = profileFull.status,
+                    profilePicture = profileFull.profilePicture,
+                    country = profileFull.country,
+                    city = profileFull.city,
+                    money = profileFull.money,
+                    worldPlace = profileFull.worldPlace,
+                    countryPlace = profileFull.countryPlace,
+                    cityPlace = profileFull.cityPlace
                 )
             )
         }
 
-        override suspend fun getProfile(): Profile {
+        override suspend fun getProfile(): ProfileFull {
             val profile = profileDatabase!!.profileDao().getProfile()
             return if (profile.isNotEmpty()) {
-                Profile(
+                ProfileFull(
                     id = profile[0].id.toString(),
                     login = profile[0].login,
                     firstName = profile[0].firstName,
@@ -58,23 +50,13 @@ class RoomProfileEventRepository {
                     country = profile[0].country,
                     city = profile[0].city,
                     money = profile[0].money,
-                    SharedData.profileCurrent.worldPlace,
-                    SharedData.profileCurrent.countryPlace,
-                    SharedData.profileCurrent.cityPlace
+                    SharedData.profileFullCurrent.worldPlace,
+                    SharedData.profileFullCurrent.countryPlace,
+                    SharedData.profileFullCurrent.cityPlace
                 )
             }else {
-                Profile((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_", "_", "_", "_", "_")
+                ProfileFull((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_", "_", "_", "_", "_")
             }
-        }
-
-        override suspend fun getCountryProfile(selectionTypeCountry: MutableLiveData<String>) {
-            selectionTypeCountry.postValue(profileDatabase!!.profileDao().getCountry())
-        }
-
-        override suspend fun getCityProfile(selectionTypeCity: MutableLiveData<String>) {
-            val a = profileDatabase!!.profileDao().getCity()
-            print(a)
-            //selectionTypeCity.postValue(profileDatabase!!.profileDao().getCity())
         }
     }
 }

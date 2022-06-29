@@ -11,12 +11,14 @@ package com.brazhnik.fobres.data.model
  *  @param profilePicture - User image to profile
  *  @param profileDescription - User description to profile
  *  @param money - The general state of the user
- *  @param placeInRating - User place in rating
+ *  @param worldPlace - User place in world rating
+ *  @param countryPlace - User place in country rating
+ *  @param cityPlace - User place in city rating
  *
- *  @author Dmitry Brazhnik
+ *  @author Dmitriy Brazhnik
  */
 
-class Profile(
+class ProfileFull(
     var id: String,
     var login: String,
     var firstName: String,

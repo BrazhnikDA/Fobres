@@ -6,6 +6,8 @@ import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
 import com.brazhnik.fobres.data.helper.ModelRatingHelper
 import com.brazhnik.fobres.data.model.ShortUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 @InjectViewState
 class RatingPresenter: MvpPresenter<RatingView>() {
@@ -14,8 +16,6 @@ class RatingPresenter: MvpPresenter<RatingView>() {
 
     val listUser: MutableLiveData<List<ShortUser>> = MutableLiveData()
     val statusResponse: MutableLiveData<String> = MutableLiveData()
-    val selectionTypeCountry: MutableLiveData<String> = MutableLiveData()
-    val selectionTypeCity: MutableLiveData<String> = MutableLiveData()
 
     init {
         modelRatingHelper = ModelRatingHelper(listUser, statusResponse)
@@ -47,13 +47,5 @@ class RatingPresenter: MvpPresenter<RatingView>() {
 
     suspend fun getRatingCityDB(city: String) {
         modelRatingHelper.getRatingCityDB(city)
-    }
-
-    suspend fun getCountryProfile() {
-        ModelProfileHelper.getCountry(selectionTypeCountry)
-    }
-
-    suspend fun getCityProfile() {
-        ModelProfileHelper.getCity(selectionTypeCity)
     }
 }

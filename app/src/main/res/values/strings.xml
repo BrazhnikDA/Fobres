@@ -14,6 +14,9 @@
     <string name="login_profile">%1$s</string>
     <string name="location_profile">%1$s/%2$s</string>
     <string name="coins_profile">%1$s coins</string>
+    <string name="place_profile">#%1$s</string>
+    <string name="status_profile">%1$s</string>
+    <string name="description_profile">%1$s</string>
 
     <!-- Rating -->
     <string name="top_off_world">Top Off World</string>
