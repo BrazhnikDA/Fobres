@@ -143,10 +143,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRating"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:scrollbars="horizontal"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/viewLine"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_recycler_view_rating"/>
 
     <!--<com.google.android.material.progressindicator.CircularProgressIndicator
