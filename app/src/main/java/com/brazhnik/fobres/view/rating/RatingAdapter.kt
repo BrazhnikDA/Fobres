@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.view.rating
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ class RatingAdapter(private val listUser: List<ShortUser>) :
         val nameProfile: TextView = itemView.findViewById(R.id.textViewName)
         val textAmount: TextView = itemView.findViewById(R.id.textViewAmount)
         val textTopRating: TextView = itemView.findViewById(R.id.textViewTopRating)
+        val status: TextView = itemView.findViewById(R.id.textStatus)
         //val buttonViewLinks: Button = itemView.findViewById(R.id.buttonViewLinks)
     }
 
@@ -31,12 +33,20 @@ class RatingAdapter(private val listUser: List<ShortUser>) :
         return RatingViewHolder(itemView)
     }
 
+    // Fix SuppressLint
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
         //holder.imageProfile.setImageDrawable(listUser[position].profilePicture)
         holder.imageProfile.setImageResource(R.mipmap.ic_coin)
-        holder.nameProfile.text = listUser[position].firstName
+        holder.nameProfile.text = listUser[position].firstName + " " + listUser[position].lastName
         holder.textAmount.text = "Coins: ${listUser[position].money}"
         holder.textTopRating.text = "# ${position+1}"
+
+        if(listUser[position].status != null) {
+            holder.status.text = listUser[position].status
+        }else {
+            holder.status.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {

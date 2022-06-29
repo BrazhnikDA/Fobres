@@ -156,8 +156,10 @@
             android:autoSizeMaxTextSize="22sp"
             android:autoSizeMinTextSize="14sp"
             android:autoSizeTextType="uniform"
-            android:text="@string/name_profile"
+            android:hint="Donald Tramp"
+            android:text=""
             android:textColor="@color/black"
+            android:textColorHint="@color/blackOpaque80"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -168,14 +170,16 @@
         <TextView
             android:id="@+id/status"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:autoSizeMaxTextSize="45sp"
             android:autoSizeMinTextSize="18sp"
             android:autoSizeTextType="uniform"
-            android:text="@string/status_profile"
+            android:hint="Status"
+            android:text=""
             android:textColor="@color/blackOpaque80"
+            android:textColorHint="@color/blackOpaque80"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/location"
             app:layout_constraintEnd_toEndOf="parent"
@@ -210,8 +214,10 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
                     android:gravity="center"
-                    android:text="Russia/Moscow"
+                    android:hint="Russia/Moscow"
+                    android:text=""
                     android:textColor="@color/black"
+                    android:textColorHint="@color/blackOpaque80"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -261,9 +267,11 @@
                 android:autoSizeMinTextSize="18sp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center"
+                android:hint="#1"
                 android:maxLines="1"
-                android:text="@string/place_profile"
+                android:text=""
                 android:textColor="@color/black"
+                android:textColorHint="@color/blackOpaque80"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 tools:targetApi="o" />
@@ -290,8 +298,10 @@
                 android:autoSizeMinTextSize="18sp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center"
-                android:text="@string/place_profile"
+                android:hint="#1"
+                android:text=""
                 android:textColor="@color/black"
+                android:textColorHint="@color/blackOpaque80"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 tools:targetApi="o" />
@@ -319,8 +329,10 @@
                 android:autoSizeMinTextSize="18sp"
                 android:autoSizeTextType="uniform"
                 android:gravity="center"
-                android:text="@string/place_profile"
+                android:hint="#1"
+                android:text=""
                 android:textColor="@color/black"
+                android:textColorHint="@color/blackOpaque80"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 tools:targetApi="o" />
@@ -342,7 +354,7 @@
             app:cardElevation="8dp"
             app:contentPadding="2dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/goldenYellow">
@@ -351,40 +363,47 @@
                     android:id="@+id/ic_Fobres"
                     android:layout_width="43dp"
                     android:layout_height="43dp"
-                    android:layout_below="@+id/world"
                     android:layout_margin="5dp"
                     android:src="@mipmap/ic_coin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:riv_corner_radius="65dp" />
 
                 <TextView
                     android:id="@+id/coins"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_alignBaseline="@id/country"
-                    android:layout_toEndOf="@+id/ic_Fobres"
                     android:autoSizeMaxTextSize="35sp"
                     android:autoSizeMinTextSize="18sp"
                     android:autoSizeTextType="uniform"
                     android:gravity="center"
-                    android:maxLines="1"
+                    android:hint="0.0 Coins"
                     android:padding="5dp"
-                    android:text="@string/coins_profile"
+                    android:text=""
                     android:textColor="@color/black"
+                    android:textColorHint="@color/blackOpaque80"
                     android:textSize="35sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ic_Plus"
+                    app:layout_constraintStart_toEndOf="@id/ic_Fobres"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:targetApi="o" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/ic_Plus"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_below="@+id/world"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:src="@drawable/add_coins"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:riv_corner_radius="65dp" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -438,9 +457,12 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="Hello all. Hello all. Hello all.Hello all.Hello all. Hello all."
+                android:gravity="center"
+                android:hint="Profile description\nI advise you not to read it, usually there is nothing interesting here\nBut you're still reading it, you're good
+If you have read up to this symbol\nI advise you to buy a better Internet :)\n&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textColorHint="@color/blackOpaque80"
+                android:textSize="20sp"
                 android:textStyle="normal" />
         </ScrollView>
 
@@ -465,10 +487,10 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:text="Back"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
