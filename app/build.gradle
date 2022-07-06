@@ -92,4 +92,7 @@ dependencies {
 
     // Country Picker
     implementation 'com.hbb20:android-country-picker:0.0.7'
+
+    // Swipe to set favorite
+    //implementation 'com.github.ygngy:multiswipe:1.2.2'
 }
