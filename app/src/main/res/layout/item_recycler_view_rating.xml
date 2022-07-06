@@ -9,10 +9,11 @@
     android:padding="2dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/itemCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="7dp"
-        android:background="@color/cardview_light_background"
+        app:cardBackgroundColor="@color/dodgerBlueOpaque75"
         android:fitsSystemWindows="true"
         app:cardCornerRadius="35dp"
         app:cardElevation="8dp"

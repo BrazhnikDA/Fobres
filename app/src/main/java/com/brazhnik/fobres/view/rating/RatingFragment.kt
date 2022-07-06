@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.view.rating
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,10 +19,11 @@ import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.data.model.TypeRating
 import com.brazhnik.fobres.databinding.FragmentRatingBinding
 import com.brazhnik.fobres.utilities.displayToast
+import com.brazhnik.fobres.view.rating.showprofile.ShowProfileActivity
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.coroutines.*
 
-class RatingFragment : Fragment(), RatingView {
+class RatingFragment : Fragment(), RatingView, ItemClickListener {
     private var _binding: FragmentRatingBinding? = null
     private val binding get() = _binding!!
 
@@ -228,7 +230,7 @@ class RatingFragment : Fragment(), RatingView {
     }
 
     override fun displayList(listShortUser: List<ShortUser>) {
-        recyclerView.adapter = RatingAdapter(listShortUser)
+        recyclerView.adapter = RatingAdapter(listShortUser,this)
     }
 
     override fun showError() {
@@ -262,5 +264,12 @@ class RatingFragment : Fragment(), RatingView {
             binding.loadBar.visibility = View.GONE
             isLoad = true
         }
+    }
+
+    override fun onCellClickListener(id: String) {
+        context?.displayToast("Click $id")
+        val intent = Intent(context, ShowProfileActivity::class.java)
+        intent.putExtra("id", id);
+        startActivity(intent)
     }
 }
