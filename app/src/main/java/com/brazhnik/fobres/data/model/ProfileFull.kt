@@ -18,7 +18,7 @@ package com.brazhnik.fobres.data.model
  *  @author Dmitriy Brazhnik
  */
 
-class ProfileFull(
+data class ProfileFull(
     var id: String,
     var login: String,
     var firstName: String,
@@ -29,9 +29,9 @@ class ProfileFull(
     var country: String,
     var city: String,
     var money: String,
-    var worldPlace: String,
-    var countryPlace: String,
-    var cityPlace: String
+    var globalRating: String,
+    var countryRating: String,
+    var cityRating: String
 ) {
     override fun toString(): String {
         return "Name: $firstName $lastName <$login>\n" +

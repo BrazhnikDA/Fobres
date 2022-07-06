@@ -1,5 +1,8 @@
 package com.brazhnik.fobres.data.model
 
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
 /**
  * This class describes the model user profile
  *
@@ -15,18 +18,18 @@ package com.brazhnik.fobres.data.model
  *  @author Dmitriy Brazhnik
  */
 
-class Profile(
-    val id: Int,
-    val login: String,
-    val firstName: String,
-    val lastName: String,
-    val profileDescription: String,
-    val status: String,
-    val profilePicture: String,
-    val country: String,
-    val city: String,
-    val money: Double
-) {
+data class Profile(
+    @SerializedName("id") val id: Int,
+    @SerializedName("login") val login: String,
+    @SerializedName("firstName") val firstName: String,
+    @SerializedName("lastName") val lastName: String,
+    @SerializedName("profileDescription") val profileDescription: String,
+    @SerializedName("status") val status: String,
+    @SerializedName("profilePicture") val profilePicture: String,
+    @SerializedName("country") val country: String,
+    @SerializedName("city") val city: String,
+    @SerializedName("money") val money: Double
+): Serializable {
     override fun toString(): String {
         return "Name: $firstName $lastName <$login>\n" +
                 "Place of residence: $country/$city\n" +

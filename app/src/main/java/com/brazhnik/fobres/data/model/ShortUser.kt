@@ -1,6 +1,6 @@
 package com.brazhnik.fobres.data.model
 
-class ShortUser(
+data class ShortUser(
     var id: String,
     var money: String,
     var firstName: String,

@@ -29,9 +29,9 @@ class RoomProfileEventRepository {
                     country = profileFull.country,
                     city = profileFull.city,
                     money = profileFull.money,
-                    worldPlace = profileFull.worldPlace,
-                    countryPlace = profileFull.countryPlace,
-                    cityPlace = profileFull.cityPlace
+                    worldPlace = profileFull.globalRating,
+                    countryPlace = profileFull.countryRating,
+                    cityPlace = profileFull.cityRating
                 )
             )
         }
@@ -50,9 +50,9 @@ class RoomProfileEventRepository {
                     country = profile[0].country,
                     city = profile[0].city,
                     money = profile[0].money,
-                    SharedData.profileFullCurrent.worldPlace,
-                    SharedData.profileFullCurrent.countryPlace,
-                    SharedData.profileFullCurrent.cityPlace
+                    SharedData.profileFullCurrent.globalRating,
+                    SharedData.profileFullCurrent.countryRating,
+                    SharedData.profileFullCurrent.cityRating
                 )
             }else {
                 ProfileFull((-1).toString(), "_", "_", "_", "_", "_", "_", "_","_", "_", "_", "_", "_")
