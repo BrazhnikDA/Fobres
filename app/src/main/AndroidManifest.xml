@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.brazhnik.fobres">
+    package="com.brazhnik.fobres" >
     <!-- Разрешение для доступа к интернету -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".utilities.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
@@ -13,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fobres"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m" >
+        <activity
+            android:name=".view.rating.showprofile.ShowProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".view.profile.editprofile.EditActivity"
             android:exported="false" />
@@ -29,7 +33,7 @@
             android:theme="@style/Theme.Fobres.NoActionBar" />
         <activity
             android:name=".view.authorization.login.LoginActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
