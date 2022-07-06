@@ -36,14 +36,15 @@ class MainFragment : Fragment() {
         binding.textViewCoins.text =
             resources.getString(R.string.coins_home, SharedData.profileFullCurrent.money)
         binding.textViewTopWorld.text =
-            resources.getString(R.string.world_home, SharedData.profileFullCurrent.worldPlace)
+            resources.getString(R.string.world_home, SharedData.profileFullCurrent.globalRating)
         binding.textViewTopCountry.text =
-            resources.getString(R.string.country_home, SharedData.profileFullCurrent.countryPlace)
+            resources.getString(R.string.country_home, SharedData.profileFullCurrent.countryRating)
         binding.textViewTopCity.text =
-            resources.getString(R.string.city_home, SharedData.profileFullCurrent.cityPlace)
+            resources.getString(R.string.city_home, SharedData.profileFullCurrent.cityRating)
     }
 
     private fun showGuest() {
+        // Поменять кнпоку гость / авторизация
         binding.textViewCoins.text =
             resources.getString(R.string.coins_home, "?")
         binding.textViewTopWorld.text =

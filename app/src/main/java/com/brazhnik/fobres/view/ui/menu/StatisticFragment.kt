@@ -1,4 +1,4 @@
-package com.brazhnik.fobres
+package com.brazhnik.fobres.view.ui.menu
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

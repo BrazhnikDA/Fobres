@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/nav_statistic"
-        android:name="com.brazhnik.fobres.StatisticFragment"
+        android:name="com.brazhnik.fobres.view.ui.menu.StatisticFragment"
         android:label="@string/nav_statistic"
         tools:layout="Statistic" />
 

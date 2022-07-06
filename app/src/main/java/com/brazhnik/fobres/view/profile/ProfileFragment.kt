@@ -134,10 +134,10 @@ class ProfileFragment : Fragment(), ProfileView {
         )
         binding.title.text = String.format(getString(R.string.login_profile), profileFullInfo.login)
         binding.placeWorld.text =
-            String.format(getString(R.string.place_profile), profileFullInfo.worldPlace)
+            String.format(getString(R.string.place_profile), profileFullInfo.globalRating)
         binding.placeCountry.text =
-            String.format(getString(R.string.place_profile), profileFullInfo.countryPlace)
+            String.format(getString(R.string.place_profile), profileFullInfo.countryRating)
         binding.placeCity.text =
-            String.format(getString(R.string.place_profile), profileFullInfo.cityPlace)
+            String.format(getString(R.string.place_profile), profileFullInfo.cityRating)
     }
 }

@@ -32,6 +32,12 @@ class ServiceProfile {
                     response: Response<Profile>
                 ) {
                     Log.e("Logs_response", response.body().toString())
+                    Log.e("Logs_response", call.request().body().toString())
+                    Log.e("Logs_response", call.request().method().toString())
+                    Log.e("Logs_response", call.request().headers().toString())
+                    Log.e("Logs_response", call.request().url().query().toString())
+                    Log.e("Logs_response", call.request().url().encodedPath().toString())
+                    Log.e("Logs_response", call.request().url().host().toString())
                     //result.postValue(response.body())
                 }
 
