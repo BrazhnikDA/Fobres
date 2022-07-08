@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.brazhnik.fobres" >
+
     <!-- Разрешение для доступа к интернету -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Доступ к галерии -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".utilities.App"

@@ -1,5 +1,7 @@
 package com.brazhnik.fobres.view.profile.editprofile
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -48,7 +50,7 @@ class EditActivity : AppCompatActivity(), EditView {
 
         editPresenter.profileFull.observe(this) {
             editPresenter.updateLocalProfile(it)
-            // TODO FIX call back fragment or simulate back press and refresh data on screen
+            // TODO Get data from server if success then app inform user about it
             onBackPressed()
         }
     }
@@ -83,5 +85,27 @@ class EditActivity : AppCompatActivity(), EditView {
                 editPresenter.updateProfile(tmpProfileFull)
             }
         }
+        binding.editImage.setOnClickListener {
+            openGalleryForImage()
+        }
+    }
+
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        // TODO FIX deprecated
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    // TODO FIX deprecated
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+            binding.imageProfile.setImageURI(data?.data) // handle chosen image
+        }
+    }
+
+    companion object {
+        private const val REQUEST_CODE = 100
     }
 }
