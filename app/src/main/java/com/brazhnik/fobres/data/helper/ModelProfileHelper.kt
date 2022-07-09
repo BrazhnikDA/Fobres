@@ -2,6 +2,7 @@ package com.brazhnik.fobres.data.helper
 
 import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.database.room.repository.RoomProfileEventRepository
+import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.network.service.ServiceProfile
 import com.brazhnik.fobres.view.profile.ProfileView
@@ -14,7 +15,7 @@ class ModelProfileHelper (
     private val serviceProfile: ServiceProfile = ServiceProfile()
 
     fun updateCurrentProfileAPI(profileFull: ProfileFull) {
-        serviceProfile.updateCurrentProfile(this.profileFull, profileFull)
+        serviceProfile.updateCurrentProfile(this.profileFull, profileFull, status)
     }
 
     fun getCurrentProfileAPI(id: Int) {

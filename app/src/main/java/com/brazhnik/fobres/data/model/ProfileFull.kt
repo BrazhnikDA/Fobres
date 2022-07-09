@@ -11,9 +11,9 @@ package com.brazhnik.fobres.data.model
  *  @param profilePicture - User image to profile
  *  @param profileDescription - User description to profile
  *  @param money - The general state of the user
- *  @param worldPlace - User place in world rating
- *  @param countryPlace - User place in country rating
- *  @param cityPlace - User place in city rating
+ *  @param globalRating - User place in world rating
+ *  @param countryRating - User place in country rating
+ *  @param cityRating - User place in city rating
  *
  *  @author Dmitriy Brazhnik
  */

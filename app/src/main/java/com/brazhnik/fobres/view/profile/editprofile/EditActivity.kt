@@ -3,6 +3,7 @@ package com.brazhnik.fobres.view.profile.editprofile
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -50,8 +51,10 @@ class EditActivity : AppCompatActivity(), EditView {
 
         editPresenter.profileFull.observe(this) {
             editPresenter.updateLocalProfile(it)
-            // TODO Get data from server if success then app inform user about it
-            onBackPressed()
+            application.displayToast("Profile is update!")
+        }
+        editPresenter.status.observe(this) {
+            showError()
         }
     }
 
@@ -66,6 +69,18 @@ class EditActivity : AppCompatActivity(), EditView {
         } catch (ex: Exception) {
             applicationContext.displayToast("Something Wrong")
         }
+    }
+
+    override fun showError() {
+        application.displayToast("Something went wrong!")
+    }
+
+    override fun showLoadingWheel() {
+        binding.layoutLoadBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoadingWheel() {
+        binding.layoutLoadBar.visibility = View.GONE
     }
 
     private fun handlerButtonClick() {

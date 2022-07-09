@@ -11,7 +11,11 @@ import retrofit2.Response
 
 class ServiceProfile {
 
-    fun updateCurrentProfile(result: MutableLiveData<ProfileFull>, profileFull: ProfileFull) {
+    fun updateCurrentProfile(
+        result: MutableLiveData<ProfileFull>,
+        profileFull: ProfileFull,
+        status: MutableLiveData<String>
+    ) {
         val converter = Profile(
             id = profileFull.id.toInt(),
             login = profileFull.login,
@@ -24,25 +28,37 @@ class ServiceProfile {
             city = profileFull.city,
             money = profileFull.money.toDouble()
         )
-       NetworkAPI().getJSONProfileAPI()
+        NetworkAPI().getJSONProfileAPI()
             .updateCurrentProfile(profileBody = converter)
             .enqueue(object : Callback<Profile> {
                 override fun onResponse(
                     call: Call<Profile>,
                     response: Response<Profile>
                 ) {
-                    Log.e("Logs_response", response.body().toString())
-                    Log.e("Logs_response", call.request().body().toString())
-                    Log.e("Logs_response", call.request().method().toString())
-                    Log.e("Logs_response", call.request().headers().toString())
-                    Log.e("Logs_response", call.request().url().query().toString())
-                    Log.e("Logs_response", call.request().url().encodedPath().toString())
-                    Log.e("Logs_response", call.request().url().host().toString())
-                    //result.postValue(response.body())
+                    if (response.body() != null) {
+                        result.postValue(
+                            ProfileFull(
+                                id = response.body()!!.id.toString(),
+                                login = response.body()!!.login,
+                                firstName = response.body()!!.firstName,
+                                lastName = response.body()!!.lastName,
+                                profileDescription = response.body()!!.profileDescription,
+                                status = response.body()!!.status,
+                                profilePicture = response.body()!!.profilePicture,
+                                country = response.body()!!.country,
+                                city = response.body()!!.city,
+                                money = response.body()!!.money.toString(),
+                                globalRating = profileFull.globalRating,
+                                countryRating = profileFull.countryRating,
+                                cityRating = profileFull.cityRating
+                            )
+                        )
+                    }
                 }
 
                 override fun onFailure(call: Call<Profile>, t: Throwable) {
                     Log.e("Logs_Error", t.toString())
+                    status.postValue(t.message)
                 }
             })
     }
@@ -52,20 +68,21 @@ class ServiceProfile {
         id: Int,
         status: MutableLiveData<String>
     ): MutableLiveData<ProfileFull> {
-        NetworkAPI().getJSONProfileAPI().getCurrentProfile(id).enqueue(object : Callback<ProfileFull> {
-            override fun onResponse(
-                call: Call<ProfileFull>,
-                response: Response<ProfileFull>
-            ) {
-                Log.e("Logs_response", response.body().toString())
-                result.postValue(response.body())
-            }
+        NetworkAPI().getJSONProfileAPI().getCurrentProfile(id)
+            .enqueue(object : Callback<ProfileFull> {
+                override fun onResponse(
+                    call: Call<ProfileFull>,
+                    response: Response<ProfileFull>
+                ) {
+                    Log.e("Logs_response", response.body().toString())
+                    result.postValue(response.body())
+                }
 
-            override fun onFailure(call: Call<ProfileFull>, t: Throwable) {
-                Log.e("Logs_Error", t.toString())
-                status.postValue(t.message)
-            }
-        })
+                override fun onFailure(call: Call<ProfileFull>, t: Throwable) {
+                    Log.e("Logs_Error", t.toString())
+                    status.postValue(t.message)
+                }
+            })
         return result
     }
 }

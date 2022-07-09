@@ -5,6 +5,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
+import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
 
 @InjectViewState
@@ -21,20 +22,22 @@ class EditPresenter: MvpPresenter<EditView>() {
     }
 
     private fun fillFields() {
+        viewState.showLoadingWheel()
         viewState.fillFields(SharedData.profileFullCurrent)
+        viewState.hideLoadingWheel()
     }
 
     fun updateProfile(profileFull: ProfileFull) {
+        viewState.showLoadingWheel()
         modelProfileHelper.updateCurrentProfileAPI(profileFull)
+        viewState.hideLoadingWheel()
     }
 
     fun getProfile(): ProfileFull {
         return SharedData.profileFullCurrent
     }
 
-    fun updateLocalProfile(it: ProfileFull?) {
-        if (it != null) {
-            SharedData.profileFullCurrent = it
-        }
+    fun updateLocalProfile(it: ProfileFull) {
+        SharedData.profileFullCurrent = it
     }
 }
