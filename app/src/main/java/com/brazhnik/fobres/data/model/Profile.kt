@@ -19,17 +19,36 @@ import java.io.Serializable
  */
 
 data class Profile(
-    @SerializedName("id") val id: Int,
-    @SerializedName("login") val login: String,
-    @SerializedName("firstName") val firstName: String,
-    @SerializedName("lastName") val lastName: String,
-    @SerializedName("profileDescription") val profileDescription: String,
-    @SerializedName("status") val status: String,
-    @SerializedName("profilePicture") val profilePicture: String,
-    @SerializedName("country") val country: String,
-    @SerializedName("city") val city: String,
-    @SerializedName("money") val money: Double
-): Serializable {
+    @SerializedName("id")
+    val id: Int,
+
+    @SerializedName("login")
+    val login: String,
+
+    @SerializedName("firstName")
+    val firstName: String,
+
+    @SerializedName("lastName")
+    val lastName: String,
+
+    @SerializedName("profileDescription")
+    val profileDescription: String,
+
+    @SerializedName("status")
+    val status: String,
+
+    @SerializedName("profilePicture")
+    val profilePicture: String,
+
+    @SerializedName("country")
+    val country: String,
+
+    @SerializedName("city")
+    val city: String,
+
+    @SerializedName("money")
+    val money: Double
+) : Serializable {
     override fun toString(): String {
         return "Name: $firstName $lastName <$login>\n" +
                 "Place of residence: $country/$city\n" +
