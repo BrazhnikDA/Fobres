@@ -13,6 +13,7 @@ import com.brazhnik.fobres.databinding.ActivityEditBinding
 import com.brazhnik.fobres.databinding.ActivityShowProfileBinding
 import com.brazhnik.fobres.view.profile.editprofile.EditActivity
 import com.brazhnik.fobres.view.profile.editprofile.EditPresenter
+import com.squareup.picasso.Picasso
 
 class ShowProfileActivity : AppCompatActivity(), ShowProfileView {
     private lateinit var binding: ActivityShowProfileBinding
@@ -47,12 +48,12 @@ class ShowProfileActivity : AppCompatActivity(), ShowProfileView {
         setContentView(binding.root)
 
         showProfilePresenter = providePresenter()
-        handlerButtonClick()
 
         val id = intent.extras!!["id"].toString()
         showProfilePresenter.getProfile(id)
 
         showProfilePresenter.profileFull.observe(this) {
+            handlerButtonClick(it.profilePicture)
             fillFields(it)
             binding.layoutLoadBar.visibility = View.GONE
         }
@@ -62,11 +63,12 @@ class ShowProfileActivity : AppCompatActivity(), ShowProfileView {
         }
     }
 
-    private fun handlerButtonClick() {
+    private fun handlerButtonClick(imageURL: String) {
         binding.back.setOnClickListener {
             onBackPressed()
         }
         binding.imageProfile.setOnClickListener {
+            Picasso.get().load(imageURL).into(binding.imageProfile)
             with(binding.viewFullImage) {
                 setImageResource(R.drawable.ic_profile)
                 visibility = View.VISIBLE

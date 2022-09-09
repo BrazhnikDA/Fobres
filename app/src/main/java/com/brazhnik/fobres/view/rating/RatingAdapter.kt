@@ -13,6 +13,7 @@ import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.utilities.App.Companion.resources
+import com.squareup.picasso.Picasso
 
 class RatingAdapter(private val listUser: List<ShortUser>,
                     private val cellClickListener: ItemClickListener) :
@@ -47,7 +48,8 @@ class RatingAdapter(private val listUser: List<ShortUser>,
             resources?.let { holder.cardView.setCardBackgroundColor(it.getColor(R.color.white)) }
         }
         //holder.imageProfile.setImageDrawable(listUser[position].profilePicture)
-        holder.imageProfile.setImageResource(R.mipmap.ic_coin)
+        //holder.imageProfile.setImageResource(R.mipmap.ic_coin)
+        Picasso.get().load(listUser[position].profilePicture).into(holder.imageProfile)
         holder.nameProfile.text = listUser[position].firstName + " " + listUser[position].lastName
         holder.textAmount.text = "Coins: ${listUser[position].money}"
         holder.textTopRating.text = "# ${position+1}"
