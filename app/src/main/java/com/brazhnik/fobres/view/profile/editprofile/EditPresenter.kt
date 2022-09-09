@@ -7,12 +7,14 @@ import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
+import com.brazhnik.fobres.data.model.UpdateImageAnswer
 
 @InjectViewState
 class EditPresenter: MvpPresenter<EditView>() {
 
     val profileFull: MutableLiveData<ProfileFull> = MutableLiveData()
     val status: MutableLiveData<String> = MutableLiveData()
+    val responseImageUrl: MutableLiveData<UpdateImageAnswer> = MutableLiveData()
 
     private val modelProfileHelper: ModelProfileHelper = ModelProfileHelper(profileFull, status)
 
@@ -24,13 +26,18 @@ class EditPresenter: MvpPresenter<EditView>() {
     private fun fillFields() {
         viewState.showLoadingWheel()
         viewState.fillFields(SharedData.profileFullCurrent)
-        viewState.hideLoadingWheel()
+        //viewState.hideLoadingWheel()
     }
 
     fun updateProfile(profileFull: ProfileFull) {
         viewState.showLoadingWheel()
         modelProfileHelper.updateCurrentProfileAPI(profileFull)
-        viewState.hideLoadingWheel()
+        //viewState.hideLoadingWheel()
+    }
+
+    fun uploadImage(pathToImage: String, id: Int) {
+        viewState.showLoadingWheel()
+        modelProfileHelper.uploadImageToServer(pathToImage, id, responseImageUrl)
     }
 
     fun getProfile(): ProfileFull {

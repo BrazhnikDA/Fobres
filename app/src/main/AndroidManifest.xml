@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Доступ к галерии -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".utilities.App"
@@ -17,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fobres"
         android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="m" >
         <activity
             android:name=".view.rating.showprofile.ShowProfileActivity"

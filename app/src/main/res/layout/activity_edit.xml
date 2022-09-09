@@ -13,7 +13,7 @@
         android:alpha="0.9"
         android:background="@color/white"
         android:translationZ="2dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleEdit" />
 
     <Button
-        android:id="@+id/editImage"
+        android:id="@+id/btnEditImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -247,7 +247,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/saveNewProfile"
+        android:id="@+id/btnSaveNewProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"

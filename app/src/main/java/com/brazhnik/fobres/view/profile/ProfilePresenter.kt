@@ -21,7 +21,7 @@ class ProfilePresenter: MvpPresenter<ProfileView>() {
 
     fun getCurrentProfileAPI(id: Int) {
         scope.launch {
-            delay(2000) // TODO DELETE
+            //delay(2000) // TODO DELETE
             modelProfileHelper.getCurrentProfileAPI(id)
         }
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.database.room.repository.RoomProfileEventRepository
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
+import com.brazhnik.fobres.data.model.UpdateImageAnswer
 import com.brazhnik.fobres.data.network.service.ServiceProfile
 import com.brazhnik.fobres.view.profile.ProfileView
 
@@ -20,6 +21,10 @@ class ModelProfileHelper (
 
     fun getCurrentProfileAPI(id: Int) {
         serviceProfile.getCurrentProfile(profileFull, id, status)
+    }
+
+    fun uploadImageToServer(pathToImage: String, id: Int, responseImageUrl: MutableLiveData<UpdateImageAnswer>) {
+        serviceProfile.uploadImage(responseImageUrl, pathToImage, id, status)
     }
 
     suspend fun setProfileDB(profileFull: ProfileFull) {
