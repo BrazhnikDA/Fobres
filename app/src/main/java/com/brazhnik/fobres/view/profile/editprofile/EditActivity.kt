@@ -23,9 +23,7 @@ class EditActivity : AppCompatActivity(), EditView {
     @InjectPresenter
     lateinit var editPresenter: EditPresenter
 
-    lateinit var picturePath: String
-
-    var isChangeImage = false
+    private lateinit var picturePath: String
 
     @ProvidePresenter
     fun providePresenter(): EditPresenter {
@@ -109,9 +107,8 @@ class EditActivity : AppCompatActivity(), EditView {
                 tmpProfileFull.country = binding.etCountry.text.toString()
                 tmpProfileFull.city = binding.etCity.text.toString()
                 tmpProfileFull.profileDescription = binding.etDescription.text.toString()
-                tmpProfileFull.profilePicture = binding.imageProfile.toString()
 
-                if(isChangeImage) {
+                if(this::picturePath.isInitialized) {
                     editPresenter.uploadImage(picturePath, tmpProfileFull.id.toInt())
                     editPresenter.responseImageUrl.observe(this) {
                         if (it != null) {
@@ -146,10 +143,6 @@ class EditActivity : AppCompatActivity(), EditView {
             val selectedImage: Uri = data?.data!!
             picturePath = getRealPathFromURI(selectedImage, this)
             binding.imageProfile.setImageURI(data.data) // handle chosen image
-            isChangeImage = true
-        } else
-        {
-            isChangeImage = false
         }
     }
 
