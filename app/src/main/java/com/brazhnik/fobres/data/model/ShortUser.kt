@@ -15,6 +15,7 @@ data class ShortUser(
                 "lastName: $lastName, " +
                 "status: $status" +
                 "profileImage: $checkImage" +
-                "money: $money\n"
+                "money: $money\n" +
+                "Picture: $profilePicture"
     }
 }

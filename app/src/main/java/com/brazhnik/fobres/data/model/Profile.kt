@@ -54,6 +54,7 @@ data class Profile(
                 "Place of residence: $country/$city\n" +
                 "Amount: $money\n" +
                 "Status: $status\n" +
-                "Description: $profileDescription"
+                "Description: $profileDescription" +
+                "Picture: $profilePicture"
     }
 }
