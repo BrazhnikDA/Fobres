@@ -14,6 +14,7 @@ import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.databinding.FragmentProfileBinding
 import com.brazhnik.fobres.view.authorization.login.LoginActivity
 import com.brazhnik.fobres.view.profile.editprofile.EditActivity
+import com.squareup.picasso.Picasso
 
 
 class ProfileFragment : Fragment(), ProfileView {
@@ -66,7 +67,6 @@ class ProfileFragment : Fragment(), ProfileView {
         }
         binding.imageProfile.setOnClickListener {
             with(binding.viewFullImage) {
-                setImageResource(R.drawable.ic_profile)
                 visibility = View.VISIBLE
             }
             binding.buttonBack.visibility = View.VISIBLE
@@ -84,6 +84,7 @@ class ProfileFragment : Fragment(), ProfileView {
         presenter.profileFull.observe(viewLifecycleOwner) {
             fillingFields(it)
             binding.layoutLoadBar.visibility = View.GONE
+            SharedData.profileFullCurrent = it  // Update local profile
             //presenter.setProfileDB(it) // TODO FIX EXCEPTION FIELDS FOR PLACE IS NULL
         }
 
@@ -139,5 +140,7 @@ class ProfileFragment : Fragment(), ProfileView {
             String.format(getString(R.string.place_profile), profileFullInfo.countryRating)
         binding.placeCity.text =
             String.format(getString(R.string.place_profile), profileFullInfo.cityRating)
+        Picasso.get().load(profileFullInfo.profilePicture).into(binding.imageProfile)
+        Picasso.get().load(profileFullInfo.profilePicture).into(binding.viewFullImage)
     }
 }

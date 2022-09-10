@@ -267,7 +267,6 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
     }
 
     override fun onCellClickListener(id: String) {
-        context?.displayToast("Click $id")
         val intent = Intent(context, ShowProfileActivity::class.java)
         intent.putExtra("id", id);
         startActivity(intent)

@@ -68,11 +68,9 @@ class ShowProfileActivity : AppCompatActivity(), ShowProfileView {
             onBackPressed()
         }
         binding.imageProfile.setOnClickListener {
-            Picasso.get().load(imageURL).into(binding.imageProfile)
-            with(binding.viewFullImage) {
-                setImageResource(R.drawable.ic_profile)
-                visibility = View.VISIBLE
-            }
+            Picasso.get().load(imageURL).into(binding.viewFullImage)
+
+            binding.viewFullImage.visibility = View.VISIBLE
             binding.buttonBack.visibility = View.VISIBLE
         }
         binding.buttonBack.setOnClickListener {
@@ -107,5 +105,6 @@ class ShowProfileActivity : AppCompatActivity(), ShowProfileView {
             String.format(getString(R.string.place_profile), profileFull.countryRating)
         binding.placeCity.text =
             String.format(getString(R.string.place_profile), profileFull.cityRating)
+        Picasso.get().load(profileFull.profilePicture).into(binding.imageProfile)
     }
 }

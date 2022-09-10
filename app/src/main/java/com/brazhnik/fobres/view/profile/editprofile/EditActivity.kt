@@ -13,6 +13,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.databinding.ActivityEditBinding
 import com.brazhnik.fobres.utilities.displayToast
+import com.squareup.picasso.Picasso
 
 
 class EditActivity : AppCompatActivity(), EditView {
@@ -23,6 +24,8 @@ class EditActivity : AppCompatActivity(), EditView {
     lateinit var editPresenter: EditPresenter
 
     lateinit var picturePath: String
+
+    var isChangeImage = false
 
     @ProvidePresenter
     fun providePresenter(): EditPresenter {
@@ -67,6 +70,7 @@ class EditActivity : AppCompatActivity(), EditView {
 
     override fun fillFields(profileFull: ProfileFull) {
         try {
+            Picasso.get().load(profileFull.profilePicture).into(binding.imageProfile)
             binding.etFirstName.setText(profileFull.firstName)
             binding.etLastName.setText(profileFull.lastName)
             binding.etStatus.setText(profileFull.status)
@@ -99,29 +103,27 @@ class EditActivity : AppCompatActivity(), EditView {
                 binding.etCity.text != null &&
                 binding.etDescription.text != null
             ) {
-                /**
-                 * АЛГОРИТМ
-                 * 1) Отправить картинку на сервер
-                 * 2) Получить ссылку в ответ
-                 * 3) отправить готовый профиль на сервер обнавленный (с сыллкой)
-                 * **/
                 val tmpProfileFull: ProfileFull = editPresenter.getProfile()
                 tmpProfileFull.firstName = binding.etFirstName.text.toString()
                 tmpProfileFull.lastName = binding.etLastName.text.toString()
                 tmpProfileFull.country = binding.etCountry.text.toString()
                 tmpProfileFull.city = binding.etCity.text.toString()
                 tmpProfileFull.profileDescription = binding.etDescription.text.toString()
+                tmpProfileFull.profilePicture = binding.imageProfile.toString()
 
-
-                editPresenter.uploadImage(picturePath, tmpProfileFull.id.toInt())
-                editPresenter.responseImageUrl.observe(this) {
-                    if(it != null) {
-                        tmpProfileFull.profilePicture = it.newUrl  // Update url image
-                        editPresenter.updateProfile(tmpProfileFull) // update profile
-                    } else {
-                        hideLoadingWheel()
-                        displayToast("Error profile is not updated")
+                if(isChangeImage) {
+                    editPresenter.uploadImage(picturePath, tmpProfileFull.id.toInt())
+                    editPresenter.responseImageUrl.observe(this) {
+                        if (it != null) {
+                            tmpProfileFull.profilePicture = it.newUrl  // Update url image
+                            editPresenter.updateProfile(tmpProfileFull) // update profile with new image
+                        } else {
+                            hideLoadingWheel()
+                            displayToast("Error: Profile is not updated")
+                        }
                     }
+                } else {
+                    editPresenter.updateProfile(tmpProfileFull)
                 }
             }
         }
@@ -141,11 +143,13 @@ class EditActivity : AppCompatActivity(), EditView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
-            // прикрутить отправку аватарки на сервер
-            // ждать ответа от сервера (ссылку на картинку)
             val selectedImage: Uri = data?.data!!
             picturePath = getRealPathFromURI(selectedImage, this)
-            binding.imageProfile.setImageURI(data?.data) // handle chosen image
+            binding.imageProfile.setImageURI(data.data) // handle chosen image
+            isChangeImage = true
+        } else
+        {
+            isChangeImage = false
         }
     }
 

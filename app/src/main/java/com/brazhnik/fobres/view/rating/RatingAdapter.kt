@@ -1,7 +1,5 @@
 package com.brazhnik.fobres.view.rating
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,8 +45,6 @@ class RatingAdapter(private val listUser: List<ShortUser>,
         } else {
             resources?.let { holder.cardView.setCardBackgroundColor(it.getColor(R.color.white)) }
         }
-        //holder.imageProfile.setImageDrawable(listUser[position].profilePicture)
-        //holder.imageProfile.setImageResource(R.mipmap.ic_coin)
         Picasso.get().load(listUser[position].profilePicture).into(holder.imageProfile)
         holder.nameProfile.text = listUser[position].firstName + " " + listUser[position].lastName
         holder.textAmount.text = "Coins: ${listUser[position].money}"
