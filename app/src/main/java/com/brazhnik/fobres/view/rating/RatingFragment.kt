@@ -1,35 +1,29 @@
 package com.brazhnik.fobres.view.rating
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.data.helper.ModelRatingHelper
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.SharedData
+import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.data.model.TypeRating
-import com.brazhnik.fobres.data.network.service.ServiceRating
-import com.brazhnik.fobres.databinding.FragmentProfileBinding
 import com.brazhnik.fobres.databinding.FragmentRatingBinding
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.brazhnik.fobres.utilities.displayToast
+import com.brazhnik.fobres.view.rating.showprofile.ShowProfileActivity
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.coroutines.*
 
-
-@DelicateCoroutinesApi
-class RatingFragment : Fragment(), RatingView {
+class RatingFragment : Fragment(), RatingView, ItemClickListener {
     private var _binding: FragmentRatingBinding? = null
     private val binding get() = _binding!!
 
@@ -38,45 +32,22 @@ class RatingFragment : Fragment(), RatingView {
 
     @ProvidePresenter
     fun providePresenter(): RatingPresenter {
-        return RatingPresenter(requireView().context)
+        return RatingPresenter()
     }
+
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     private lateinit var recyclerView: RecyclerView
     private var isLoad = false
     private var typeRating = TypeRating.ALL
 
-    private fun getRatingAllAPI() {
-        ratingPresenter.getRatingAllAPI()
-    }
-
-    private fun getRatingCityAPI(city: String) {
-        ratingPresenter.getRatingCityAPI(city)
-    }
-
-    private fun getRatingCountryAPI(country: String) {
-        ratingPresenter.getRatingCountryAPI(country)
-    }
-
-    private suspend fun setRatingAllDB(listRating: List<Rating>) {
-        ratingPresenter.setRatingAllDB(listRating)
-    }
-
-    private suspend fun getRatingAllDB(context: Context) {
-        ratingPresenter.getRatingAllDB(context)
-    }
-
-    private suspend fun getRatingCountryDB(context: Context, country: String) {
-        ratingPresenter.getRatingCountryDB(context, country)
-    }
-
-    private suspend fun getRatingCityDB(context: Context, city: String) {
-        ratingPresenter.getRatingCityDB(context, city)
-    }
+    var country: String = SharedData.profileFullCurrent.country
+    var city: String = SharedData.profileFullCurrent.city
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRatingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -91,66 +62,64 @@ class RatingFragment : Fragment(), RatingView {
 
         handlerButtonClick()
         handlerOptionRatingClick()
-        GlobalScope.launch {
+        scope.launch {
             createRequest(TypeRating.ALL, "")
         }
 
         ratingPresenter.listUser.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
-                recyclerView.adapter = RatingAdapter(it)
-                if (view.findViewById<TextView>(R.id.title).text != "Offline") {
-                    GlobalScope.launch {
-                        setRatingAllDB(it)
+                displayList(it)
+                if (binding.title.text != resources.getString(R.string.offline)) {
+                    scope.launch {
+                        ratingPresenter.setRatingAllDB(it)
                     }
                 }
-                disableLoadingWheel()
-                disableError()
             }
         }
 
         ratingPresenter.statusResponse.observe(viewLifecycleOwner) {
-           Log.d("Response Rating", it)
+            Log.d("Response Rating", it)
+            if (it == "OK") {
+                disableLoadingWheel()
+                disableError()
+            }
             if (it == "Error connection") {
-                setTitle("Offline")
-                GlobalScope.launch(Dispatchers.Main) {
-                    try {
-                        if (ratingPresenter.listUser.value!!.isEmpty()) {
-                            disableLoadingWheel()
-                            showError()
-                        }
-                    } catch (ex: Exception) {
-                        disableLoadingWheel()
-                        showError()
-                    }
-                }
-            } else {
-                if (ratingPresenter.listUser.value?.size == 0) {
-                    showError()
-                } else {
-                    disableError()
-                }
+                setTitle(resources.getString(R.string.offline))
+                disableLoadingWheel()
+                showError()
+                context?.displayToast(it)
+            }
+            if(it == "Something went wrong") {
+                setTitle(resources.getString(R.string.offline))
+                disableLoadingWheel()
+                showError()
+                context?.displayToast(it)
             }
         }
     }
 
     private fun handlerButtonClick() {
         binding.loadDataDB.setOnClickListener {
-            GlobalScope.launch {
-                disableError()
-                showLoadingWheel()
-
-                when (typeRating) {
-                    TypeRating.ALL -> {
-                        getRatingAllDB(requireView().context)
-                    }
-                    TypeRating.COUNTRY -> {
-                        getRatingCountryDB(requireView().context, "Россия")
-                    }
-                    TypeRating.CITY -> {
-                        getRatingCityDB(requireView().context, "Нижний Новгород")
+            disableError()
+            showLoadingWheel()
+            scope.launch {
+                val task = launch {
+                    when (typeRating) {
+                        TypeRating.ALL -> {
+                            ratingPresenter.getRatingAllDB()
+                        }
+                        TypeRating.COUNTRY -> {
+                            ratingPresenter.getRatingCountryDB(country)
+                        }
+                        TypeRating.CITY -> {
+                            ratingPresenter.getRatingCityDB(city)
+                        }
                     }
                 }
+                task.join()
+                disableLoadingWheel()
             }
+
         }
     }
 
@@ -166,7 +135,7 @@ class RatingFragment : Fragment(), RatingView {
             disableError()
             switchRating(world, country, city)
 
-            GlobalScope.launch {
+            scope.launch {
                 createRequest(typeRating, "")
             }
         }
@@ -178,8 +147,8 @@ class RatingFragment : Fragment(), RatingView {
             disableError()
             switchRating(world, country, city)
 
-            GlobalScope.launch {
-                createRequest(typeRating, "Россия")
+            scope.launch {
+                createRequest(typeRating, RatingFragment().country)
             }
         }
 
@@ -188,11 +157,10 @@ class RatingFragment : Fragment(), RatingView {
             typeRating = TypeRating.CITY
 
             disableError()
-
             switchRating(world, country, city)
 
-            GlobalScope.launch {
-                createRequest(typeRating, "Нижний Новгород")
+            scope.launch {
+                createRequest(typeRating, RatingFragment().city)
             }
         }
     }
@@ -209,91 +177,100 @@ class RatingFragment : Fragment(), RatingView {
     ) {
         when (typeRating) {
             TypeRating.ALL -> {
-                world.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                world.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.teal_200
+                    )
+                )
                 country.background = R.color.blackOpaque20.toDrawable()
                 city.background = R.color.blackOpaque20.toDrawable()
             }
             TypeRating.COUNTRY -> {
                 world.background = R.color.blackOpaque20.toDrawable()
-                country.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
+                country.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.teal_200
+                    )
+                )
                 city.background = R.color.blackOpaque20.toDrawable()
             }
             TypeRating.CITY -> {
                 world.background = R.color.blackOpaque20.toDrawable()
                 country.background = R.color.blackOpaque20.toDrawable()
-                city.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.teal_200))
-            }
-        }
-        ratingPresenter.listUser.postValue(listOf())
-    }
-
-    private suspend fun createRequest(typeRating: TypeRating, body: String?) {
-        GlobalScope.launch {
-            showLoadingWheel()
-            if (typeRating == TypeRating.ALL) {
-                setTitle(resources.getString(R.string.top_off_world))
-                getRatingAllAPI()
-            }
-            if (typeRating == TypeRating.CITY) {
-                if (body != null) {
-                    setTitle(resources.getString(R.string.top_off) + " $body")
-                    getRatingCityAPI(body)
-                }
-            }
-            if (typeRating == TypeRating.COUNTRY) {
-                if (body != null) {
-                    setTitle(resources.getString(R.string.top_off) + " $body")
-                    getRatingCountryAPI(body)
-                }
+                city.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.teal_200
+                    )
+                )
             }
         }
     }
 
-    override fun displayList(listRating: List<Rating>) {
-        GlobalScope.launch(Dispatchers.Main) {
-            recyclerView.adapter = RatingAdapter(listRating)
+    private fun createRequest(typeRating: TypeRating, body: String?) {
+        showLoadingWheel()
+        if (typeRating == TypeRating.ALL) {
+            setTitle(resources.getString(R.string.top_off_world))
+            ratingPresenter.getRatingAllAPI()
         }
+        if (typeRating == TypeRating.CITY) {
+            if (body != null) {
+                setTitle(resources.getString(R.string.top_off) + " $body")
+                ratingPresenter.getRatingCityAPI(body)
+            }
+        }
+        if (typeRating == TypeRating.COUNTRY) {
+            if (body != null) {
+                setTitle(resources.getString(R.string.top_off) + " $body")
+                ratingPresenter.getRatingCountryAPI(body)
+            }
+        }
+    }
+
+    override fun displayList(listShortUser: List<ShortUser>) {
+        recyclerView.adapter = RatingAdapter(listShortUser,this)
     }
 
     override fun showError() {
-        GlobalScope.launch(Dispatchers.Main) {
-            binding.errorData.visibility = View.VISIBLE
-            binding.loadDataDB.visibility = View.VISIBLE
-        }
+        disableLoadingWheel()
+        binding.errorData.visibility = View.VISIBLE
+        binding.loadDataDB.visibility = View.VISIBLE
+        isLoad = true
     }
 
     override fun disableError() {
-        GlobalScope.launch(Dispatchers.Main) {
-            binding.errorData.visibility = View.GONE
-            binding.loadDataDB.visibility = View.GONE
-        }
+        disableLoadingWheel()
+        binding.errorData.visibility = View.GONE
+        binding.loadDataDB.visibility = View.GONE
+        isLoad = true
     }
 
     override fun setTitle(title: String) {
-        GlobalScope.launch(Dispatchers.Main) {
+        scope.launch(Dispatchers.Main) {
             binding.title.text = title
-            Log.d("Title:", title)
         }
+        Log.d("Title:", title)
     }
 
-    override suspend fun showLoadingWheel() {
-        GlobalScope.launch(Dispatchers.Main) {
+    override fun showLoadingWheel() {
+        scope.launch(Dispatchers.Main) {
+            binding.loadBar.visibility = View.VISIBLE
             isLoad = false
-            val progressBar = binding.loadBar
-            progressBar.visibility = View.VISIBLE
-            var progress = 0
-            while (!isLoad) {
-                if (progress == 100) progress = 0
-                Log.d("Bar:", progress.toString())
-                progressBar.progress = progress
-                progress += 5
-                delay(45)
-            }
         }
     }
 
     override fun disableLoadingWheel() {
-        binding.loadBar.visibility = View.GONE
-        isLoad = true
+        scope.launch(Dispatchers.Main) {
+            binding.loadBar.visibility = View.GONE
+            isLoad = true
+        }
+    }
+
+    override fun onCellClickListener(id: String) {
+        val intent = Intent(context, ShowProfileActivity::class.java)
+        intent.putExtra("id", id);
+        startActivity(intent)
     }
 }

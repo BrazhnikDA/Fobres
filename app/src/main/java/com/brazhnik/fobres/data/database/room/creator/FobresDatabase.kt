@@ -5,14 +5,23 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.brazhnik.fobres.data.database.room.dao.LogEventDao
+import com.brazhnik.fobres.data.database.room.dao.ProfileEventDao
 import com.brazhnik.fobres.data.database.room.dao.RatingEventDao
 import com.brazhnik.fobres.data.database.room.entity.LogEventEntity
+import com.brazhnik.fobres.data.database.room.entity.ProfileEventEntity
 import com.brazhnik.fobres.data.database.room.entity.RatingEventEntity
+import com.brazhnik.fobres.data.database.room.repository.RoomLogEventRepository
+import com.brazhnik.fobres.data.database.room.repository.RoomProfileEventRepository
+import com.brazhnik.fobres.data.database.room.repository.RoomRatingEventRepository
 
-@Database(entities = [LogEventEntity::class, RatingEventEntity::class], version = 5)
+@Database(
+    entities = [LogEventEntity::class, RatingEventEntity::class, ProfileEventEntity::class],
+    version = 11
+)
 abstract class FobresDatabase : RoomDatabase() {
     abstract fun logDao(): LogEventDao
     abstract fun ratingDao(): RatingEventDao
+    abstract fun profileDao(): ProfileEventDao
 
     companion object {
         @Volatile
@@ -31,7 +40,18 @@ abstract class FobresDatabase : RoomDatabase() {
             }
         }
 
-        fun destroyDataBase(){
+        fun initAllTableDB(applicationContext: Context) {
+            RoomLogEventRepository.logDatabase =
+                RoomLogEventRepository.initializeDB(context = applicationContext)
+
+            RoomProfileEventRepository.profileDatabase =
+                RoomProfileEventRepository.initializeDB(context = applicationContext)
+
+            RoomRatingEventRepository.ratingDatabase =
+                RoomRatingEventRepository.initializeDB(context = applicationContext)
+        }
+
+        fun destroyDataBase() {
             INSTANCE = null
         }
     }

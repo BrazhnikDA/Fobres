@@ -1,12 +1,11 @@
 package com.brazhnik.fobres.data.database.room.repository
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import com.brazhnik.fobres.data.database.repository.RatingEventRepository
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
 import com.brazhnik.fobres.data.database.room.entity.RatingEventEntity
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -14,144 +13,114 @@ import kotlinx.coroutines.launch
 class RoomRatingEventRepository {
     companion object : RatingEventRepository {
 
-        private var ratingDatabase: FobresDatabase? = null
+        var ratingDatabase: FobresDatabase? = null
 
-        private fun initializeDB(context: Context): FobresDatabase {
+        fun initializeDB(context: Context): FobresDatabase {
             return FobresDatabase.getDatabaseFobres(context)
         }
 
-        override suspend fun saveListRating(context: Context, listRating: List<Rating>) {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
-
+        override suspend fun saveListRating(listShortUser: List<ShortUser>) {
             CoroutineScope(IO).launch {
-                for (item in listRating) {
+                for (item in listShortUser) {
                     ratingDatabase!!.ratingDao().saveListRating(
                         RatingEventEntity(
                             id = item.id.toLong(),
-                            login = item.login,
+                            money = item.money,
                             firstName = item.firstName,
                             lastName = item.lastName,
-                            profileDescription = item.profileDescription,
                             profilePicture = item.profilePicture.toString(),
-                            country = item.country,
-                            city = item.city,
-                            money = item.money
+                            status = item.status.toString()
                         )
                     )
                 }
             }
         }
 
-        override suspend fun getRatingAll(context: Context): List<Rating> {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
+        override suspend fun getRatingAll(): List<ShortUser> {
             try {
-                val result: ArrayList<Rating> = arrayListOf()
+                val result: ArrayList<ShortUser> = arrayListOf()
                 for (item in ratingDatabase!!.ratingDao().getListRatingAll()) {
                     result.add(
-                        Rating(
+                        ShortUser(
                             item.id.toString(),
-                            item.login,
+                            item.money,
                             item.firstName,
                             item.lastName,
-                            item.profileDescription,
-                            item.profilePicture,    // FIX this need image
-                            item.country,
-                            item.city,
-                            item.money
+                            item.profilePicture,
+                            item.status
                         )
                     )
                 }
                 return if (result.size > 0) result else mutableListOf(
-                Rating(
-                    "0",
-                    "_",
-                    "Your history is empty :(",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "0"
-                )
-                )
-            } catch (ex: Exception) {
-                Log.d("DB: ", "Table for rating is empty!")
-                return arrayListOf()
-            }
-        }
-
-        override suspend fun getRatingCountry(context: Context, country: String): List<Rating> {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
-            try {
-                val result: ArrayList<Rating> = arrayListOf()
-                for (item in ratingDatabase!!.ratingDao().getListRatingCountry(country)) {
-                    result.add(
-                        Rating(
-                            item.id.toString(),
-                            item.login,
-                            item.firstName,
-                            item.lastName,
-                            item.profileDescription,
-                            item.profilePicture,    // FIX this need image
-                            item.country,
-                            item.city,
-                            item.money
-                        )
-                    )
-                }
-                return if (result.size > 0) result else mutableListOf(
-                Rating(
-                    "0",
-                    "_",
-                    "Your history is empty :(",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "_",
-                    "0"
-                )
-                )
-            } catch (ex: Exception) {
-                Log.d("DB: ", "Table for rating is empty!")
-                return arrayListOf()
-            }
-        }
-
-        override suspend fun getRatingCity(context: Context, city: String): List<Rating> {
-            if (ratingDatabase == null)
-                ratingDatabase = initializeDB(context)
-            try {
-                val result: ArrayList<Rating> = arrayListOf()
-                for (item in ratingDatabase!!.ratingDao().getListRatingCity(city)) {
-                    result.add(
-                        Rating(
-                            item.id.toString(),
-                            item.login,
-                            item.firstName,
-                            item.lastName,
-                            item.profileDescription,
-                            item.profilePicture,    // FIX this need image
-                            item.country,
-                            item.city,
-                            item.money
-                        )
-                    )
-                }
-                return if (result.size > 0) result else mutableListOf(
-                    Rating(
+                    ShortUser(
+                        "0",
                         "0",
                         "_",
-                        "Your history is empty :(",
+                        "_",
+                        "_",
+                        "Your history is empty :("
+                    )
+                )
+            } catch (ex: Exception) {
+                Log.d("DB: ", "Table for rating is empty!")
+                return arrayListOf()
+            }
+        }
+
+        override suspend fun getRatingCountry(country: String): List<ShortUser> {
+            try {
+                val result: ArrayList<ShortUser> = arrayListOf()
+                for (item in ratingDatabase!!.ratingDao().getListRatingCountry()) {
+                    result.add(
+                        ShortUser(
+                            id = item.id.toString(),
+                            money = item.money,
+                            firstName = item.firstName,
+                            lastName = item.lastName,
+                            profilePicture = item.profilePicture.toString(),
+                            status = item.status
+                        )
+                    )
+                }
+                return if (result.size > 0) result else mutableListOf(
+                    ShortUser(
+                        "0",
+                        "0",
                         "_",
                         "_",
                         "_",
+                        "Your history is empty :("
+                    )
+                )
+            } catch (ex: Exception) {
+                Log.d("DB: ", "Table for rating is empty!")
+                return arrayListOf()
+            }
+        }
+
+        override suspend fun getRatingCity(city: String): List<ShortUser> {
+            try {
+                val result: ArrayList<ShortUser> = arrayListOf()
+                for (item in ratingDatabase!!.ratingDao().getListRatingCity()) {
+                    result.add(
+                        ShortUser(
+                            item.id.toString(),
+                            item.money,
+                            item.firstName,
+                            item.lastName,
+                            item.profilePicture,
+                            item.status
+                        )
+                    )
+                }
+                return if (result.size > 0) result else mutableListOf(
+                    ShortUser(
+                        "0",
+                        "0",
                         "_",
                         "_",
-                        "0"
+                        "_",
+                        "Your history is empty :("
                     )
                 )
             } catch (ex: Exception) {

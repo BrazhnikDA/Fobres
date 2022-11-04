@@ -1,20 +1,16 @@
 package com.brazhnik.fobres.data.helper
 
-import android.content.Context
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.database.room.repository.RoomLogEventRepository
 import com.brazhnik.fobres.data.database.room.repository.RoomRatingEventRepository
 import com.brazhnik.fobres.data.model.LogEvent
-import com.brazhnik.fobres.data.model.Rating
+import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.data.network.service.ServiceRating
-import com.brazhnik.fobres.view.rating.RatingView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class ModelRatingHelper (
-    private val context: Context,
-    private val listRating: MutableLiveData<List<Rating>>,
+    private val listShortUser: MutableLiveData<List<ShortUser>>,
     private val statusResponse: MutableLiveData<String>
 ) {
     private val ratingService: ServiceRating = ServiceRating()
@@ -22,8 +18,8 @@ class ModelRatingHelper (
     //region API Call
     // Need add override fun in to string for $listRating API and DB
     fun getRatingAllAPI() {
-        ratingService.getAllUsersAPI(listRating, statusResponse)
-        saveLog(context, mutableListOf(), "getRatingAllAPI", null)
+        ratingService.getAllUsersAPI(listShortUser, statusResponse)
+        saveLog(mutableListOf(), "getRatingAllAPI", null)
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllAPI", null) }
             GlobalScope.launch {
@@ -34,8 +30,8 @@ class ModelRatingHelper (
     }
 
     fun getRatingCityAPI(city: String) {
-        ratingService.getCityUsersAPI(listRating, city, statusResponse)
-        saveLog(context, mutableListOf(), "getRatingCityAPI", null)
+        ratingService.getCityUsersAPI(listShortUser, city, statusResponse)
+        saveLog(mutableListOf(), "getRatingCityAPI", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingCityAPI", null) }
@@ -43,8 +39,8 @@ class ModelRatingHelper (
     }
 
     fun getRatingCountryAPI(country: String) {
-        ratingService.getCountryUsersAPI(listRating, country, statusResponse)
-        saveLog(context, mutableListOf(), "getRatingCountryAPI", null)
+        ratingService.getCountryUsersAPI(listShortUser, country, statusResponse)
+        saveLog(mutableListOf(), "getRatingCountryAPI", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingCountryAPI", null) }
@@ -53,32 +49,32 @@ class ModelRatingHelper (
     //endregion
 
     //region Room DB Call
-    suspend fun setRatingAllDB(listRating: List<Rating>) {
-        saveLog(context, listRating.toList(), "setRatingAllDB", null)
-        RoomRatingEventRepository.saveListRating(context, listRating)
+    suspend fun setRatingAllDB(listShortUser: List<ShortUser>) {
+        saveLog(listShortUser.toList(), "setRatingAllDB", null)
+        RoomRatingEventRepository.saveListRating(listShortUser)
     }
 
-    suspend fun getRatingAllDB(context: Context) {
-        listRating.postValue(RoomRatingEventRepository.getRatingAll(context))
-        saveLog(context, mutableListOf(), "getRatingAllDB", null)
+    suspend fun getRatingAllDB() {
+        listShortUser.postValue(RoomRatingEventRepository.getRatingAll())
+        saveLog(mutableListOf(), "getRatingAllDB", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllDB", null) }
         })*/
     }
 
-    suspend fun getRatingCountryDB(context: Context, country: String) {
-        listRating.postValue(RoomRatingEventRepository.getRatingCountry(context, country))
-        saveLog(context, mutableListOf(), "getRatingCountryDB", null)
+    suspend fun getRatingCountryDB(country: String) {
+        listShortUser.postValue(RoomRatingEventRepository.getRatingCountry(country))
+        saveLog(mutableListOf(), "getRatingCountryDB", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllDB", null) }
         })*/
     }
 
-    suspend fun getRatingCityDB(context: Context, city: String) {
-        listRating.postValue(RoomRatingEventRepository.getRatingCity(context, city))
-        saveLog(context, mutableListOf(), "getRatingCityDB", null)
+    suspend fun getRatingCityDB(city: String) {
+        listShortUser.postValue(RoomRatingEventRepository.getRatingCity(city))
+        saveLog(mutableListOf(), "getRatingCityDB", null)
 
         /*listRating.observe(lifecycle, Observer {
             listRating.value?.let { it1 -> saveLog(context, it1.toList(), "getRatingAllDB", null) }
@@ -89,23 +85,23 @@ class ModelRatingHelper (
     companion object {
         private const val LOG_PLACE = "ModelRatingHelper"
 
-        fun saveLog(context: Context, listRating: List<Rating>, name: String, error: String?) {
+        fun saveLog(listShortUser: List<ShortUser>, name: String, error: String?) {
             GlobalScope.launch {
                 RoomLogEventRepository.saveLog(
-                    context, LogEvent(
+                    LogEvent(
                         LOG_PLACE,
                         System.currentTimeMillis(),
                         name,
-                        listToString(listRating),
+                        listToString(listShortUser),
                         error ?: "null"
                     )
                 )
             }
         }
 
-        private fun listToString(listRating: List<Rating>): String {
+        private fun listToString(listShortUser: List<ShortUser>): String {
             var result = ""
-            for (item in listRating) {
+            for (item in listShortUser) {
                 result += item.toString() + "\n"
             }
             return if (result != "") result else "Null"

@@ -13,15 +13,13 @@ class RoomLogEventRepository {
 
     companion object : LogEventRepository {
 
-        private var logDatabase: FobresDatabase? = null
+        var logDatabase: FobresDatabase? = null
 
-        private fun initializeDB(context: Context): FobresDatabase {
+        fun initializeDB(context: Context): FobresDatabase {
             return FobresDatabase.getDatabaseFobres(context)
         }
 
-        override suspend fun saveLog(context: Context, log: LogEvent) {
-            logDatabase = initializeDB(context)
-
+        override suspend fun saveLog(log: LogEvent) {
             CoroutineScope(IO).launch {
                 logDatabase!!.logDao().saveLogEvent(
                     LogEventEntity(

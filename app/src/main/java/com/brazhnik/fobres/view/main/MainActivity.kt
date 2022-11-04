@@ -12,6 +12,7 @@ import com.brazhnik.fobres.R
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
 import com.brazhnik.fobres.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.layout_navigation_header.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,5 +32,7 @@ class MainActivity : AppCompatActivity() {
         val navController: NavController =
             Navigation.findNavController(this, R.id.navHostFragment)
         NavigationUI.setupWithNavController(navView, navController)
+
+
     }
 }

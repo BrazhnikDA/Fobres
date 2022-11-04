@@ -1,17 +1,20 @@
 package com.brazhnik.fobres.view.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
-import com.brazhnik.fobres.data.model.Profile
+import com.brazhnik.fobres.data.SharedData
+import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.databinding.FragmentProfileBinding
+import com.brazhnik.fobres.view.authorization.login.LoginActivity
+import com.brazhnik.fobres.view.profile.editprofile.EditActivity
+import com.squareup.picasso.Picasso
 
 
 class ProfileFragment : Fragment(), ProfileView {
@@ -23,55 +26,13 @@ class ProfileFragment : Fragment(), ProfileView {
 
     @ProvidePresenter
     fun providePresenter(): ProfilePresenter {
-        return ProfilePresenter(requireView().context)
-    }
-
-    private var id_: Int = 8
-
-    private fun fillingFields(profileInfo: Profile) {
-        binding.name.text = String.format(getString(R.string.name_profile), profileInfo.firstName, profileInfo.lastName)
-        binding.coins.text = String.format(getString(R.string.coins_profile), profileInfo.money)
-        binding.description.text = profileInfo.profileDescription
-        binding.locationText.text = String.format(getString(R.string.location_profile), profileInfo.country, profileInfo.city)
-        binding.title.text =  String.format(getString(R.string.login_profile), profileInfo.login)
-    }
-
-    override fun getCurrentProfileAPI(id: Int) {
-        presenter.getCurrentProfileAPI(id)
-    }
-
-    override fun getHistoryDepositAPI(id: Int) {
-        return presenter.getHistoryDepositAPI(id)
-    }
-
-    override fun getViewHowGuestAPI(id: Int) {
-        return presenter.getViewHowGuestAPI(id)
-    }
-
-    override fun updateProfileAPI(id: Int) {
-        return presenter.updateProfileAPI(id)
-    }
-
-    override fun getCurrentProfileDB(id: Int): Profile {
-        return presenter.getCurrentProfileDB(id)
-    }
-
-    override fun getHistoryDepositDB(id: Int) {
-        return presenter.getHistoryDepositDB(id)
-    }
-
-    override fun getViewHowGuestDB(id: Int) {
-        return presenter.getViewHowGuestDB(id)
-    }
-
-    override fun updateProfileDB(id: Int) {
-        return presenter.updateProfileDB(id)
+        return ProfilePresenter()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // inflate the layout and bind to the _binding
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
@@ -81,13 +42,65 @@ class ProfileFragment : Fragment(), ProfileView {
         super.onViewCreated(view, savedInstanceState)
         presenter = providePresenter()
 
-        openFragment()
+        // For view how guest or owner
+        if (SharedData.isLogged) {
+            showOwner()
+        } else {
+            showGuest()
+        }
+    }
 
-        presenter.profile.observe(viewLifecycleOwner, Observer {
+    override fun onResume() {
+        super.onResume()
+        // For view how guest or owner
+        if (SharedData.isLogged) {
+            showOwner()
+        } else {
+            showGuest()
+        }
+    }
+
+    private fun handlerButtonClick() {
+        binding.changeProfile.setOnClickListener {
+            val intent = Intent(context, EditActivity::class.java)
+            startActivity(intent)
+        }
+        binding.imageProfile.setOnClickListener {
+            with(binding.viewFullImage) {
+                visibility = View.VISIBLE
+            }
+            binding.buttonBack.visibility = View.VISIBLE
+        }
+        binding.buttonBack.setOnClickListener {
+            binding.viewFullImage.visibility = View.GONE
+            binding.buttonBack.visibility = View.GONE
+        }
+    }
+
+    private fun showOwner() {
+        loadData()
+        handlerButtonClick()
+        binding.changeProfile.visibility = View.VISIBLE
+        presenter.profileFull.observe(viewLifecycleOwner) {
             fillingFields(it)
-        })
+            binding.layoutLoadBar.visibility = View.GONE
+            SharedData.profileFullCurrent = it  // Update local profile
+            //presenter.setProfileDB(it) // TODO FIX EXCEPTION FIELDS FOR PLACE IS NULL
+        }
 
+        presenter.status.observe(viewLifecycleOwner) {
+            binding.title.text = resources.getString(R.string.offline)
+            presenter.profileFull.postValue(SharedData.profileFullCurrent)
+        }
+    }
 
+    private fun showGuest() {
+        binding.changeProfile.visibility = View.GONE
+        binding.errorLogged.visibility = View.VISIBLE
+        binding.btnLogged.setOnClickListener {
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
@@ -95,8 +108,39 @@ class ProfileFragment : Fragment(), ProfileView {
         _binding = null
     }
 
-    private fun openFragment() {
+    private fun loadData() {
         // колесо загрузки
-        getCurrentProfileAPI(id_)
+        binding.layoutLoadBar.visibility = View.VISIBLE
+        presenter.getCurrentProfileAPI(SharedData.profileFullCurrent.id.toInt())
+    }
+
+    private fun fillingFields(profileFullInfo: ProfileFull) {
+        binding.name.text = String.format(
+            getString(R.string.name_profile),
+            profileFullInfo.firstName,
+            profileFullInfo.lastName
+        )
+        binding.status.text =
+            String.format(getString(R.string.status_profile), profileFullInfo.status)
+        binding.coins.text = String.format(getString(R.string.coins_profile), profileFullInfo.money)
+        binding.description.text =
+            String.format(
+                getString(R.string.description_profile),
+                profileFullInfo.profileDescription
+            )
+        binding.locationText.text = String.format(
+            getString(R.string.location_profile),
+            profileFullInfo.country,
+            profileFullInfo.city
+        )
+        binding.title.text = String.format(getString(R.string.login_profile), profileFullInfo.login)
+        binding.placeWorld.text =
+            String.format(getString(R.string.place_profile), profileFullInfo.globalRating)
+        binding.placeCountry.text =
+            String.format(getString(R.string.place_profile), profileFullInfo.countryRating)
+        binding.placeCity.text =
+            String.format(getString(R.string.place_profile), profileFullInfo.cityRating)
+        Picasso.get().load(profileFullInfo.profilePicture).into(binding.imageProfile)
+        Picasso.get().load(profileFullInfo.profilePicture).into(binding.viewFullImage)
     }
 }

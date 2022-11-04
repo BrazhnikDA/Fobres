@@ -1,51 +1,40 @@
 package com.brazhnik.fobres.view.profile
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
-import com.brazhnik.fobres.data.model.Profile
-import com.brazhnik.fobres.data.network.service.ServiceProfile
+import com.brazhnik.fobres.data.model.ProfileFull
+import kotlinx.coroutines.*
 
 @InjectViewState
-class ProfilePresenter (context: Context) : MvpPresenter<ProfileView>() {
+class ProfilePresenter: MvpPresenter<ProfileView>() {
 
-    val profile = MutableLiveData<Profile>()
+    val profileFull: MutableLiveData<ProfileFull> = MutableLiveData()
+    val status: MutableLiveData<String> = MutableLiveData()
+
+    private val scope = CoroutineScope(Dispatchers.IO)
+
     private var modelProfileHelper: ModelProfileHelper =
-        ModelProfileHelper(context, profile)
+        ModelProfileHelper(profileFull, status)
 
 
     fun getCurrentProfileAPI(id: Int) {
-        modelProfileHelper.getCurrentProfileAPI(id)
+        scope.launch {
+            //delay(2000) // TODO DELETE
+            modelProfileHelper.getCurrentProfileAPI(id)
+        }
     }
 
-    fun getHistoryDepositAPI(id: Int) {
-        TODO("Not yet implemented")
+    fun setProfileDB(profileFull: ProfileFull) {
+        scope.launch {
+            modelProfileHelper.setProfileDB(profileFull)
+        }
     }
 
-    fun getViewHowGuestAPI(id: Int) {
-        TODO("Not yet implemented")
+    fun getProfileDB() {
+        scope.launch {
+            modelProfileHelper.getProfileDB()
+        }
     }
-
-    fun updateProfileAPI(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    fun getCurrentProfileDB(id: Int): Profile {
-        return modelProfileHelper.getCurrentProfileDB(id)
-    }
-
-    fun getHistoryDepositDB(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    fun getViewHowGuestDB(id: Int) {
-        TODO("Not yet implemented")
-    }
-
-    fun updateProfileDB(id: Int) {
-        TODO("Not yet implemented")
-    }
-
 }

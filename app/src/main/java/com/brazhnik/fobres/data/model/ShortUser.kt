@@ -1,28 +1,21 @@
 package com.brazhnik.fobres.data.model
 
-import android.graphics.drawable.ColorDrawable
-
-class Rating(
+data class ShortUser(
     var id: String,
-    var login: String,
+    var money: String,
     var firstName: String,
     var lastName: String,
-    var profileDescription: String,
     var profilePicture: String?,
-    var country: String,
-    var city: String,
-    var money: String
+    var status: String?
 ) {
     override fun toString(): String {
         val checkImage = if (profilePicture != "") "Use" else "Empty"
         return "id: $id, " +
-                "login: $login, " +
-                "country: $country" +
-                "city: $city" +
                 "firstName: $firstName, " +
                 "lastName: $lastName, " +
-                "profileDescription: $profileDescription," +
+                "status: $status" +
                 "profileImage: $checkImage" +
-                "money: $money\n"
+                "money: $money\n" +
+                "Picture: $profilePicture"
     }
 }

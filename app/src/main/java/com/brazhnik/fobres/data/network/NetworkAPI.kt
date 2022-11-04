@@ -1,11 +1,15 @@
 package com.brazhnik.fobres.data.network
 
+import com.brazhnik.fobres.data.SharedData.Companion.TIME_WAIT_RESPONSE_API
+import com.brazhnik.fobres.data.network.api.PlaceHolderImageAPI
 import com.brazhnik.fobres.data.network.api.PlaceHolderProfileAPI
 import com.brazhnik.fobres.data.network.api.PlaceHolderRatingAPI
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+
 
 class NetworkAPI {
 
@@ -16,17 +20,19 @@ class NetworkAPI {
     init {
         val okHttpClient =
             OkHttpClient().newBuilder()
-                .connectTimeout(1500, TimeUnit.MILLISECONDS)
-                .readTimeout(1500, TimeUnit.MILLISECONDS)
-                .writeTimeout(1500, TimeUnit.MILLISECONDS)
+                .connectTimeout(TIME_WAIT_RESPONSE_API.toLong(), TimeUnit.MILLISECONDS)
+                .readTimeout(TIME_WAIT_RESPONSE_API.toLong(), TimeUnit.MILLISECONDS)
+                .writeTimeout(TIME_WAIT_RESPONSE_API.toLong(), TimeUnit.MILLISECONDS)
                 .build()
 
 
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
         retrofit = Retrofit.Builder()
             .baseUrl(url)
-            .addConverterFactory(
-                GsonConverterFactory.create()
-            )
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
     }
@@ -41,5 +47,9 @@ class NetworkAPI {
 
     fun getJSONProfileAPI(): PlaceHolderProfileAPI {
         return retrofit.create(PlaceHolderProfileAPI::class.java)
+    }
+
+    fun getJSONImageAPI(): PlaceHolderImageAPI {
+        return retrofit.create(PlaceHolderImageAPI::class.java)
     }
 }

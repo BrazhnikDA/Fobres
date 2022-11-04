@@ -1,16 +1,14 @@
 package com.brazhnik.fobres.data.network.api
 
 import com.brazhnik.fobres.data.model.Profile
+import com.brazhnik.fobres.data.model.ProfileFull
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface PlaceHolderProfileAPI {
     @GET("/api/users/{id}/")
-    fun getCurrentProfile(@Path("id")id: Int): Call<Profile>
+    fun getCurrentProfile(@Path("id")id: Int): Call<ProfileFull>
 
-    @POST("/api/users/")
-    fun updateCurrentProfile(@Path("id")id: Int, @Body profileBody: Profile)
+    @PUT("/api/users")
+    fun updateCurrentProfile(@Body profileBody: Profile): Call<Profile>
 }

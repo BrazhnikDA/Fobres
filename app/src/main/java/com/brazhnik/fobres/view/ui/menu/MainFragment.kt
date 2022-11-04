@@ -6,24 +6,57 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.brazhnik.fobres.R
+import com.brazhnik.fobres.data.SharedData
+import com.brazhnik.fobres.databinding.FragmentMainBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MainFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MainFragment : Fragment() {
+
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if(SharedData.isLogged) {
+            loadData()
+        } else {
+            showGuest()
+        }
+    }
+
+    private fun loadData() {
+        binding.textViewCoins.text =
+            resources.getString(R.string.coins_home, SharedData.profileFullCurrent.money)
+        binding.textViewTopWorld.text =
+            resources.getString(R.string.world_home, SharedData.profileFullCurrent.globalRating)
+        binding.textViewTopCountry.text =
+            resources.getString(R.string.country_home, SharedData.profileFullCurrent.countryRating)
+        binding.textViewTopCity.text =
+            resources.getString(R.string.city_home, SharedData.profileFullCurrent.cityRating)
+    }
+
+    private fun showGuest() {
+        // Поменять кнпоку гость / авторизация
+        binding.textViewCoins.text =
+            resources.getString(R.string.coins_home, "?")
+        binding.textViewTopWorld.text =
+            resources.getString(R.string.world_home, "?")
+        binding.textViewTopCountry.text =
+            resources.getString(R.string.country_home, "?")
+        binding.textViewTopCity.text =
+            resources.getString(R.string.city_home, "?")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

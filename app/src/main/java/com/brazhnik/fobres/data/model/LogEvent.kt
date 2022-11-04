@@ -1,6 +1,6 @@
 package com.brazhnik.fobres.data.model
 
-class LogEvent(
+data class LogEvent(
     val logPlace: String,
     val logTime: Long,
     val logText: String,
