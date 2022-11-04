@@ -248,7 +248,9 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
     }
 
     override fun setTitle(title: String) {
-        binding.title.text = title
+        scope.launch(Dispatchers.Main) {
+            binding.title.text = title
+        }
         Log.d("Title:", title)
     }
 
