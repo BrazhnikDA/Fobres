@@ -7,8 +7,8 @@ import retrofit2.http.*
 
 interface PlaceHolderProfileAPI {
     @GET("/api/users/{id}/")
-    fun getCurrentProfile(@Path("id")id: Int): Call<ProfileFull>
+    fun getCurrentProfile(@Header("Authorization") token: String, @Path("id")id: Int): Call<ProfileFull>
 
     @PUT("/api/users")
-    fun updateCurrentProfile(@Body profileBody: Profile): Call<Profile>
+    fun updateCurrentProfile(@Header("Authorization") token: String, @Body profileBody: Profile): Call<Profile>
 }

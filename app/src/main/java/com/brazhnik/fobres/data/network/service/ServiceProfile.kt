@@ -2,6 +2,7 @@ package com.brazhnik.fobres.data.network.service
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.UpdateImageAnswer
@@ -31,7 +32,7 @@ class ServiceProfile {
             money = profileFull.money.toDouble()
         )
         NetworkAPI().getJSONProfileAPI()
-            .updateCurrentProfile(profileBody = converter)
+            .updateCurrentProfile(token = SharedData._userToken, profileBody = converter)
             .enqueue(object : Callback<Profile> {
                 override fun onResponse(
                     call: Call<Profile>,
@@ -66,7 +67,7 @@ class ServiceProfile {
     }
 
     fun getCurrentProfile(result: MutableLiveData<ProfileFull>, id: Int, status: MutableLiveData<String>): MutableLiveData<ProfileFull> {
-        NetworkAPI().getJSONProfileAPI().getCurrentProfile(id)
+        NetworkAPI().getJSONProfileAPI().getCurrentProfile(SharedData._userToken, id)
             .enqueue(object : Callback<ProfileFull> {
                 override fun onResponse(
                     call: Call<ProfileFull>,
@@ -89,7 +90,7 @@ class ServiceProfile {
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
         val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-        NetworkAPI().getJSONImageAPI().updateImageCurrentProfile(id.toString(), body)
+        NetworkAPI().getJSONImageAPI().updateImageCurrentProfile(SharedData._userToken, id.toString(), body)
             .enqueue(object : Callback<UpdateImageAnswer> {
 
                 override fun onResponse(call: Call<UpdateImageAnswer>, response: Response<UpdateImageAnswer>) {

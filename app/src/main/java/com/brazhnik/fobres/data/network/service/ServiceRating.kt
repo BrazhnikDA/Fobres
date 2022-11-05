@@ -2,6 +2,7 @@ package com.brazhnik.fobres.data.network.service
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.data.network.NetworkAPI
 import retrofit2.Call
@@ -14,7 +15,7 @@ class ServiceRating {
         result: MutableLiveData<List<ShortUser>>,
         status: MutableLiveData<String>
     ): MutableLiveData<List<ShortUser>> {
-        NetworkAPI().getJSONRatingAPI().getAllUsers().enqueue(object : Callback<List<ShortUser>> {
+        NetworkAPI().getJSONRatingAPI().getAllUsers(SharedData._userToken).enqueue(object : Callback<List<ShortUser>> {
             override fun onResponse(
                 call: Call<List<ShortUser>>,
                 response: Response<List<ShortUser>>
@@ -43,7 +44,7 @@ class ServiceRating {
         country: String,
         status: MutableLiveData<String>
     ): MutableLiveData<List<ShortUser>> {
-        NetworkAPI().getJSONRatingAPI().getCountryUsers(country)
+        NetworkAPI().getJSONRatingAPI().getCountryUsers(SharedData._userToken, country)
             .enqueue(object : Callback<List<ShortUser>> {
                 override fun onResponse(
                     call: Call<List<ShortUser>>,
@@ -73,7 +74,7 @@ class ServiceRating {
         city: String,
         status: MutableLiveData<String>
     ): MutableLiveData<List<ShortUser>> {
-        NetworkAPI().getJSONRatingAPI().getCityUsers(city).enqueue(object : Callback<List<ShortUser>> {
+        NetworkAPI().getJSONRatingAPI().getCityUsers(SharedData._userToken, city).enqueue(object : Callback<List<ShortUser>> {
             override fun onResponse(
                 call: Call<List<ShortUser>>,
                 response: Response<List<ShortUser>>

@@ -10,5 +10,5 @@ interface PlaceHolderImageAPI {
 
     @Multipart
     @POST("/api/img/{id}")
-    fun updateImageCurrentProfile(@Path("id") id: String, @Part file: MultipartBody.Part): Call<UpdateImageAnswer>
+    fun updateImageCurrentProfile(@Header("Authorization") token: String, @Path("id") id: String, @Part file: MultipartBody.Part): Call<UpdateImageAnswer>
 }

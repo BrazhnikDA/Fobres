@@ -5,6 +5,8 @@ import com.brazhnik.fobres.data.model.ProfileFull
 abstract class SharedData {
     companion object {
         private lateinit var _profileFullCurrent: ProfileFull
+        lateinit var _userToken: String
+
 
         var profileFullCurrent: ProfileFull
             get() = _profileFullCurrent
