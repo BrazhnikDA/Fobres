@@ -9,6 +9,6 @@ import retrofit2.http.*
 interface PlaceHolderImageAPI {
 
     @Multipart
-    @POST("/api/img/{id}")
+    @POST("/api/img/update/{id}")
     fun updateImageCurrentProfile(@Header("Authorization") token: String, @Path("id") id: String, @Part file: MultipartBody.Part): Call<UpdateImageAnswer>
 }

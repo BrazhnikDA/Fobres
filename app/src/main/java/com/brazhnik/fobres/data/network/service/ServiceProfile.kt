@@ -14,6 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import kotlin.math.log
 
 
 class ServiceProfile {
@@ -68,6 +69,25 @@ class ServiceProfile {
 
     fun getCurrentProfile(result: MutableLiveData<ProfileFull>, id: Int, status: MutableLiveData<String>): MutableLiveData<ProfileFull> {
         NetworkAPI().getJSONProfileAPI().getCurrentProfile(SharedData._userToken, id)
+            .enqueue(object : Callback<ProfileFull> {
+                override fun onResponse(
+                    call: Call<ProfileFull>,
+                    response: Response<ProfileFull>
+                ) {
+                    Log.e("Logs_response", response.body().toString())
+                    result.postValue(response.body())
+                }
+
+                override fun onFailure(call: Call<ProfileFull>, t: Throwable) {
+                    Log.e("Logs_Error", t.toString())
+                    status.postValue(t.message)
+                }
+            })
+        return result
+    }
+
+    fun getCurrentProfile(result: MutableLiveData<ProfileFull>, login: String, status: MutableLiveData<String>): MutableLiveData<ProfileFull> {
+        NetworkAPI().getJSONProfileAPI().getCurrentProfile(SharedData._userToken, login)
             .enqueue(object : Callback<ProfileFull> {
                 override fun onResponse(
                     call: Call<ProfileFull>,

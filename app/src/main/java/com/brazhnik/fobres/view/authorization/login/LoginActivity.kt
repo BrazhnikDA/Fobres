@@ -52,22 +52,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
             finish()
         }
 
-        SharedData.profileFullCurrent = ProfileFull(
-            "1",
-            "login1",
-            "Dmitry",
-            "Brazhnik",
-            "I'm sail very delicious honey",
-            "Sail very delicious honey",
-            "picture1.png",
-            "Россия",
-            "Нижний Новгород",
-            "550",
-            "10",
-            "33",
-            "50"
-        )
-
         // Init all DB
         FobresDatabase.initAllTableDB(applicationContext)
     }
@@ -86,7 +70,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 // записать в шаред дата
                 SharedData._userToken = "Bearer " + it.token
                 // Получаем профиль по id
-                loginPresenter.profileHelper.getCurrentProfileAPI(1)
+                loginPresenter.profileHelper.getCurrentProfileAPI(it.username)
             }
             loginPresenter.profileFull.observe(this) {
                 this.displayToast("Профиль получен")

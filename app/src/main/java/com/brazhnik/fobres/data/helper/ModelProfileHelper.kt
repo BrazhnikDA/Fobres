@@ -23,6 +23,10 @@ class ModelProfileHelper (
         serviceProfile.getCurrentProfile(profileFull, id, status)
     }
 
+    fun getCurrentProfileAPI(login: String) {
+        serviceProfile.getCurrentProfile(profileFull, login, status)
+    }
+
     fun uploadImageToServer(pathToImage: String, id: Int, responseImageUrl: MutableLiveData<UpdateImageAnswer>) {
         serviceProfile.uploadImage(responseImageUrl, pathToImage, id, status)
     }
