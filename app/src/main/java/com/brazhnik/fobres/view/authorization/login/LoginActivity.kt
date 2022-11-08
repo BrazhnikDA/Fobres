@@ -2,6 +2,7 @@ package com.brazhnik.fobres.view.authorization.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -9,6 +10,7 @@ import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
+import com.brazhnik.fobres.utilities.Validator
 import com.brazhnik.fobres.utilities.displayToast
 import com.brazhnik.fobres.view.authorization.register.RegisterActivity
 import com.brazhnik.fobres.view.main.MainActivity
@@ -16,6 +18,9 @@ import com.brazhnik.fobres.view.profile.editprofile.EditPresenter
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), LoginView {
+
+    private val validator = Validator()
+    private var listError: HashMap<Int, String> = hashMapOf()
 
     @InjectPresenter
     lateinit var loginPresenter: LoginPresenter
@@ -36,7 +41,22 @@ class LoginActivity : AppCompatActivity(), LoginView {
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {
-            checkLoginSuccess()
+            val login = binding.etLoginUser.text.toString()
+            val pass = binding.etLoginPassword.text.toString()
+
+
+            listError.putAll(validator.isValidLogin(login))
+            listError.putAll(validator.isValidPassword(pass))
+            if(listError.size == 0) {
+                checkLoginSuccess()
+            } else {
+                var errorText = ""
+                for ((key, value) in listError) {
+                    errorText += value + "\n"
+                }
+                binding.textViewListError.visibility = View.VISIBLE
+                binding.textViewListError.text = errorText
+            }
         }
 
         binding.textViewRegister.setOnClickListener {
