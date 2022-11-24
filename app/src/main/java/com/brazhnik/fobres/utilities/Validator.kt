@@ -107,7 +107,7 @@ class Validator {
         if (text.length < 2) {
             listError.put(NAME_IS_SMALL_KEY, NAME_IS_SMALL_ERROR)
         }
-        if (text.length < 15) {
+        if (text.length > 15) {
             listError.put(NAME_IS_LARGE_KEY, NAME_IS_LARGE_ERROR)
         }
 
@@ -122,10 +122,10 @@ class Validator {
             }
         }
 
-        if (!isNum) {
+        if (isNum) {
             listError.put(NAME_CONTAINS_DIGIT_KEY, NAME_CONTAINS_DIGIT_ERROR)
         }
-        if (!isSpecSym) {
+        if (isSpecSym) {
             listError.put(NAME_CONTAINS_SPECIAL_SYMBOL_KEY, NAME_CONTAINS_SPECIAL_SYMBOL_ERROR)
         }
 

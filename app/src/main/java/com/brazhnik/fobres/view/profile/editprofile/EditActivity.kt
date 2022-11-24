@@ -97,6 +97,7 @@ class EditActivity : AppCompatActivity(), EditView {
         binding.btnSaveNewProfile.setOnClickListener {
             if (binding.etFirstName.text != null &&
                 binding.etLastName.text != null &&
+                binding.etStatus.text != null &&
                 binding.etCountry.text != null &&
                 binding.etCity.text != null &&
                 binding.etDescription.text != null
@@ -104,6 +105,7 @@ class EditActivity : AppCompatActivity(), EditView {
                 val tmpProfileFull: ProfileFull = editPresenter.getProfile()
                 tmpProfileFull.firstName = binding.etFirstName.text.toString()
                 tmpProfileFull.lastName = binding.etLastName.text.toString()
+                tmpProfileFull.status = binding.etStatus.text.toString()
                 tmpProfileFull.country = binding.etCountry.text.toString()
                 tmpProfileFull.city = binding.etCity.text.toString()
                 tmpProfileFull.profileDescription = binding.etDescription.text.toString()

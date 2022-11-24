@@ -82,7 +82,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 binding.etLoginPassword.text.toString()
             )
             loginPresenter.response.observe(this) {
-                this.displayToast("Успешно авторизован!")
+                this.displayToast("Погнали!")
                 // Отправить запрос, получить пользователя по id
                 // записать в шаред дата
                 SharedData._userToken = "Bearer " + it.token
@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 loginPresenter.profileHelper.getCurrentProfileAPI(it.username)
             }
             loginPresenter.profileFull.observe(this) {
-                this.displayToast("Профиль получен")
+                //this.displayToast("Профиль получен")
                 SharedData.profileFullCurrent = it
 
                 val intent = Intent(this, MainActivity::class.java)
