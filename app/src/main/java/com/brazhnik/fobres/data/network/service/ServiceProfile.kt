@@ -2,6 +2,7 @@ package com.brazhnik.fobres.data.network.service
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.UpdateImageAnswer
@@ -13,6 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import kotlin.math.log
 
 
 class ServiceProfile {
@@ -31,7 +33,7 @@ class ServiceProfile {
             money = profileFull.money.toDouble()
         )
         NetworkAPI().getJSONProfileAPI()
-            .updateCurrentProfile(profileBody = converter)
+            .updateCurrentProfile(token = SharedData._userToken, profileBody = converter)
             .enqueue(object : Callback<Profile> {
                 override fun onResponse(
                     call: Call<Profile>,
@@ -66,7 +68,26 @@ class ServiceProfile {
     }
 
     fun getCurrentProfile(result: MutableLiveData<ProfileFull>, id: Int, status: MutableLiveData<String>): MutableLiveData<ProfileFull> {
-        NetworkAPI().getJSONProfileAPI().getCurrentProfile(id)
+        NetworkAPI().getJSONProfileAPI().getCurrentProfile(SharedData._userToken, id)
+            .enqueue(object : Callback<ProfileFull> {
+                override fun onResponse(
+                    call: Call<ProfileFull>,
+                    response: Response<ProfileFull>
+                ) {
+                    Log.e("Logs_response", response.body().toString())
+                    result.postValue(response.body())
+                }
+
+                override fun onFailure(call: Call<ProfileFull>, t: Throwable) {
+                    Log.e("Logs_Error", t.toString())
+                    status.postValue(t.message)
+                }
+            })
+        return result
+    }
+
+    fun getCurrentProfile(result: MutableLiveData<ProfileFull>, login: String, status: MutableLiveData<String>): MutableLiveData<ProfileFull> {
+        NetworkAPI().getJSONProfileAPI().getCurrentProfile(SharedData._userToken, login)
             .enqueue(object : Callback<ProfileFull> {
                 override fun onResponse(
                     call: Call<ProfileFull>,
@@ -89,7 +110,7 @@ class ServiceProfile {
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
         val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-        NetworkAPI().getJSONImageAPI().updateImageCurrentProfile(id.toString(), body)
+        NetworkAPI().getJSONImageAPI().updateImageCurrentProfile(SharedData._userToken, id.toString(), body)
             .enqueue(object : Callback<UpdateImageAnswer> {
 
                 override fun onResponse(call: Call<UpdateImageAnswer>, response: Response<UpdateImageAnswer>) {

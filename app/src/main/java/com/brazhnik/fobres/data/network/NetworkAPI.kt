@@ -1,9 +1,7 @@
 package com.brazhnik.fobres.data.network
 
 import com.brazhnik.fobres.data.SharedData.Companion.TIME_WAIT_RESPONSE_API
-import com.brazhnik.fobres.data.network.api.PlaceHolderImageAPI
-import com.brazhnik.fobres.data.network.api.PlaceHolderProfileAPI
-import com.brazhnik.fobres.data.network.api.PlaceHolderRatingAPI
+import com.brazhnik.fobres.data.network.api.*
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -51,5 +49,13 @@ class NetworkAPI {
 
     fun getJSONImageAPI(): PlaceHolderImageAPI {
         return retrofit.create(PlaceHolderImageAPI::class.java)
+    }
+
+    fun getJSONLoginAPI(): PlaceHolderLoginAPI {
+        return retrofit.create(PlaceHolderLoginAPI::class.java)
+    }
+
+    fun getJSONRegistrationAPI(): PlaceHolderRegistrationAPI {
+        return retrofit.create(PlaceHolderRegistrationAPI::class.java)
     }
 }

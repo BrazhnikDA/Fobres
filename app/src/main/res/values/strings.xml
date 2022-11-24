@@ -30,7 +30,7 @@
 
     <!-- Register -->
     <string name="register">Register</string>
-    <string name="email">Email</string>
+    <string name="email">Login</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="inp_login">Login</string>
