@@ -34,7 +34,7 @@ class Validator {
         var isSpecSym = false
         var isCapital = false
         listError.clear()
-        if(text.length == 0) {
+        if (text.isEmpty()) {
             listError.put(PASSWORD_IS_EMPTY_KEY, PASSWORD_IS_EMPTY_ERROR)
             return listError
         }
@@ -77,22 +77,67 @@ class Validator {
         return listError
     }
 
+    // Поле не пустое
+    // Совпадает с полем пароль
+    fun isValidConfirmPassword(password: String, confirmPassword: String): HashMap<Int, String> {
+        listError.clear()
+        if (confirmPassword.isEmpty()) {
+            listError.put(CONFIRM_IS_EMPTY_KEY, CONFIRM_IS_EMPTY_ERROR)
+        }
+        if (password != confirmPassword) {
+            listError.put(CONFIRM_IS_NOT_ASSERT_KEY, CONFIRM_IS_NOT_ASSERT_ERROR)
+        }
+
+        return listError
+    }
+
+    // НЕ пустое
     // Длинна от 2 символов до 15
     // Не должно содержать спец символы
     // Не должно содержать цифры
     fun isValidName(text: String): HashMap<Int, String> {
+        var isNum = false
+        var isSpecSym = false
         listError.clear()
-        if(text.length == 0) {
 
+        if (text.isEmpty()) {
+            listError.put(NAME_IS_EMPTY_KEY, NAME_IS_EMPTY_ERROR)
+            return listError
         }
-        if(text.length < 2) {
-
+        if (text.length < 2) {
+            listError.put(NAME_IS_SMALL_KEY, NAME_IS_SMALL_ERROR)
         }
-        if(text.length < 15) {
+        if (text.length < 15) {
+            listError.put(NAME_IS_LARGE_KEY, NAME_IS_LARGE_ERROR)
+        }
 
+        for (char in text) {
+            if (isNum && isSpecSym)
+                break
+            if (char.code in 48..57) {
+                isNum = true
+            }
+            if (char.code in 1..47 || char.code in 58..64 || char.code in 123..126) {
+                isSpecSym = true
+            }
+        }
+
+        if (!isNum) {
+            listError.put(NAME_CONTAINS_DIGIT_KEY, NAME_CONTAINS_DIGIT_ERROR)
+        }
+        if (!isSpecSym) {
+            listError.put(NAME_CONTAINS_SPECIAL_SYMBOL_KEY, NAME_CONTAINS_SPECIAL_SYMBOL_ERROR)
         }
 
         return listError
+    }
+
+    fun textForShowScreen(list: HashMap<Int, String>): String {
+        var errorText = ""
+        for ((key, value) in list) {
+            errorText += value + "\n"
+        }
+        return errorText
     }
 
     companion object {
@@ -124,19 +169,29 @@ class Validator {
         const val PASSWORD_IS_EMPTY_ERROR = "Поле пароль пустое"
         const val PASSWORD_IS_SMALL_ERROR = "Пароль должен содержать минимум 4 символа"
         const val PASSWORD_IS_LARGE_ERROR = "Пароль не может быть более 50 символов"
-        const val PASSWORD_NOT_CONTAINS_DIGIT_ERROR = "Пароль НЕ содержит цифру"
-        const val PASSWORD_NOT_CONTAINS_SPECIAL_SYMBOL_ERROR =
-            "Пароль НЕ содержит специальный символ"
-        const val PASSWORD_NOT_CONTAINS_CAPITAL_LETTER_ERROR = "Пароль НЕ содержит заглавную букву"
+        const val PASSWORD_NOT_CONTAINS_DIGIT_ERROR = "Пароль должен содержать хотя бы одну цифру"
+        const val PASSWORD_NOT_CONTAINS_SPECIAL_SYMBOL_ERROR = "Пароль должен содержать хотя бы один спец. символ"
+        const val PASSWORD_NOT_CONTAINS_CAPITAL_LETTER_ERROR = "Пароль должен содержать хотя бы одну заглавную букву"
+
+        // CONFIRM PASSWORD
+        // KEY
+        const val CONFIRM_IS_EMPTY_KEY = 200
+        const val CONFIRM_IS_NOT_ASSERT_KEY = 201
+
+        // ERROR
+        const val CONFIRM_IS_EMPTY_ERROR = "Поле подтверждение пароля пустое"
+        const val CONFIRM_IS_NOT_ASSERT_ERROR = "Поле подтверждение пароля не совпадает с паролем"
 
         // NAME
         // KEY
+        const val NAME_IS_EMPTY_KEY = 3
         const val NAME_IS_SMALL_KEY = 30
         const val NAME_IS_LARGE_KEY = 31
         const val NAME_CONTAINS_SPECIAL_SYMBOL_KEY = 32
         const val NAME_CONTAINS_DIGIT_KEY = 33
 
         // ERROR
+        const val NAME_IS_EMPTY_ERROR = "Поле Имя пустое"
         const val NAME_IS_SMALL_ERROR = "Имя должно содержать не менее 2 символов"
         const val NAME_IS_LARGE_ERROR = "Имя не может содержать более 15 символов"
         const val NAME_CONTAINS_SPECIAL_SYMBOL_ERROR = "Имя содержит спец. символы"

@@ -44,18 +44,15 @@ class LoginActivity : AppCompatActivity(), LoginView {
             val login = binding.etLoginUser.text.toString()
             val pass = binding.etLoginPassword.text.toString()
 
-
+            listError.clear()
             listError.putAll(validator.isValidLogin(login))
             listError.putAll(validator.isValidPassword(pass))
             if(listError.size == 0) {
+                binding.textViewListError.visibility = View.GONE
                 checkLoginSuccess()
             } else {
-                var errorText = ""
-                for ((key, value) in listError) {
-                    errorText += value + "\n"
-                }
                 binding.textViewListError.visibility = View.VISIBLE
-                binding.textViewListError.text = errorText
+                binding.textViewListError.text = validator.textForShowScreen(listError)
             }
         }
 
@@ -101,8 +98,10 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 SharedData.isLogged = true
                 finish()
             }
-        } else {
-            this.displayToast("Error: Поля не заполнены")
+        }
+
+        loginPresenter.status.observe(this) {
+            this.displayToast(it)
         }
     }
 
