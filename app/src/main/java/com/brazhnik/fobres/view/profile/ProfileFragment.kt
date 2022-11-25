@@ -75,6 +75,11 @@ class ProfileFragment : Fragment(), ProfileView {
             binding.viewFullImage.visibility = View.GONE
             binding.buttonBack.visibility = View.GONE
         }
+        binding.buttonUnsignedProfile.setOnClickListener {
+            SharedData._userToken = ""
+            SharedData.isLogged = false
+            SharedData.profileFullCurrent = null
+        }
     }
 
     private fun showOwner() {
