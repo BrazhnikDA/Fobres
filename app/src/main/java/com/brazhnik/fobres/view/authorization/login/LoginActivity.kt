@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
 import com.brazhnik.fobres.data.model.ProfileFull
+import com.brazhnik.fobres.data.model.Token
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
 import com.brazhnik.fobres.utilities.Validator
 import com.brazhnik.fobres.utilities.displayToast
@@ -68,9 +69,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
             SharedData.isLogged = false
             finish()
         }
-
-        // Init all DB
-        FobresDatabase.initAllTableDB(applicationContext)
     }
 
     override fun checkLoginSuccess() {
@@ -86,6 +84,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
                 // Отправить запрос, получить пользователя по id
                 // записать в шаред дата
                 SharedData._userToken = "Bearer " + it.token
+                loginPresenter.saveToken(Token(it.username, it.token))
                 // Получаем профиль по id
                 loginPresenter.profileHelper.getCurrentProfileAPI(it.username)
             }

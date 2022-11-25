@@ -14,6 +14,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.model.RegistrationUser
+import com.brazhnik.fobres.data.model.Token
 import com.brazhnik.fobres.databinding.ActivityRegisterBinding
 import com.brazhnik.fobres.utilities.Validator
 import com.brazhnik.fobres.utilities.displayToast
@@ -78,6 +79,7 @@ class RegisterActivity : AppCompatActivity(), RegisterView {
         registerPresenter.response.observe(this) {
             this.displayToast("Быстрее проверь свой рейтинг!")
             SharedData._userToken = "Bearer " + it.token
+            registerPresenter.saveToken(Token(it.username, it.token))
             registerPresenter.findUserByLogin(it.username)
         }
         registerPresenter.profile.observe(this) {
