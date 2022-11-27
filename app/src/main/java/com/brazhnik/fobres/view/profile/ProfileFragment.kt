@@ -11,6 +11,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.data.SharedData
 import com.brazhnik.fobres.data.model.ProfileFull
+import com.brazhnik.fobres.data.model.Token
 import com.brazhnik.fobres.databinding.FragmentProfileBinding
 import com.brazhnik.fobres.view.authorization.login.LoginActivity
 import com.brazhnik.fobres.view.profile.editprofile.EditActivity
@@ -76,9 +77,13 @@ class ProfileFragment : Fragment(), ProfileView {
             binding.buttonBack.visibility = View.GONE
         }
         binding.buttonUnsignedProfile.setOnClickListener {
-            SharedData._userToken = ""
+            presenter.removeCurrentTokenDB(Token(SharedData.profileFullCurrent.login, SharedData._userToken))
+            SharedData._userToken = null.toString()
             SharedData.isLogged = false
-            SharedData.profileFullCurrent = null
+            SharedData.profileFullCurrent
+
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -476,7 +476,7 @@ If you have read up to this symbol\nI advise you to buy a better Internet :)\n&#
                 android:layout_marginEnd="18dp"
                 android:layout_marginBottom="3dp"
                 android:text="ВЫЙТИ ИЗ ПРОФИЛЯ"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
     </RelativeLayout>
 
