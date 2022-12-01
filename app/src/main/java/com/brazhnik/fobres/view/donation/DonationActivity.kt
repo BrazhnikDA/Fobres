@@ -39,7 +39,7 @@ class DonationActivity : AppCompatActivity(), DonationView {
         }
 
         binding.back.setOnClickListener {
-
+            onBackPressed()
         }
 
         presenter.profileFull.observe(this) {
