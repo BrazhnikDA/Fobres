@@ -77,7 +77,7 @@ class ProfileFragment : Fragment(), ProfileView {
             binding.buttonBack.visibility = View.GONE
         }
         binding.buttonUnsignedProfile.setOnClickListener {
-            presenter.removeCurrentTokenDB(Token(SharedData.profileFullCurrent.login, SharedData._userToken))
+            presenter.removeCurrentTokenDB()
             SharedData._userToken = null.toString()
             SharedData.isLogged = false
             SharedData.profileFullCurrent

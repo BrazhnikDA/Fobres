@@ -93,8 +93,13 @@ class ServiceProfile {
                     call: Call<ProfileFull>,
                     response: Response<ProfileFull>
                 ) {
-                    Log.e("Logs_response", response.body().toString())
-                    result.postValue(response.body())
+                    if (response.body() != null) {
+                        Log.e("Logs_response", response.body().toString())
+                        result.postValue(response.body())
+                    }else {
+                        Log.e("Logs_Error", response.errorBody().toString())
+                        status.postValue(response.errorBody().toString())
+                    }
                 }
 
                 override fun onFailure(call: Call<ProfileFull>, t: Throwable) {

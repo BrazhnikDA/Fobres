@@ -1,13 +1,18 @@
 package com.brazhnik.fobres.view.profile.editprofile
 
+import android.Manifest
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.brazhnik.fobres.data.model.ProfileFull
@@ -127,7 +132,12 @@ class EditActivity : AppCompatActivity(), EditView {
             }
         }
         binding.btnEditImage.setOnClickListener {
-            openGalleryForImage()
+            if(isStoragePermissionGranted())
+                openGalleryForImage()
+            else {
+                print("Error")
+                openGalleryForImage()
+            }
         }
     }
 
@@ -145,6 +155,28 @@ class EditActivity : AppCompatActivity(), EditView {
             val selectedImage: Uri = data?.data!!
             picturePath = getRealPathFromURI(selectedImage, this)
             binding.imageProfile.setImageURI(data.data) // handle chosen image
+        }
+    }
+
+    private fun isStoragePermissionGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.v(TAG, "Permission is granted")
+                true
+            } else {
+                Log.v(TAG, "Permission is revoked")
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    1
+                )
+                false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted")
+            true
         }
     }
 

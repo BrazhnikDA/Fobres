@@ -13,6 +13,7 @@ import com.brazhnik.fobres.data.helper.ModelTokenHelper
 import com.brazhnik.fobres.data.model.AuthResponse
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.Token
+import com.brazhnik.fobres.utilities.isOnline
 import com.brazhnik.fobres.view.authorization.login.LoginActivity
 import com.brazhnik.fobres.view.main.MainActivity
 import kotlinx.coroutines.CoroutineScope
@@ -36,11 +37,17 @@ class SplashActivity : AppCompatActivity() {
         // Init all DB
         FobresDatabase.initAllTableDB(applicationContext)
 
-        // GET Token
-        CoroutineScope(Dispatchers.IO).launch {
-            tokenHelper.getToken()
+        if (isOnline(this)) {
+            // GET Token
+            CoroutineScope(Dispatchers.IO).launch {
+                tokenHelper.getToken()
+            }
+            checkTokenFromDatabase()
+        } else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
-        checkTokenFromDatabase()
 
         /*// Init ADB Yandex
         MobileAds.initialize(this) {

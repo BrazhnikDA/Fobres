@@ -19,7 +19,7 @@ import com.brazhnik.fobres.data.database.room.repository.RoomTokenEventRepositor
 
 @Database(
     entities = [LogEventEntity::class, RatingEventEntity::class, ProfileEventEntity::class, TokenEventEntity::class],
-    version = 15
+    version = 16
 )
 abstract class FobresDatabase : RoomDatabase() {
     abstract fun logDao(): LogEventDao

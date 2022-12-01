@@ -36,9 +36,9 @@ class RoomTokenEventRepository {
             }
         }
 
-        override suspend fun deleteToken(token: Token) {
+        override suspend fun deleteToken() {
             try {
-                tokenDatabase!!.tokenDao().deleteToken(token.token)
+                tokenDatabase!!.tokenDao().deleteToken()
             } catch (ex: Exception) {
                 Log.d("DB: ", "Table for Token is empty!")
                 throw ex

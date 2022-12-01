@@ -13,6 +13,7 @@ import com.brazhnik.fobres.data.model.Token
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
 import com.brazhnik.fobres.utilities.Validator
 import com.brazhnik.fobres.utilities.displayToast
+import com.brazhnik.fobres.utilities.isOnline
 import com.brazhnik.fobres.view.authorization.register.RegisterActivity
 import com.brazhnik.fobres.view.main.MainActivity
 import com.brazhnik.fobres.view.profile.editprofile.EditPresenter
@@ -42,18 +43,22 @@ class LoginActivity : AppCompatActivity(), LoginView {
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {
-            val login = binding.etLoginUser.text.toString()
-            val pass = binding.etLoginPassword.text.toString()
+            if (isOnline(this)) {
+                val login = binding.etLoginUser.text.toString()
+                val pass = binding.etLoginPassword.text.toString()
 
-            listError.clear()
-            listError.putAll(validator.isValidLogin(login))
-            listError.putAll(validator.isValidPassword(pass))
-            if(listError.size == 0) {
-                binding.textViewListError.visibility = View.GONE
-                checkLoginSuccess()
+                listError.clear()
+                listError.putAll(validator.isValidLogin(login))
+                listError.putAll(validator.isValidPassword(pass))
+                if (listError.size == 0) {
+                    binding.textViewListError.visibility = View.GONE
+                    checkLoginSuccess()
+                } else {
+                    binding.textViewListError.visibility = View.VISIBLE
+                    binding.textViewListError.text = validator.textForShowScreen(listError)
+                }
             } else {
-                binding.textViewListError.visibility = View.VISIBLE
-                binding.textViewListError.text = validator.textForShowScreen(listError)
+                this.displayToast("Ошибка: Нет интернет соеденения")
             }
         }
 
@@ -74,22 +79,18 @@ class LoginActivity : AppCompatActivity(), LoginView {
     override fun checkLoginSuccess() {
 
         if (binding.etLoginUser.text.toString() != "" || binding.etLoginPassword.text.toString() != "") {
-
             loginPresenter.loginHelper.checkAuth(
                 binding.etLoginUser.text.toString(),
                 binding.etLoginPassword.text.toString()
             )
             loginPresenter.response.observe(this) {
                 this.displayToast("Погнали!")
-                // Отправить запрос, получить пользователя по id
-                // записать в шаред дата
                 SharedData._userToken = "Bearer " + it.token
                 loginPresenter.saveToken(Token(it.username, it.token))
-                // Получаем профиль по id
+
                 loginPresenter.profileHelper.getCurrentProfileAPI(it.username)
             }
             loginPresenter.profileFull.observe(this) {
-                //this.displayToast("Профиль получен")
                 SharedData.profileFullCurrent = it
 
                 val intent = Intent(this, MainActivity::class.java)

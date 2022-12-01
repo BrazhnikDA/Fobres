@@ -30,9 +30,9 @@ class ProfilePresenter : MvpPresenter<ProfileView>() {
         }
     }
 
-    fun removeCurrentTokenDB(token: Token) {
+    fun removeCurrentTokenDB() {
         scope.launch {
-            tokenHelper.deleteToken(token)
+            tokenHelper.deleteToken()
         }
     }
 

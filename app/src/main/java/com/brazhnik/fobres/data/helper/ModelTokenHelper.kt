@@ -15,7 +15,7 @@ class ModelTokenHelper (
         token?.postValue(RoomTokenEventRepository.getToken()) ?: return
     }
 
-    suspend fun deleteToken(token: Token) {
-        RoomTokenEventRepository.deleteToken(token)
+    suspend fun deleteToken() {
+        RoomTokenEventRepository.deleteToken()
     }
 }

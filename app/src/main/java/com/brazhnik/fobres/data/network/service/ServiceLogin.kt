@@ -12,7 +12,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ServiceLogin {
-    fun checkLoginSuccess(result: MutableLiveData<AuthResponse>, request: AuthRequest, status: MutableLiveData<String>) {
+    fun checkLoginSuccess(
+        result: MutableLiveData<AuthResponse>,
+        request: AuthRequest,
+        status: MutableLiveData<String>
+    ) {
         NetworkAPI().getJSONLoginAPI()
             .checkLoginSuccess(request)
             .enqueue(object : Callback<AuthResponse> {
@@ -22,11 +26,17 @@ class ServiceLogin {
                 ) {
                     if (response.body() != null) {
                         result.postValue(response.body())
+                    } else {
+                        Log.e("Logs_Error", response.errorBody().toString())
+                        status.postValue(response.message())
                     }
                 }
 
                 override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                     Log.e("Logs_Error", t.toString())
+                    if(t.message!!.contains("failed to connect")) {
+                        status.postValue("Failed to connect")
+                    }
                     status.postValue(t.message)
                 }
             })

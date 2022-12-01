@@ -13,6 +13,6 @@ interface TokenEventDao {
     @Query("SELECT * FROM token_entity")
     fun getToken(): TokenEventEntity
 
-    @Query("DELETE FROM token_entity WHERE user_token = :token")
-    fun deleteToken(token: String)
+    @Query("DELETE FROM token_entity")
+    fun deleteToken()
 }
