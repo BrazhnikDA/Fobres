@@ -2,6 +2,7 @@ package com.brazhnik.fobres.data.helper
 
 import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.database.room.repository.RoomProfileEventRepository
+import com.brazhnik.fobres.data.model.Payment
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.UpdateImageAnswer
@@ -29,6 +30,10 @@ class ModelProfileHelper (
 
     fun uploadImageToServer(pathToImage: String, id: Int, responseImageUrl: MutableLiveData<UpdateImageAnswer>) {
         serviceProfile.uploadImage(responseImageUrl, pathToImage, id, status)
+    }
+
+    fun updateUserCoins(payment: Payment) {
+        serviceProfile.updateUserCoin(profileFull, payment, status)
     }
 
     suspend fun setProfileDB(profileFull: ProfileFull) {

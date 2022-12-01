@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.donation.DonationActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutHeader"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/dodgerBlue"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_back_original"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="20dp" />
+
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:autoSizeMaxTextSize="26sp"
+                android:autoSizeMinTextSize="14sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:layout_marginEnd="25dp"
+                android:text="Donation"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back"
+                tools:layout_editor_absoluteY="8dp"
+                tools:targetApi="o" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+            android:id="@+id/callPaymentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/layoutHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            android:text="Пополнить баланс" />
+
+    <Button
+            android:id="@+id/showADBButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Просмотр рекламы"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/callPaymentButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutBottom"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/dodgerBlue"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:foregroundGravity="center"
+            app:flow_horizontalAlign="center">
+
+        <TextView
+                android:id="@+id/actuallyCourseCoin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:autoSizeMaxTextSize="26sp"
+                android:autoSizeMinTextSize="14sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="Balance: "
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                tools:layout_editor_absoluteY="8dp"
+                tools:targetApi="o"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/coin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/ic_coin_round"
+                android:tint="@color/white"
+                app:riv_corner_radius="20dp"
+                android:layout_marginStart="6dp"
+                app:layout_constraintStart_toEndOf="@+id/actuallyCourseCoin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

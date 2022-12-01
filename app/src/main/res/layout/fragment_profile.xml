@@ -386,13 +386,13 @@
                         android:textSize="35sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ic_Plus"
+                        app:layout_constraintEnd_toStartOf="@+id/icPlusCoins"
                         app:layout_constraintStart_toEndOf="@id/ic_Fobres"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:targetApi="o" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/ic_Plus"
+                        android:id="@+id/icPlusCoins"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="center"
@@ -400,8 +400,7 @@
                         android:src="@drawable/add_coins"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:riv_corner_radius="65dp" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

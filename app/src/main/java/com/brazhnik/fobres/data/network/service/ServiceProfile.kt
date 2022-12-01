@@ -3,6 +3,7 @@ package com.brazhnik.fobres.data.network.service
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.SharedData
+import com.brazhnik.fobres.data.model.Payment
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.UpdateImageAnswer
@@ -61,6 +62,26 @@ class ServiceProfile {
                 }
 
                 override fun onFailure(call: Call<Profile>, t: Throwable) {
+                    Log.e("Logs_Error", t.toString())
+                    status.postValue(t.message)
+                }
+            })
+    }
+
+    fun updateUserCoin(result: MutableLiveData<ProfileFull>, payment: Payment, status: MutableLiveData<String>) {
+        NetworkAPI().getJSONProfileAPI()
+            .updateUserCoin(token = SharedData._userToken, payment = payment)
+            .enqueue(object : Callback<ProfileFull> {
+                override fun onResponse(
+                    call: Call<ProfileFull>,
+                    response: Response<ProfileFull>
+                ) {
+                    if (response.body() != null) {
+                        getCurrentProfile(result, response.body()!!.login, status)
+                    }
+                }
+
+                override fun onFailure(call: Call<ProfileFull>, t: Throwable) {
                     Log.e("Logs_Error", t.toString())
                     status.postValue(t.message)
                 }

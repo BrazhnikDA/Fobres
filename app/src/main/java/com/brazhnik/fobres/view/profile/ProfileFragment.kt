@@ -14,6 +14,7 @@ import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.Token
 import com.brazhnik.fobres.databinding.FragmentProfileBinding
 import com.brazhnik.fobres.view.authorization.login.LoginActivity
+import com.brazhnik.fobres.view.donation.DonationActivity
 import com.brazhnik.fobres.view.profile.editprofile.EditActivity
 import com.squareup.picasso.Picasso
 
@@ -83,6 +84,10 @@ class ProfileFragment : Fragment(), ProfileView {
             SharedData.profileFullCurrent
 
             val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        binding.icPlusCoins.setOnClickListener {
+            val intent = Intent(context, DonationActivity::class.java)
             startActivity(intent)
         }
     }

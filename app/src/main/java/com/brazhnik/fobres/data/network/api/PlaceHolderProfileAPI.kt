@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.data.network.api
 
+import com.brazhnik.fobres.data.model.Payment
 import com.brazhnik.fobres.data.model.Profile
 import com.brazhnik.fobres.data.model.ProfileFull
 import retrofit2.Call
@@ -14,4 +15,7 @@ interface PlaceHolderProfileAPI {
 
     @PUT("/api/users")
     fun updateCurrentProfile(@Header("Authorization") token: String, @Body profileBody: Profile): Call<Profile>
+
+    @POST("/api/users/payment")
+    fun updateUserCoin(@Header("Authorization") token: String, @Body payment: Payment): Call<ProfileFull>
 }

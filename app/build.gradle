@@ -96,6 +96,10 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    // Added Yandex ADS
+    implementation 'com.yandex.android:mobileads:5.4.0'
+    implementation 'com.yandex.android:mobmetricalib:5.0.0'
+
     // Swipe to set favorite
     //implementation 'com.github.ygngy:multiswipe:1.2.2'
 }

@@ -28,12 +28,12 @@ class EditActivity : AppCompatActivity(), EditView {
     @InjectPresenter
     lateinit var editPresenter: EditPresenter
 
-    private lateinit var picturePath: String
-
     @ProvidePresenter
     fun providePresenter(): EditPresenter {
         return EditPresenter()
     }
+
+    private lateinit var picturePath: String
 
     override fun onStart() {
         super.onStart()
@@ -115,7 +115,7 @@ class EditActivity : AppCompatActivity(), EditView {
                 tmpProfileFull.city = binding.etCity.text.toString()
                 tmpProfileFull.profileDescription = binding.etDescription.text.toString()
 
-                if(this::picturePath.isInitialized) {
+                if (this::picturePath.isInitialized) {
                     editPresenter.uploadImage(picturePath, tmpProfileFull.id.toInt())
                     editPresenter.responseImageUrl.observe(this) {
                         if (it != null) {
@@ -132,7 +132,7 @@ class EditActivity : AppCompatActivity(), EditView {
             }
         }
         binding.btnEditImage.setOnClickListener {
-            if(isStoragePermissionGranted())
+            if (isStoragePermissionGranted())
                 openGalleryForImage()
             else {
                 print("Error")
@@ -151,7 +151,7 @@ class EditActivity : AppCompatActivity(), EditView {
     // TODO FIX deprecated
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
             val selectedImage: Uri = data?.data!!
             picturePath = getRealPathFromURI(selectedImage, this)
             binding.imageProfile.setImageURI(data.data) // handle chosen image

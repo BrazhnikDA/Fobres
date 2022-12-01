@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.SharedData
+import com.brazhnik.fobres.data.SharedData.Companion.YANDEX_MOBILE_ADS_TAG
 import com.brazhnik.fobres.data.database.room.creator.FobresDatabase
 import com.brazhnik.fobres.data.helper.ModelProfileHelper
 import com.brazhnik.fobres.data.helper.ModelTokenHelper
@@ -16,6 +17,7 @@ import com.brazhnik.fobres.data.model.Token
 import com.brazhnik.fobres.utilities.isOnline
 import com.brazhnik.fobres.view.authorization.login.LoginActivity
 import com.brazhnik.fobres.view.main.MainActivity
+import com.yandex.mobile.ads.common.MobileAds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,17 +44,18 @@ class SplashActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 tokenHelper.getToken()
             }
+
+            // Init ADB Yandex
+            MobileAds.initialize(this) {
+                Log.d(YANDEX_MOBILE_ADS_TAG, "SDK initialized");
+            }
+
             checkTokenFromDatabase()
         } else {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
-
-        /*// Init ADB Yandex
-        MobileAds.initialize(this) {
-            Log.d(YANDEX_MOBILE_ADS_TAG, "SDK initialized");
-        }*/
     }
 
     private fun checkTokenFromDatabase() {

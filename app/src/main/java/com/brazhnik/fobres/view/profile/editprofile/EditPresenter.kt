@@ -10,7 +10,7 @@ import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.UpdateImageAnswer
 
 @InjectViewState
-class EditPresenter: MvpPresenter<EditView>() {
+class EditPresenter : MvpPresenter<EditView>() {
 
     val profileFull: MutableLiveData<ProfileFull> = MutableLiveData()
     val status: MutableLiveData<String> = MutableLiveData()

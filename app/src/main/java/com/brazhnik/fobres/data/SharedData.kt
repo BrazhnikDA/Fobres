@@ -19,6 +19,8 @@ abstract class SharedData {
 
         //region CONSTANT
         const val TIME_WAIT_RESPONSE_API = 1500
+        const val YANDEX_MOBILE_ADS_TAG = "YandexMobileAds"
+        const val FULL_SCREEN_ADS_YANDEX = "R-M-DEMO-interstitial"
         //endregion
     }
 }
