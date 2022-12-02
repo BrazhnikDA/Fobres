@@ -46,4 +46,12 @@
     <color name="wildStrawberry">#ff3182</color>
     <color name="orangePeel">#ff9900</color>
     <color name="razzmatazz">#eb0e70</color>
+
+    <!-- Палитра основных цветов -->
+    <color name="base_purple">#754398</color>
+    <color name="base_lavanda">#A18FC1</color>
+    <color name="base_black_purple">#322843</color>
+    <color name="base_silver">#CBCEDF</color>
+    <color name="base_perlamuter">#71646D</color>
+
 </resources>
