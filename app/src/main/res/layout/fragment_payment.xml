@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.donation.PaymentFragment">
+
+    <View
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:alpha="0.6" />
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewFieldsForPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@color/dodgerBlueOpaque75"
+                app:cardCornerRadius="30dp"
+                android:layout_gravity="center"
+                android:alpha="1">
+
+            <TextView
+                    android:id="@+id/textViewHeaderCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Пополнениче счета"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
+
+            <EditText
+                    android:id="@+id/editTextForInputAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="50000"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp" />
+
+            <Button
+                    android:id="@+id/buttonCreatePayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Пополнить"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+</FrameLayout>
