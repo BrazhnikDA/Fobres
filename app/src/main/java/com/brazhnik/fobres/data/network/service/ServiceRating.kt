@@ -3,6 +3,7 @@ package com.brazhnik.fobres.data.network.service
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.brazhnik.fobres.data.SharedData
+import com.brazhnik.fobres.data.model.ProfileFull
 import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.data.network.NetworkAPI
 import retrofit2.Call
@@ -15,22 +16,37 @@ class ServiceRating {
         result: MutableLiveData<List<ShortUser>>,
         status: MutableLiveData<String>
     ): MutableLiveData<List<ShortUser>> {
-        NetworkAPI().getJSONRatingAPI().getAllUsers(SharedData._userToken).enqueue(object : Callback<List<ShortUser>> {
+        NetworkAPI().getJSONRatingAPI().getAllUsers().enqueue(object : Callback<List<ProfileFull>> {
             override fun onResponse(
-                call: Call<List<ShortUser>>,
-                response: Response<List<ShortUser>>
+                call: Call<List<ProfileFull>>,
+                response: Response<List<ProfileFull>>
             ) {
                 Log.e("Logs_response", response.body().toString())
                 if (response.body() == null) {
                     result.postValue(mutableListOf(EMPTY_LIST_RATING))
                     status.postValue(RESPONSE_EMPTY)
                 } else {
-                    result.postValue(response.body())
+                    val res: List<ProfileFull> = response.body()!!
+                    val end: ArrayList<ShortUser> = arrayListOf()
+                    end.toMutableList()
+                    for (item in res) {
+                        end.add(
+                            ShortUser(
+                                item.id,
+                                item.money,
+                                item.firstName,
+                                item.lastName,
+                                item.profilePicture,
+                                item.status
+                            )
+                        )
+                    }
+                    result.postValue(end)
                     status.postValue(RESPONSE_OK)
                 }
             }
 
-            override fun onFailure(call: Call<List<ShortUser>>, t: Throwable) {
+            override fun onFailure(call: Call<List<ProfileFull>>, t: Throwable) {
                 Log.e("Logs_Error", t.toString())
                 status.postValue("Error connection")
                 result.postValue(mutableListOf(EMPTY_LIST_RATING))
@@ -74,27 +90,28 @@ class ServiceRating {
         city: String,
         status: MutableLiveData<String>
     ): MutableLiveData<List<ShortUser>> {
-        NetworkAPI().getJSONRatingAPI().getCityUsers(SharedData._userToken, city).enqueue(object : Callback<List<ShortUser>> {
-            override fun onResponse(
-                call: Call<List<ShortUser>>,
-                response: Response<List<ShortUser>>
-            ) {
-                Log.e("Logs_response", response.body().toString())
-                if (response.body() == null) {
-                    result.postValue(mutableListOf(EMPTY_LIST_RATING))
-                    status.postValue(RESPONSE_EMPTY)
-                } else {
-                    result.postValue(response.body())
-                    status.postValue(RESPONSE_OK)
+        NetworkAPI().getJSONRatingAPI().getCityUsers(SharedData._userToken, city)
+            .enqueue(object : Callback<List<ShortUser>> {
+                override fun onResponse(
+                    call: Call<List<ShortUser>>,
+                    response: Response<List<ShortUser>>
+                ) {
+                    Log.e("Logs_response", response.body().toString())
+                    if (response.body() == null) {
+                        result.postValue(mutableListOf(EMPTY_LIST_RATING))
+                        status.postValue(RESPONSE_EMPTY)
+                    } else {
+                        result.postValue(response.body())
+                        status.postValue(RESPONSE_OK)
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<List<ShortUser>>, error: Throwable) {
-                Log.e("Logs_Error_onFailure", error.message.toString())
-                status.postValue("Error connection")
-                result.postValue(mutableListOf(EMPTY_LIST_RATING))
-            }
-        })
+                override fun onFailure(call: Call<List<ShortUser>>, error: Throwable) {
+                    Log.e("Logs_Error_onFailure", error.message.toString())
+                    status.postValue("Error connection")
+                    result.postValue(mutableListOf(EMPTY_LIST_RATING))
+                }
+            })
         return result
     }
 

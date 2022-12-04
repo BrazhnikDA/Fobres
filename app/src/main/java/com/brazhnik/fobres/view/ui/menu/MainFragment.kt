@@ -36,11 +36,11 @@ class MainFragment : Fragment() {
         binding.textViewCoins.text =
             resources.getString(R.string.coins_home, SharedData.profileFullCurrent.money)
         binding.textViewTopWorld.text =
-            resources.getString(R.string.world_home, SharedData.profileFullCurrent.globalRating)
+            resources.getString(R.string.world_home, "?")
         binding.textViewTopCountry.text =
-            resources.getString(R.string.country_home, SharedData.profileFullCurrent.countryRating)
+            resources.getString(R.string.country_home, "?")
         binding.textViewTopCity.text =
-            resources.getString(R.string.city_home, SharedData.profileFullCurrent.cityRating)
+            resources.getString(R.string.city_home, "?")
     }
 
     private fun showGuest() {

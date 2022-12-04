@@ -13,8 +13,10 @@ import com.brazhnik.fobres.data.model.ShortUser
 import com.brazhnik.fobres.utilities.App.Companion.resources
 import com.squareup.picasso.Picasso
 
-class RatingAdapter(private val listUser: List<ShortUser>,
-                    private val cellClickListener: ItemClickListener) :
+class RatingAdapter(
+    private val listUser: List<ShortUser>,
+    private val cellClickListener: ItemClickListener
+) :
     RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
 
 
@@ -24,6 +26,7 @@ class RatingAdapter(private val listUser: List<ShortUser>,
         val textAmount: TextView = itemView.findViewById(R.id.textViewAmount)
         val textTopRating: TextView = itemView.findViewById(R.id.textViewTopRating)
         val status: TextView = itemView.findViewById(R.id.textStatus)
+
         //val buttonViewLinks: Button = itemView.findViewById(R.id.buttonViewLinks)
         val cardView: CardView = itemView.findViewById(R.id.itemCardView)
     }
@@ -40,19 +43,22 @@ class RatingAdapter(private val listUser: List<ShortUser>,
 
     // TODO USE Res String
     override fun onBindViewHolder(holder: RatingViewHolder, position: Int) {
-        if(listUser[position].id == SharedData.profileFullCurrent.id) {
-            resources?.let { holder.cardView.setCardBackgroundColor(it.getColor(R.color.dodgerBlueOpaque75)) }
-        } else {
-            resources?.let { holder.cardView.setCardBackgroundColor(it.getColor(R.color.white)) }
+        resources?.let { holder.cardView.setCardBackgroundColor(it.getColor(R.color.base_gray)) }
+        if (SharedData.isLogged) {
+            if (listUser[position].id == SharedData.profileFullCurrent.id) {
+                resources?.let { holder.cardView.setCardBackgroundColor(it.getColor(R.color.base_perlamuter)) }
+            } else {
+                resources?.let { holder.cardView.setCardBackgroundColor(it.getColor(R.color.base_gray)) }
+            }
         }
         Picasso.get().load(listUser[position].profilePicture).into(holder.imageProfile)
         holder.nameProfile.text = listUser[position].firstName + " " + listUser[position].lastName
         holder.textAmount.text = "Coins: ${listUser[position].money}"
-        holder.textTopRating.text = "# ${position+1}"
+        holder.textTopRating.text = "# ${position + 1}"
 
-        if(listUser[position].status != null) {
+        if (listUser[position].status != null) {
             holder.status.text = listUser[position].status
-        }else {
+        } else {
             holder.status.visibility = View.GONE
         }
 

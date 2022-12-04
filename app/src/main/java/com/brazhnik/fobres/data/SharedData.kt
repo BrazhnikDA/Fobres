@@ -8,11 +8,7 @@ abstract class SharedData {
         lateinit var _userToken: String
 
 
-        var profileFullCurrent: ProfileFull
-            get() = _profileFullCurrent
-            set(value) {
-                _profileFullCurrent = value
-            }
+        lateinit var profileFullCurrent: ProfileFull
 
         var isLogged: Boolean = false
 

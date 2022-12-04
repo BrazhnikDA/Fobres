@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
@@ -41,8 +42,15 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
     private var isLoad = false
     private var typeRating = TypeRating.ALL
 
-    var country: String = SharedData.profileFullCurrent.country
-    var city: String = SharedData.profileFullCurrent.city
+    lateinit var country: String
+    lateinit var city: String
+
+    init {
+        if (SharedData.isLogged) {
+            country = SharedData.profileFullCurrent.country
+            city = SharedData.profileFullCurrent.city
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +62,11 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (!SharedData.isLogged) {
+            binding.optionCity.isEnabled = false
+            binding.optionCountry.isEnabled = false
+        }
 
         ratingPresenter = providePresenter()
 
@@ -89,7 +102,7 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
                 showError()
                 context?.displayToast(it)
             }
-            if(it == "Something went wrong") {
+            if (it == "Something went wrong") {
                 setTitle(resources.getString(R.string.offline))
                 disableLoadingWheel()
                 showError()
@@ -141,26 +154,34 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
         }
 
         country.setOnClickListener {
-            if (!isLoad) return@setOnClickListener
-            typeRating = TypeRating.COUNTRY
+            if (SharedData.isLogged) {
+                if (!isLoad) return@setOnClickListener
+                typeRating = TypeRating.COUNTRY
 
-            disableError()
-            switchRating(world, country, city)
+                disableError()
+                switchRating(world, country, city)
 
-            scope.launch {
-                createRequest(typeRating, RatingFragment().country)
+                scope.launch {
+                    createRequest(typeRating, RatingFragment().country)
+                }
+            } else {
+                context?.displayToast("Авторизуйтесь для просмотра")
             }
         }
 
         city.setOnClickListener {
-            if (!isLoad) return@setOnClickListener
-            typeRating = TypeRating.CITY
+            if (SharedData.isLogged) {
+                if (!isLoad) return@setOnClickListener
+                typeRating = TypeRating.CITY
 
-            disableError()
-            switchRating(world, country, city)
+                disableError()
+                switchRating(world, country, city)
 
-            scope.launch {
-                createRequest(typeRating, RatingFragment().city)
+                scope.launch {
+                    createRequest(typeRating, RatingFragment().city)
+                }
+            } else {
+                context?.displayToast("Авторизуйтесь для просмотра")
             }
         }
     }
@@ -180,7 +201,7 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
                 world.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.teal_200
+                        R.color.base_perlamuter
                     )
                 )
                 country.background = R.color.blackOpaque20.toDrawable()
@@ -191,7 +212,7 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
                 country.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.teal_200
+                        R.color.base_perlamuter
                     )
                 )
                 city.background = R.color.blackOpaque20.toDrawable()
@@ -202,7 +223,7 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
                 city.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.teal_200
+                        R.color.base_perlamuter
                     )
                 )
             }
@@ -212,25 +233,25 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
     private fun createRequest(typeRating: TypeRating, body: String?) {
         showLoadingWheel()
         if (typeRating == TypeRating.ALL) {
-            setTitle(resources.getString(R.string.top_off_world))
+            setTitle("World")
             ratingPresenter.getRatingAllAPI()
         }
         if (typeRating == TypeRating.CITY) {
             if (body != null) {
-                setTitle(resources.getString(R.string.top_off) + " $body")
+                setTitle(body)
                 ratingPresenter.getRatingCityAPI(body)
             }
         }
         if (typeRating == TypeRating.COUNTRY) {
             if (body != null) {
-                setTitle(resources.getString(R.string.top_off) + " $body")
+                setTitle(body)
                 ratingPresenter.getRatingCountryAPI(body)
             }
         }
     }
 
     override fun displayList(listShortUser: List<ShortUser>) {
-        recyclerView.adapter = RatingAdapter(listShortUser,this)
+        recyclerView.adapter = RatingAdapter(listShortUser, this)
     }
 
     override fun showError() {
@@ -269,8 +290,12 @@ class RatingFragment : Fragment(), RatingView, ItemClickListener {
     }
 
     override fun onCellClickListener(id: String) {
-        val intent = Intent(context, ShowProfileActivity::class.java)
-        intent.putExtra("id", id);
-        startActivity(intent)
+        if (SharedData.isLogged) {
+            val intent = Intent(context, ShowProfileActivity::class.java)
+            intent.putExtra("id", id);
+            startActivity(intent)
+        } else {
+            context?.displayToast("Для просмотра войдите в аккаунт!")
+        }
     }
 }

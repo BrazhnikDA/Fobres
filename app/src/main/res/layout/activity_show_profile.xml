@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.rating.showprofile.ShowProfileActivity">
+    tools:context=".view.rating.showprofile.ShowProfileActivity"
+        android:background="@color/base_gray">
 
     <RelativeLayout
         android:id="@+id/layout_loadBar"
@@ -39,7 +40,7 @@
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/dodgerBlue"
+        android:background="@color/base_black"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp"
@@ -53,12 +54,11 @@
             android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
-            android:src="@drawable/ic_back_original"
+            android:src="@drawable/back"
             android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="20dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/title"
@@ -149,8 +149,8 @@
             android:autoSizeTextType="uniform"
             android:hint="Donald Tramp"
             android:text=""
-            android:textColor="@color/black"
-            android:textColorHint="@color/blackOpaque80"
+            android:textColor="@color/base_white"
+            android:textColorHint="@color/base_white"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -169,8 +169,8 @@
             android:autoSizeTextType="uniform"
             android:hint="Status"
             android:text=""
-            android:textColor="@color/blackOpaque80"
-            android:textColorHint="@color/blackOpaque80"
+            android:textColor="@color/base_white"
+            android:textColorHint="@color/base_white"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/location"
             app:layout_constraintEnd_toEndOf="parent"
@@ -207,192 +207,167 @@
                     android:gravity="center"
                     android:hint="Russia/Moscow"
                     android:text=""
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/blackOpaque80"
+                    android:textColor="@color/base_white"
+                    android:textColorHint="@color/base_white"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
-        android:id="@+id/viewLineTop"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/teal_700"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            android:id="@+id/viewLineTop"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/base_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/dodgerBlueOpaque5"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewLineTop">
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_gray"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLineTop">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/world"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true">
+                android:id="@+id/world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/world" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/world" />
 
             <TextView
-                android:id="@+id/placeWorld"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:autoSizeMaxTextSize="26sp"
-                android:autoSizeMinTextSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:gravity="center"
-                android:hint="#1"
-                android:maxLines="1"
-                android:text=""
-                android:textColor="@color/black"
-                android:textColorHint="@color/blackOpaque80"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                tools:targetApi="o" />
+                    android:id="@+id/placeWorld"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:autoSizeMaxTextSize="26sp"
+                    android:autoSizeMinTextSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:hint="#1"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/base_white"
+                    android:textColorHint="@color/base_white"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    tools:targetApi="o" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/country"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+                android:id="@+id/country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/country" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/country" />
 
             <TextView
-                android:id="@+id/placeCountry"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:autoSizeMaxTextSize="26sp"
-                android:autoSizeMinTextSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:gravity="center"
-                android:hint="#1"
-                android:text=""
-                android:textColor="@color/black"
-                android:textColorHint="@color/blackOpaque80"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                tools:targetApi="o" />
+                    android:id="@+id/placeCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:autoSizeMaxTextSize="26sp"
+                    android:autoSizeMinTextSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:hint="#1"
+                    android:text=""
+                    android:textColor="@color/base_white"
+                    android:textColorHint="@color/base_white"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    tools:targetApi="o" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true">
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/city" />
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/city" />
 
             <TextView
-                android:id="@+id/placeCity"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:autoSizeMaxTextSize="26sp"
-                android:autoSizeMinTextSize="18sp"
-                android:autoSizeTextType="uniform"
-                android:gravity="center"
-                android:hint="#1"
-                android:text=""
-                android:textColor="@color/black"
-                android:textColorHint="@color/blackOpaque80"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                tools:targetApi="o" />
+                    android:id="@+id/placeCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:autoSizeMaxTextSize="26sp"
+                    android:autoSizeMinTextSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:hint="#1"
+                    android:text=""
+                    android:textColor="@color/base_white"
+                    android:textColorHint="@color/base_white"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    tools:targetApi="o" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/country"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:maxWidth="500dp"
-            android:minWidth="300dp"
-            app:cardBackgroundColor="@color/goldenYellow"
-            app:cardCornerRadius="35dp"
-            app:cardElevation="8dp"
-            app:contentPadding="2dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/country"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:maxWidth="500dp"
+                android:minWidth="300dp"
+                app:cardBackgroundColor="@color/base_black"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="8dp"
+                app:contentPadding="2dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/goldenYellow">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/ic_Fobres"
-                    android:layout_width="43dp"
-                    android:layout_height="43dp"
-                    android:layout_margin="5dp"
-                    android:src="@mipmap/ic_coin"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_corner_radius="65dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/base_black">
 
                 <TextView
-                    android:id="@+id/coins"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:autoSizeMaxTextSize="35sp"
-                    android:autoSizeMinTextSize="18sp"
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:hint="0.0 Coins"
-                    android:padding="5dp"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/blackOpaque80"
-                    android:textSize="35sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/ic_Plus"
-                    app:layout_constraintStart_toEndOf="@id/ic_Fobres"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:targetApi="o" />
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/ic_Plus"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/add_coins"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_corner_radius="65dp" />
+                        android:id="@+id/coins"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:hint="0.0 coins"
+                        android:padding="5dp"
+                        android:text=""
+                        android:textColor="@color/base_white"
+                        android:textColorHint="@color/base_white"
+                        android:textSize="35sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -401,13 +376,15 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/viewLineBottom"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/teal_700"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+            android:id="@+id/viewLineBottom"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/base_white"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -427,7 +404,7 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="Info"
-            android:textColor="@color/black"
+            android:textColor="@color/base_white"
             android:textSize="26sp"
             android:textStyle="bold" />
 
@@ -449,6 +426,7 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
                 android:gravity="center"
+                    android:background="@color/base_white"
                 android:hint="Profile description\nI advise you not to read it, usually there is nothing interesting here\nBut you're still reading it, you're good
 If you have read up to this symbol\nI advise you to buy a better Internet :)\n&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;&#128034;"
                 android:textColor="@color/black"

@@ -12,7 +12,7 @@
     <!-- Profile -->
     <string name="name_profile">%1$s %2$s</string>
     <string name="login_profile">%1$s</string>
-    <string name="location_profile">%1$s/%2$s</string>
+    <string name="location_profile">%1$s | %2$s</string>
     <string name="coins_profile">%1$s coins</string>
     <string name="place_profile">#%1$s</string>
     <string name="status_profile">%1$s</string>
@@ -26,10 +26,10 @@
 
     <!-- Login -->
     <string name="login">Login</string>
-    <string name="login_guest">Continue how to guest</string>
+    <string name="login_guest">For guest</string>
 
     <!-- Register -->
-    <string name="register">Register</string>
+    <string name="register">Registration</string>
     <string name="email">Login</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -64,6 +64,10 @@
     <string name="item_rating_status">1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fobres_logo">fobres_logo</string>
+    <string name="hint_country">Country</string>
+    <string name="hint_city">City</string>
+    <string name="button_registration">Registration</string>
 
 
 </resources>

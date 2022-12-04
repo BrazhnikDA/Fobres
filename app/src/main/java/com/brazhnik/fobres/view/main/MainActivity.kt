@@ -1,5 +1,6 @@
 package com.brazhnik.fobres.view.main
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.navigation.ui.NavigationUI
 import com.brazhnik.fobres.R
 import com.brazhnik.fobres.databinding.ActivityLoginBinding
 import com.brazhnik.fobres.databinding.ActivityMainBinding
+import com.brazhnik.fobres.utilities.App
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.layout_navigation_header.view.*
 
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         val navView = binding.navigationView
         binding.imageMenu.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
+            App.resources?.let { binding.drawerLayout.setBackgroundColor(it.getColor(R.color.white)) }
         }
         navView.itemIconTintList = null
         val navController: NavController =

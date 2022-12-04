@@ -22,16 +22,17 @@
     <application
             android:name=".utilities.App"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_logo"
+            android:icon="@drawable/logo"
             android:label="@string/app_name"
             android:requestLegacyExternalStorage="true"
-            android:roundIcon="@mipmap/ic_logo_round"
+            android:roundIcon="@drawable/logo"
             android:supportsRtl="true"
             android:theme="@style/Theme.Fobres"
             android:usesCleartextTraffic="true">
         <activity
                 android:name=".view.donation.DonationActivity"
-                android:exported="false">
+                android:exported="false"
+                android:theme="@style/Theme.Fobres.NoActionBar">
             <meta-data
                     android:name="android.app.lib_name"
                     android:value="" />
@@ -48,10 +49,12 @@
         </activity>
         <activity
                 android:name=".view.rating.showprofile.ShowProfileActivity"
-                android:exported="false" />
+                android:exported="false"
+                android:theme="@style/Theme.Fobres.NoActionBar"/>
         <activity
                 android:name=".view.profile.editprofile.EditActivity"
-                android:exported="false" />
+                android:exported="false"
+                android:theme="@style/Theme.Fobres.NoActionBar"/>
         <activity
                 android:name=".view.main.MainActivity"
                 android:exported="false"
